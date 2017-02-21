@@ -9,8 +9,9 @@ serve: _posts _drafts js
 publish: _posts _drafts js
 	bundle exec jekyll build --drafts
 	git checkout gh-pages
+	mv CNAME CNAME.lazy
 	git rm -r * --ignore-unmatch
-	git checkout CNAME
+	mv CNAME.lazy CNAME
 	cp -R _site site
 	git add site/*
 	git mv site/* .

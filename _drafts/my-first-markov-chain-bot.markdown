@@ -12,17 +12,15 @@ categories: markov chain marko ruby bot irc
 
 History
 ----------
-Back around 2006, some friends and I had an IRC bot which we lovingly named superborg. Superborg stored text it received from the channels it occupied into a flatfile. After a while, he would randomly respond to a message with a cobbled together phrase from those stored messages. So, wanting to make him as smart as possible, we loaded him up with Shakespeare, Wikipedia, and some questionable content.
+Back around 2006, some friends and I had an IRC bot that we lovingly named superborg. Superborg would join channels and log any text it saw into a flatfile. After a while, it would randomly respond to a message with a cobbled together phrase from those stored messages. Typically, those phrases sounded incoherent, but every once in a while it would randomly create a real gem. In our excitement with superborg's learning, we loaded it up hundreds of megabytes of Shakespeare, Wikipedia, and old speech transcripts.
 
-After a while, superborg would get bogged down; his responses would slow and become ncreasingly schizophrenic. Although I knew he was open source and even had experience in C, I was quite green. The idea of objects terrified me, so looking into how superborg ticked was I was new to programming at the time, and algorithms were beyond me--- hell, objects confused me. So when I delved into [seeborg](https://github.com/hmage/seeborg)'s source code, I ran the other way. The bot's idea stuck with me for many years.
+Superborg got really bogged down; its responses slowed and they became increasingly schizophrenic. Although I knew superborg was open source and even had experience in C, I was quite green. Objects and algorithms were words to me, so when I delved into [seeborg](https://github.com/hmage/seeborg)'s source code, I ran the other way. However, the bot's idea stuck with me for many years.
 
 Markov Chains
 -------------
-Seeborg came up in a discussion with [Nathan Jarus](http://nathanjar.us/) in November 2013. Nate had started a project which aimed to make an IRC bot using the same underlying algorithm as seeborg, [Markov chains](https://en.wikipedia.org/wiki/Markov_chain). This was the same algorithm which powered seeborg (although I wasn't sure of this at the time).
+Seeborg came up in a discussion with [Nathan Jarus](http://nathanjar.us/) in November 2013. Nate had started a project a while before this conversation which aimed to make an IRC bot using the same underlying algorithm as seeborg, [Markov chains](https://en.wikipedia.org/wiki/Markov_chain). Markov chains have many, many applications which I won't even reference. I will instead explore a very specific niche where they can be used to generate speech.
 
-Markov chains and [Markov decision processes (MDPs)](https://en.wikipedia.org/wiki/Markov_decision_process) have many applications which I won't even scratch. I'll instead cover the absolute minimum that I needed to know in order to write [Markovirc](https://github.com/LinuxMercedes/markovirc).
-
-Markov chains, for the purposes of an IRC bot, are best represented by directional graphs. Each node in this graph will hold data (a "word") and each edge will have a number, (0, 1], representing the probability of that direction. Below is a visualization of a Markov chain with 3 nodes:
+Markov chains, for the purposes of an IRC bot, are best represented by directional graphs. Each node in this graph will hold data (a "word") and each edge will have a number, (0, 1], representing the probability of traversing this edge. Below is a visualization of a Markov chain with 3 nodes:
 
 {% raw %}
 <svg id="markov-chain" width="960" height="175"></svg>
@@ -43,9 +41,9 @@ Markov chains, for the purposes of an IRC bot, are best represented by direction
 </script>
 {% endraw %}
 
-This chain's three nodes all have edges with a probability of 1.0 and some arbitrary data "data". It will always be the case that the sum of each node's outward edges will be 1.0; however, on average, in a Markov chain bot there will be more than one edge.
+This chain's three nodes all have edges with a probability of 1.0 and some arbitrary data "data". It will always be the case that the sum of each node's outward edges will be 1.0; however, on average, in a Markov chain bot there will be more than one edge. As there is only one edge from each node in this graph, the traversal of this graph will always be the same.
 
-When "data" here is swapped out for words in a couple of sentences (which I'll refer to a sources or source text) the application becomes a bit more clear:
+When "data" is swapped out for words in a couple of sentences (which I'll refer to a sources or source text) the application becomes a bit more clear:
 > A dog jumps over the log
 
 > The bear jumps clear of harm
@@ -109,7 +107,17 @@ Note that with capitalization, there is only one word, "jumps", which is common 
 </script>
 {% endraw %}
 
-When starting from the beginning of both of these chains, each movement along an edge to next node has 100% probability. However, once reaching jump, there's a 50% (0.5) chance of going to either destination. This comes from our original sentences where there are two distinct possibilities of what follows jumps, with one occurance of each. This gave each edge a probability of 0.5 (1/2).
+When starting from the beginning of both of these chains, each movement along an edge to next node has 100% probability. However, once reaching the "jump" node, there's a 50% (0.5) chance of going to either destination. This comes from our original sentences where there are two distinct possibilities of what follows jumps, with one occurance of each. This gave each edge a probability of 0.5 (1/2). The decision of which edge to traverse will be made randomly by a program. For this Markov chain, there are 4 outputs which are all fairly coherent:
+> A dog jumps over the log
+
+> The bear jumps clear of harm
+
+> The dog jumps clear of harm
+
+> The bear jumps over the log
+
+The chance of each output when traversing this chain, starting from a leftmost node randomly, is 25%.
+
 
 Now, if instead the source text had instead been:
 > A dog jumps over the log
@@ -118,4 +126,19 @@ Now, if instead the source text had instead been:
 
 > The bear jumps clear of harm
 
-Then the edge from "jumps" to "over" would have been 0.67 (2/3), while the edge from "jumps" to "clear" would have been 0.33 (1/3). This probability reflects the number of times in the source text this specific edge occured over the total number of possibilities.
+Then the edge from "jumps" to "over" would have been 0.67 (2/3), while the edge from "jumps" to "clear" would have been 0.33 (1/3). This is because the weights calculated on each edge is relative to the number of times they have occurred in the source text. The number of possible outputs is the same here, but the probability of getting each one has changed.
+> A dog jumps over the log
+
+33.3% (1/3)
+
+> The bear jumps clear of harm
+
+16.7% (1/6)
+
+> The dog jumps clear of harm
+
+16.7% (1/6)
+
+> The bear jumps over the log
+
+33.3% (1/3)
