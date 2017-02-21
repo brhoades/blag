@@ -43,6 +43,9 @@ Markov chains, for the purposes of an IRC bot, are best represented by direction
 
 This chain's three nodes all have edges with a probability of 1.0 and some arbitrary data "data". It will always be the case that the sum of each node's outward edges will be 1.0; however, on average, in a Markov chain bot there will be more than one edge. As there is only one edge from each node in this graph, the traversal of this graph will always be the same.
 
+With words
+==========
+
 When "data" is swapped out for words in a couple of sentences (which I'll refer to a sources or source text) the application becomes a bit more clear:
 > A dog jumps over the log
 
@@ -121,6 +124,8 @@ When starting from the beginning of both of these chains, each movement along an
 
 The chance of each output when traversing this chain, starting from a leftmost node randomly, is 25%.
 
+Duplicate sources
+=================
 
 Now, if instead the source text had instead been:
 > A dog jumps over the log
