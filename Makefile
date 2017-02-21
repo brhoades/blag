@@ -3,9 +3,6 @@ default: build
 build: _posts js
 	bundle exec jekyll build
 
-stage: _posts _drafts js
-	bundle exec jekyll build --drafts --destination _stage
-
 serve: _posts _drafts js
 	bundle exec jekyll serve --drafts --incremental
 
