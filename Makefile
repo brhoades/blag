@@ -9,8 +9,8 @@ stage: _posts _drafts js
 serve: _posts _drafts js
 	bundle exec jekyll serve --drafts --incremental
 
-publish: build
-	bundle exec jekyll build
+publish: _posts _drafts js
+	bundle exec jekyll build --drafts
 	git checkout gh-pages
 	git rm -r * --ignore-unmatch
 	cp -R _site site
