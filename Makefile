@@ -1,18 +1,23 @@
 default: build
 
-build: _posts latex
+build: _posts js
 	bundle exec jekyll build
 
-stage: _posts _drafts latex
-	bundle exec jekyll build --drafts --destination _stage
-
-serve: _posts _drafts latex
+serve: _posts _drafts js
 	bundle exec jekyll serve --drafts --incremental
 
-latex: images/markov/markov-chain.tex
-	@latexmk images/markov/markov-chain.tex images/markov/markov-chain.pdf
-	@convert images/markov/markov-chain.pdf images/markov/markov-chain.png
-	@rm images/markov/markov-chain.pdf
+publish: _posts _drafts js
+	bundle exec jekyll build --drafts
+	git checkout gh-pages
+	git rm -r * --ignore-unmatch
+	git checkout CNAME
+	cp -R _site site
+	git add site/*
+	git mv site/* .
+	rmdir site
+	git commit -a
+	git push origin gh-pages
+	git checkout master
 
 clean:
 	@ rm -rf _site
