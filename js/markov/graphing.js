@@ -56,26 +56,69 @@ var drawLine = function(g, fx, fy, tx, ty, text="") {
   path.lineTo(tx, ty);
   path.closePath();
 
-  if(text != "") {
-  var textx = (tx - (tx - fx)/2) - text.length * 3;
-
-  g.append("text")
-     .text(text)
-     .attr("x", textx)
-     .attr("y", parseInt(fy) - 7)
-     .attr("fill", "black");
-  }
-
+  // line
   g.append("path")
     .attr("d", path.toString())
     .attr('stroke', 'black')
     .attr('stroke-width', '3')
     .attr('id', 'arrow');
 
-  g.append("path")
-    .attr("d", "M0,-5L10,0L0,5")
-    .attr("class", "arrowHead")
-    .attr("transform", "translate(" + (tx - 5) + ", " + ty + ")");
+  // arrow rotation
+  var headrotation = 0,
+      distance = Math.sqrt(Math.pow(tx - fx, 2) + Math.pow(ty - fy, 2));
+
+  if(fy != ty || fx != tx) {
+    headrotation = Math.atan2(ty - fy, tx - fx) * 180 / Math.PI;
+  }
+
+  // arrowhead
+  var head = g.append("path")
+              .attr("d", "M0,-5L10,0L0,5")
+              .attr("x", 0)
+              .attr("y", 0)
+              .attr("transform", function(d) {
+                var headBBox = this.getBBox(),
+                    headCX = headBBox.width / 2.0,
+                    headCY = headBBox.height / 2.0,
+                    arrowX = tx - headCX - 1,
+                    arrowY = ty;
+
+                // Rotation rotates from the top left, so scoot us up/down by half...
+                if(ty - fy < 0) {
+                  arrowY += headCY;
+                } else if(ty - fy > 0) {
+                  arrowY -= headCY;
+                }
+
+                var arrowCoords = arrowX+ ", " + arrowY;
+                return "translate(" + arrowCoords + ") rotate(" + headrotation + ")";
+              });
+
+  if(text != "") {
+    var textx = (tx - (tx - fx)/2) - text.length * 3,
+        texty = parseInt(fy) - 7;
+
+    // label
+    g.append("text")
+     .text(text)
+     .attr("fill", "black")
+     .attr("transform", function(d) {
+       var labelBBox = this.getBBox(),
+           labelCX = labelBBox.width,
+           labelCY = labelBBox.height,
+           labelX = parseInt(fx) + labelCX,
+           labelY = parseInt(fy) - labelCY / 4;
+
+       if(ty - fy < 0) {
+         labelY -= labelCY + labelCY / 4;
+       } else if(ty - fy > 0) {
+         labelY += labelCY;
+       }
+
+       var labelCoords = labelX + ", " + labelY;
+       return "translate(" + labelCoords + ") rotate(" + headrotation + ")";
+     });
+  }
 
   return path;
 };
