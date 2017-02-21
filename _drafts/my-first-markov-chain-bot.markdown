@@ -54,7 +54,8 @@ Note that with capitalization, there is only one word, "jumps", which is common 
 <svg id="markov-chain-sentence" width="960" height="250"></svg>
 
 <script>
-  var svg = d3.select("svg#markov-chain-sentence"),
+function secondExample(element, special_weights) {
+  var svg = d3.select(element),
       g = svg.append("g"),
       sentence1 = ["A", "dog", "jumps", "over", "the", "log"],
       sentence2 = ["The", "bear", "jumps", "clear", "of", "harm"],
@@ -102,9 +103,11 @@ Note that with capitalization, there is only one word, "jumps", which is common 
   }
 
   // Draw crossover lines
-  drawLine(g, crossover.cx, crossover.cy, chains1[2].mnx, chains1[2].mny, "0.5");
-  drawLine(g, crossover.cx, crossover.cy, chains2[2].mnx, chains2[2].mny, "0.5");
-</script>
+  drawLine(g, crossover.cx, crossover.cy, chains1[2].mnx, chains1[2].mny, special_weights[0]);
+  drawLine(g, crossover.cx, crossover.cy, chains2[2].mnx, chains2[2].mny, special_weights[1]);
+}
+secondExample("svg#markov-chain-sentence", ["0.5", "0.5"]);
+  </script>
 {% endraw %}
 
 When starting from the beginning of both of these chains, each movement along an edge to next node has 100% probability. However, once reaching the "jump" node, there's a 50% (0.5) chance of going to either destination. This comes from our original sentences where there are two distinct possibilities of what follows jumps, with one occurance of each. This gave each edge a probability of 0.5 (1/2). The decision of which edge to traverse will be made randomly by a program. For this Markov chain, there are 4 outputs which are all fairly coherent:
@@ -126,7 +129,16 @@ Now, if instead the source text had instead been:
 
 > The bear jumps clear of harm
 
-Then the edge from "jumps" to "over" would have been 0.67 (2/3), while the edge from "jumps" to "clear" would have been 0.33 (1/3). This is because the weights calculated on each edge is relative to the number of times they have occurred in the source text. The number of possible outputs is the same here, but the probability of getting each one has changed.
+{% raw %}
+<svg id="markov-chain-sentence-two" width="960" height="250"></svg>
+
+<script>
+  secondExample("svg#markov-chain-sentence-two", ["0.67", "0.33"]);
+</script>
+{% endraw %}
+
+What held in the previous example still holds here: since there are two source sentences which have the transition "jumps" to "over", and one for "jumps" to "clear", the weight for each is 0.67 (2/3) and 0.33 (1/3) respectively. Traversing this graph after randomly choosing a leftmost node gives the following chances for each output sentence:
+
 > A dog jumps over the log
 
 33.3% (1/3)
