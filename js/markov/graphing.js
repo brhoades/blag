@@ -111,8 +111,10 @@ var drawLine = function(g, fx, fy, tx, ty, text="") {
 
        if(ty - fy < 0) {
          labelY -= labelCY + labelCY / 4;
+         labelX -= (text.length - 3) * 9;
        } else if(ty - fy > 0) {
          labelY += labelCY;
+         labelX -= (text.length - 3) * 9;
        }
 
        var labelCoords = labelX + ", " + labelY;
