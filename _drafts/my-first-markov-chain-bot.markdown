@@ -6,8 +6,12 @@ categories: markov chain marko ruby bot irc
 ---
 
 {% raw %}
-  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://d3js.org/d3.v4.js"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+  <script src="/js/cytoscape.js"></script>
+  <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-cose-bilkent/1.0.5/cytoscape-cose-bilkent.js"></script>
   <script src="/js/markov/graphing.js"></script>
+  <script src="/js/markov/graphs.js"></script>
 {% endraw %}
 
 History
@@ -159,3 +163,20 @@ What held in the previous example still holds here: since there are two source s
 > The bear jumps over the log
 
 33.3% (1/3)
+
+Word length
+===========
+In the last example, by traversing a Markov chain we generated four possible sentences as output. These sentences were based entirely on the source text, and if generated at scale in a large number of trials, the number of times specific fragments (subchain after a non-1.0 decision in this case) appeared would be proportional to frequency in the source text.
+
+As more source text is added, the responses will become exponentially more diverse. At the same time, the total number of branch points where context can be lost will increase as well. The method I described above where each word in a sentence is a node is arbitrary--- one I've chosen as I felt it was easy to explain. It worked well in the examples provided as the set of possible node values (words) was incredibly large and I only selected a handful of them.
+
+It's easy to demonstrate how this fails at scale by choosing a node value with a smaller set of possible values. Let's use letters, where our source text will be individual words. In theory, Markov chains would be able to randomly make new words using whatever source text I provide.
+
+[Here's the list of words](/json/100words.json) we will make a Markov chain from.
+
+{% raw %}
+<div id="markov-chain-letter-graph" style="height: 600px; width: 960px;"></div>
+<script>
+  //letterGraph("#markov-chain-letter-graph");
+</script>
+{% endraw %}
