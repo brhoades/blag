@@ -71,7 +71,7 @@ nodes << {
 chains.each do |letter, l_links|
   node = nodes_by_letter[letter]
 
-  link_count = l_links.size
+  link_count = l_links.map { |_, v| v }.reduce(:+)
   # Add up our probability so, in the end, we can get a random number
   # from (0, 1) and find the first # here that's > than that.
   prob_cumulative = 0
