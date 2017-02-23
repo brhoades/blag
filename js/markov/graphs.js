@@ -95,10 +95,23 @@ function selectRandomLetter(cy) {
 }
 
 function getNextLetter(cy, currentnode) {
-  // TODO: Weight
-  var edge = _.sample(cy.edges('[source="' + currentnode.data('name') + '"]')),
-      nextnode = cy.nodes('[name="' + edge.data("target") + '"]');
+  var edges = cy.edges('[source="' + currentnode.data('name') + '"]');
 
+  // nodes are sorted by cum_value implicitly. The first time one exceeds
+  // our random number, return that
+  var rand = Math.random(),
+      edge = null;
+  for(var i=0; i<edges.length; i++) {
+    var cum_value = edges[i].data('cum_value');
+    console.log(cum_value, rand);
+
+    if(cum_value > rand || cum_value >= 1) {
+      edge = edges[i];
+      break
+    }
+  }
+
+  var nextnode = cy.nodes('[name="' + edge.data("target") + '"]');
   currentnode.select();
   edge.select();
   nextnode.select();

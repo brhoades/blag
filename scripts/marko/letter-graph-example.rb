@@ -72,13 +72,19 @@ chains.each do |letter, l_links|
   node = nodes_by_letter[letter]
 
   link_count = l_links.size
+  # Add up our probability so, in the end, we can get a random number
+  # from (0, 1) and find the first # here that's > than that.
+  prob_cumulative = 0
 
   l_links.each do |linked_letter, count|
+    prob = count.to_f / link_count
+    prob_cumulative += prob
     links << {
       data: {
         source: node[:data][:id],
         target: linked_letter,
-        value: count.to_f / link_count
+        value: prob,
+        cum_value: prob_cumulative,
       }
     }
   end
