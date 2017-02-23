@@ -173,12 +173,11 @@ As more source text is added, the responses will become exponentially more diver
 
 It's easy to demonstrate how this fails at scale by choosing a node value with a smaller set of possible values. Let's use letters, where our source text will be individual words. In theory, Markov chains would be able to randomly make new words using whatever source text I provide.
 
-[Here's the list of words](/json/100words.json) we will make a Markov chain from.
+[Here's the list of words](/json/100words.json) we will use as a source to make a Markov chain from.
 
 {% raw %}
 <div id="built-word"></div>
+<a href="javascript:$('#built-word').text(''); generateWord();">Create a word</a>
 <div id="markov-chain-letter-graph" style="height: 600px; width: 960px;"></div>
-<script>
-  //letterGraph("#markov-chain-letter-graph");
-</script>
+<br />
 {% endraw %}

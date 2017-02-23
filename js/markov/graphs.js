@@ -80,10 +80,6 @@ $.ajax({
           name: 'circle'
         },
       });
-        // animate
-        cy.ready(function(event) {
-          generateWord(event);
-        });
     }
   });
 
@@ -128,9 +124,8 @@ function getNextLetter(cy, currentnode) {
   }, 2000);
 }
 
-function generateWord(event) {
+function generateWord() {
   // Choose a random letter (that's not $)
-  var cy = event.cy;
   var node = selectRandomLetter(cy);
 
   $("#built-word").append(node.data('name'));
