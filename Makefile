@@ -4,7 +4,7 @@ build: _posts js
 	bundle exec jekyll build
 
 serve: _posts _drafts js
-	bundle exec jekyll serve --drafts --incremental
+	bundle exec jekyll serve --drafts
 
 publish: _posts _drafts js
 	bundle exec jekyll build --drafts
