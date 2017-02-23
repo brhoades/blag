@@ -30,8 +30,15 @@ $.ajax({
             style: {
               'width': 1,
               'target-arrow-shape': 'triangle',
-              'line-color': '#9dbaea',
-              'target-arrow-color': '#9dbaea',
+              'line-color': 'blue',
+              'target-arrow-color': 'blue',
+              'opacity': function(d) {
+                var opacity = parseFloat(d.data("value"));
+                if(opacity < 0.2)
+                  opacity = 0.2;
+
+                return opacity;
+              },
               'curve-style': 'bezier'
             }
           },
@@ -47,11 +54,12 @@ $.ajax({
               'text-outline-color': '#888',
               'background-color': 'black',
               'target-arrow-shape': 'triangle',
-              'line-color': 'blue',
-              'target-arrow-color': 'blue',
+              'line-color': 'red',
+              'target-arrow-color': 'red',
               'text-outline-width': 1,
               'curve-style': 'bezier',
               'z-index': 100000,
+              'opacity': 1,
             }
           },
 
@@ -83,13 +91,6 @@ $.ajax({
     }
   });
 
-function selectRandomLetter(cy) {
-  var dollar = cy.edges("[name=\"$\"]");
-  var nodes = _.without(cy.nodes(), dollar);
-
-  return _.sample(nodes);
-}
-
 function getNextLetter(cy, currentnode) {
   var edges = cy.edges('[source="' + currentnode.data('name') + '"]');
 
@@ -99,7 +100,6 @@ function getNextLetter(cy, currentnode) {
       edge = null;
   for(var i=0; i<edges.length; i++) {
     var cum_value = edges[i].data('cum_value');
-    console.log(cum_value, rand);
 
     if(cum_value > rand || cum_value >= 1) {
       edge = edges[i];
@@ -121,14 +121,11 @@ function getNextLetter(cy, currentnode) {
     } else {
       nextnode.deselect();
     }
-  }, 2000);
+  }, 1000);
 }
 
 function generateWord() {
-  // Choose a random letter (that's not $)
-  var node = selectRandomLetter(cy);
-
-  $("#built-word").append(node.data('name'));
+  var node = cy.nodes('[name="^"]')[0];
 
   getNextLetter(cy, node);
 }
