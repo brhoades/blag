@@ -10,6 +10,7 @@ categories: markov chain marko ruby bot irc
   <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
   <script src="/js/cytoscape.js"></script>
   <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-cose-bilkent/1.0.5/cytoscape-cose-bilkent.js"></script>
+  <script src="http://underscorejs.org/underscore-min.js"></script>
   <script src="/js/markov/graphing.js"></script>
   <script src="/js/markov/graphs.js"></script>
 {% endraw %}
@@ -175,6 +176,7 @@ It's easy to demonstrate how this fails at scale by choosing a node value with a
 [Here's the list of words](/json/100words.json) we will make a Markov chain from.
 
 {% raw %}
+<div id="built-word"></div>
 <div id="markov-chain-letter-graph" style="height: 600px; width: 960px;"></div>
 <script>
   //letterGraph("#markov-chain-letter-graph");
