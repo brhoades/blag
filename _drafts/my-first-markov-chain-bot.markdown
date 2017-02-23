@@ -176,7 +176,7 @@ It's easy to demonstrate how this fails at scale by choosing a node value with a
 [Here's the list of words](/json/100words.json) we will use as a source to make a Markov chain from.
 
 {% raw %}
-<div id="built-word"></div>
+<div id="built-word" style="height: 25px;"></div>
 <a href="javascript:$('#built-word').text(''); generateWord();">Create a word</a>
 <div id="markov-chain-letter-graph" style="height: 600px; width: 960px;"></div>
 <br />

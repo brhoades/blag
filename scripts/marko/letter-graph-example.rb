@@ -21,10 +21,14 @@ nodes_by_letter = {}
 #   [...]
 # }
 #
-chains = {}
+chains = {
+  "^" => {}
+}
 
 words.each do |w|
   letters = w.split('')
+  chains["^"][letters.first] = 0 if not chains["^"].has_key?(letters.first)
+  chains["^"][letters.first] += 1
 
   letters.each_with_index do |l, i|
     chains[l] = {} if not chains.has_key?(l)
@@ -64,6 +68,11 @@ nodes << {
   data: {
     id: "$",
     name: "$",
+  }
+} << {
+  data: {
+    id: "^",
+    name: "^",
   }
 }
 
