@@ -99,8 +99,8 @@ What held in the previous example still holds here: since there are two source s
 
 33.3% (1/3)
 
-Word length
-===========
+n-grams
+=======
 In the last example, by traversing a Markov chain we generated four possible sentences as output. These sentences were based entirely on the source text; if sentences were generated at scale in a large number of trials, the number of times specific fragments (subchain after a non-1.0 decision in this case) appeared would be proportional to frequency in the source text. This follows as the probabilites for these words appearing is equal to their frequency in the source text.
 
 As more source text is added, the responses will become exponentially more diverse. At the same time, the total number of branch points where context can be lost will increase as well. The method I described above where each word in a sentence is a node is arbitrary--- one I've chosen as I felt it was easy to explain. It worked well in the examples provided as, although the set of possible node values (words) was incredibly large,  I only selected a handful of them.
@@ -113,5 +113,9 @@ It's easy to demonstrate how this method fails at scale by choosing a node value
 <div id="markov-chain-letter-graph" style="height: 600px; width: 768px;"></div>
 <br />
 <div id="built-word" style="height: 25px;"></div>
-<a href="javascript:$('#built-word').text(''); generateWord();">Create a word</a>
+<a href="javascript:$('#built-word').text(''); markov.graphs.generateWord();">Create a word</a>
 {% endraw %}
+
+A few notes regarding some non-letter symbols. "^" represents an arbitrary start of a word. This entry node in our graph ensures that the first letter on each word is in proportion with our source. "$", similarly, represents the end of a word, and ensures that letters which typically end words have that probability represented.
+
+After running a few trials, it's fairly apparent that the generated words typically follow English rules. It does frequently make mistakes.jk

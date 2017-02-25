@@ -365,7 +365,12 @@ $.ajax({
           edges: data.links,
         },
         layout: {
-          name: 'circle'
+          name: 'circle',
+          sort: function(a, b){
+            if(a.data('id') < b.data('id')) return -1;
+            if(a.data('id') > b.data('id')) return 1;
+            return 0;
+          }
         },
       });
     }
