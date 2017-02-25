@@ -206,8 +206,7 @@ var example2data = {
     padding: 10,
     rows: 3,
     cols: 6,
-    "position": function(d) {
-      console.log(d.data('row'), d.data('col'), d.data('name'));
+    position: function(d) {
       return {row: d.data('row'), col: d.data('col')};
     }
   }
@@ -223,6 +222,10 @@ example3data.links.forEach(function(e) {
     }
   }
 });
+
+renderSimpleMarkovChain("#markov-chain", example1data.nodes, example1data.links);
+renderSimpleMarkovChain("#markov-chain-sentence", example2data.nodes, example2data.links, example2data.layout);
+renderSimpleMarkovChain("#markov-chain-sentence-two", example3data.nodes, example3data.links, example3data.layout);
 
 function renderSimpleMarkovChain(container, nodes, links, layout={}) {
   if(layout == {}) {
@@ -281,7 +284,7 @@ function renderSimpleMarkovChain(container, nodes, links, layout={}) {
 var cyex3;
 
 $.ajax({
-      url: "/scripts/marko/words.json",
+      url: "/assets/scripts/markov/words.json",
       dataType: "json",
       success: function (data, textStatus, jqXHR) {
         cyex3 = cytoscape({
@@ -405,4 +408,17 @@ function generateWord() {
   var node = cyex3.nodes('[name="^"]')[0];
 
   getNextLetter(cyex3, node);
+}
+
+module.exports = {
+  generateWord: generateWord,
+  renderFirstExample: function(ele) {
+    renderSimpleMarkovChain(ele, example1data.nodes, example1data.links);
+  },
+  renderSecondExample: function(ele) {
+    renderSimpleMarkovChain(ele, example2data.nodes, example2data.links, example2data.layout);
+  },
+  renderThirdExample: function(ele) {
+    renderSimpleMarkovChain(ele, example3data.nodes, example3data.links, example3data.layout);
+  }
 }

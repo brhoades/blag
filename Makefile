@@ -1,12 +1,15 @@
 default: build
 
-build: _posts js
+build: _posts src
+	webpack
 	bundle exec jekyll build
 
-serve: _posts _drafts js
+serve: _posts _drafts
+	webpack
 	bundle exec jekyll serve --drafts
 
-publish: _posts _drafts js
+publish: _posts _drafts
+	webpack
 	bundle exec jekyll build --drafts
 	git checkout gh-pages
 	mv CNAME CNAME.lazy

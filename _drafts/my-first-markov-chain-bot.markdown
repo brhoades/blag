@@ -7,10 +7,9 @@ categories: markov chain marko ruby bot irc
 
 {% raw %}
   <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
-  <script src="/js/cytoscape.js"></script>
   <script src="http://underscorejs.org/underscore-min.js"></script>
-  <script src="/js/markov/graphing.js"></script>
-  <script src="/js/markov/graphs.js"></script>
+  <script src="/assets/javascripts/dist/cytoscape.js"></script>
+  <script src="/assets/javascripts/markov.js"></script>
 {% endraw %}
 
 History
@@ -29,7 +28,7 @@ Markov chains, for the purposes of an IRC bot, are best represented by direction
 <div id="markov-chain" style="width: 768px; height: 175px;"></div>
 
 <script>
-  renderSimpleMarkovChain("#markov-chain", example1data.nodes, example1data.links);
+  markov.graphs.renderFirstExample("#markov-chain");
 </script>
 {% endraw %}
 
@@ -49,7 +48,7 @@ Note that with capitalization, there is only one word, "jumps", which is common 
 <div id="markov-chain-sentence" style="width: 768px; height: 300px;"></div>
 
 <script>
-  renderSimpleMarkovChain("#markov-chain-sentence", example2data.nodes, example2data.links, example2data.layout);
+  markov.graphs.renderSecondExample("#markov-chain-sentence");
 </script>
 {% endraw %}
 
@@ -78,7 +77,7 @@ Now, if instead the source text had instead been:
 <div id="markov-chain-sentence-two" style="width: 768px; height: 300px;"></div>
 
 <script>
-  renderSimpleMarkovChain("#markov-chain-sentence-two", example3data.nodes, example3data.links, example3data.layout);
+  markov.graphs.renderThirdExample("#markov-chain-sentence-two");
 </script>
 {% endraw %}
 
@@ -111,7 +110,7 @@ It's easy to demonstrate how this method fails at scale by choosing a node value
 [Here's the list of 100 words](/json/100words.json) we will use as a source to make a Markov chain from. Click "Create a word" below to start.
 
 {% raw %}
-<div id="markov-chain-letter-graph" style="height: 600px; width: 960px;"></div>
+<div id="markov-chain-letter-graph" style="height: 600px; width: 768px;"></div>
 <br />
 <div id="built-word" style="height: 25px;"></div>
 <a href="javascript:$('#built-word').text(''); generateWord();">Create a word</a>

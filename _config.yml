@@ -30,6 +30,10 @@ gems:
 exclude:
   - Gemfile
   - Gemfile.lock
+  - webpack
+  - src
+  - Makefile
+  - webpack.config.js
+  - node_modules
+  - package.json
 timezone: America/Chicago
-javascript:
-  - "<script src=\"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML\" type=\"text/javascript\"></script>"

@@ -11,3 +11,7 @@ _site
 *.fdb_latexmk
 .projectile
 .bundle
+
+node_modules
+src/assets/bundle.js
+assets/javascripts
