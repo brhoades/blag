@@ -6,10 +6,8 @@ categories: markov chain marko ruby bot irc
 ---
 
 {% raw %}
-  <script src="https://d3js.org/d3.v4.js"></script>
   <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
   <script src="/js/cytoscape.js"></script>
-  <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-cose-bilkent/1.0.5/cytoscape-cose-bilkent.js"></script>
   <script src="http://underscorejs.org/underscore-min.js"></script>
   <script src="/js/markov/graphing.js"></script>
   <script src="/js/markov/graphs.js"></script>
@@ -28,21 +26,10 @@ Seeborg came up in a discussion with [Nathan Jarus](http://nathanjar.us/) in Nov
 Markov chains, for the purposes of an IRC bot, are best represented by directional graphs. Each node in this graph will hold data (a "word") and each edge will have a number, (0, 1], representing the probability of traversing this edge. Below is a visualization of a Markov chain with 3 nodes:
 
 {% raw %}
-<svg id="markov-chain" width="960" height="175"></svg>
-
-<style type="text/css">
-</style>
+<div id="markov-chain" style="width: 768px; height: 175px;"></div>
 
 <script>
-  var svg = d3.select("svg#markov-chain"),
-      g = svg.append("g");
-
-  var first = addChain(g, 50, 50, "data");
-  var second = addChain(g, 200, 50, "data");
-  var third = addChain(g, 350, 50, "data");
-
-  drawLine(g, first.cx, first.cy, second.mnx, second.mny, "1.0");
-  drawLine(g, second.cx, second.cy, third.mnx, third.mny, "1.0");
+  renderSimpleMarkovChain("#markov-chain", example1data.nodes, example1data.links);
 </script>
 {% endraw %}
 
@@ -59,63 +46,11 @@ When "data" is swapped out for words in a couple of sentences (which I'll refer 
 Note that with capitalization, there is only one word, "jumps", which is common to both sentences. A Markov chain would combine those words into a single node with two input edges and one output. This can be seen below.
 
 {% raw %}
-<svg id="markov-chain-sentence" width="960" height="250"></svg>
+<div id="markov-chain-sentence" style="width: 768px; height: 300px;"></div>
 
 <script>
-function secondExample(element, special_weights) {
-  var svg = d3.select(element),
-      g = svg.append("g"),
-      sentence1 = ["A", "dog", "jumps", "over", "the", "log"],
-      sentence2 = ["The", "bear", "jumps", "clear", "of", "harm"],
-      chains1 = [],
-      chains2 = [];
-
-  var thisx = 50,
-      thisy = 50,
-      xspacing = 140,
-      yspacing = 100;
-
-  sentence1.forEach(function(e, i) {
-    if(i != 2) {
-      chains1.push(addChain(g, thisx, thisy, e));
-    }
-    thisx += xspacing;
-  });
-
-  thisx = 50,
-  thisy += yspacing;
-  sentence2.forEach(function(e, i) {
-    if(i != 2) {
-      chains2.push(addChain(g, thisx, thisy, e));
-    }
-    thisx += xspacing;
-  });
-
-  // draw crossover word
-  thisy -= yspacing / 2;
-  var crossover = addChain(g, xspacing * 2 + 50, thisy, "jumps");
-
-  for(var i=0; i<chains1.length-1; i++) {
-    if(i == 1) {
-      drawLine(g, chains1[i].cx, chains1[i].cy, crossover.mnx, crossover.mny, "1.0");
-    } else {
-      drawLine(g, chains1[i].cx, chains1[i].cy, chains1[i+1].mnx, chains1[i+1].mny, "1.0");
-    }
-  }
-  for(var i=0; i<chains2.length-1; i++) {
-    if(i == 1) {
-      drawLine(g, chains2[i].cx, chains2[i].cy, crossover.mnx, crossover.mny, "1.0");
-    } else {
-      drawLine(g, chains2[i].cx, chains2[i].cy, chains2[i+1].mnx, chains2[i+1].mny, "1.0");
-    }
-  }
-
-  // Draw crossover lines
-  drawLine(g, crossover.cx, crossover.cy, chains1[2].mnx, chains1[2].mny, special_weights[0]);
-  drawLine(g, crossover.cx, crossover.cy, chains2[2].mnx, chains2[2].mny, special_weights[1]);
-}
-secondExample("svg#markov-chain-sentence", ["0.5", "0.5"]);
-  </script>
+  renderSimpleMarkovChain("#markov-chain-sentence", example2data.nodes, example2data.links, example2data.layout);
+</script>
 {% endraw %}
 
 When starting from the beginning of both of these chains, each movement along an edge to next node has 100% probability. However, once reaching the "jump" node, there's a 50% (0.5) chance of going to either destination. This comes from our original sentences where there are two distinct possibilities of what follows jumps, with one occurance of each. This gave each edge a probability of 0.5 (1/2). The decision of which edge to traverse will be made randomly by a program. For this Markov chain, there are 4 outputs which are all fairly coherent:
@@ -140,10 +75,10 @@ Now, if instead the source text had instead been:
 > The bear jumps clear of harm
 
 {% raw %}
-<svg id="markov-chain-sentence-two" width="960" height="250"></svg>
+<div id="markov-chain-sentence-two" style="width: 768px; height: 300px;"></div>
 
 <script>
-  secondExample("svg#markov-chain-sentence-two", ["0.67", "0.33"]);
+  renderSimpleMarkovChain("#markov-chain-sentence-two", example3data.nodes, example3data.links, example3data.layout);
 </script>
 {% endraw %}
 
@@ -167,17 +102,17 @@ What held in the previous example still holds here: since there are two source s
 
 Word length
 ===========
-In the last example, by traversing a Markov chain we generated four possible sentences as output. These sentences were based entirely on the source text, and if generated at scale in a large number of trials, the number of times specific fragments (subchain after a non-1.0 decision in this case) appeared would be proportional to frequency in the source text.
+In the last example, by traversing a Markov chain we generated four possible sentences as output. These sentences were based entirely on the source text; if sentences were generated at scale in a large number of trials, the number of times specific fragments (subchain after a non-1.0 decision in this case) appeared would be proportional to frequency in the source text. This follows as the probabilites for these words appearing is equal to their frequency in the source text.
 
-As more source text is added, the responses will become exponentially more diverse. At the same time, the total number of branch points where context can be lost will increase as well. The method I described above where each word in a sentence is a node is arbitrary--- one I've chosen as I felt it was easy to explain. It worked well in the examples provided as the set of possible node values (words) was incredibly large and I only selected a handful of them.
+As more source text is added, the responses will become exponentially more diverse. At the same time, the total number of branch points where context can be lost will increase as well. The method I described above where each word in a sentence is a node is arbitrary--- one I've chosen as I felt it was easy to explain. It worked well in the examples provided as, although the set of possible node values (words) was incredibly large,  I only selected a handful of them.
 
-It's easy to demonstrate how this fails at scale by choosing a node value with a smaller set of possible values. Let's use letters, where our source text will be individual words. In theory, Markov chains would be able to randomly make new words using whatever source text I provide.
+It's easy to demonstrate how this method fails at scale by choosing a node value with a smaller set of possible values. Let's use letters, where our source text will be individual words. In theory, Markov chains would be able to randomly make new words using whatever source text we provide.
 
-[Here's the list of words](/json/100words.json) we will use as a source to make a Markov chain from.
+[Here's the list of 100 words](/json/100words.json) we will use as a source to make a Markov chain from. Click "Create a word" below to start.
 
 {% raw %}
-<div id="built-word" style="height: 25px;"></div>
-<a href="javascript:$('#built-word').text(''); generateWord();">Create a word</a>
 <div id="markov-chain-letter-graph" style="height: 600px; width: 960px;"></div>
 <br />
+<div id="built-word" style="height: 25px;"></div>
+<a href="javascript:$('#built-word').text(''); generateWord();">Create a word</a>
 {% endraw %}

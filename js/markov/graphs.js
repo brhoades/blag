@@ -1,10 +1,290 @@
-var cy = null;
+// Example 1 and 2
+var example1data = {
+  nodes: [
+    {
+      data: {
+        id: 1,
+        name: 'data1'
+      }
+    },
+    {
+      data: {
+        id: 2,
+        name: 'data2'
+      }
+    },
+    {
+      data: {
+        id: 3,
+        name: 'data3'
+      }
+    },
+  ],
+  links: [
+    {
+      data: {
+        source: 1,
+        target: 2,
+        value: '1.0'
+      },
+    },
+    {
+      data: {
+        source: 2,
+        target: 3,
+        value: '1.0'
+      }
+    }
+  ]
+};
+
+var example2data = {
+  nodes: [
+    {
+      data: {
+        id: 1,
+        row: 0,
+        col: 0,
+        name: 'A'
+      }
+    },
+    {
+      data: {
+        id: 2,
+        row: 0,
+        col: 1,
+        name: 'dog'
+      }
+    },
+    {
+      data: {
+        id: 4,
+        row: 0,
+        col: 3,
+        name: 'over'
+      }
+    },
+    {
+      data: {
+        id: 5,
+        row: 0,
+        col: 4,
+        name: 'the'
+      }
+    },
+    {
+      data: {
+        id: 6,
+        row: 0,
+        col: 5,
+        name: 'log'
+      }
+    },
+    {
+      data: {
+        id: 3,
+        row: 1,
+        col: 2,
+        name: 'jumps'
+      }
+    },
+    {
+      data: {
+        id: 7,
+        row: 2,
+        col: 0,
+        name: 'The'
+      }
+    },
+    {
+      data: {
+        id: 8,
+        row: 2,
+        col: 1,
+        name: 'bear'
+      }
+    },
+    {
+      data: {
+        id: 9,
+        row: 2,
+        col: 3,
+        name: 'clear'
+      }
+    },
+    {
+      data: {
+        id: 10,
+        row: 2,
+        col: 4,
+        name: 'of'
+      }
+    },
+    {
+      data: {
+        id: 11,
+        row: 2,
+        col: 5,
+        name: 'harm'
+      }
+    },
+  ],
+  links: [
+    {
+      data: {
+        source: 1,
+        target: 2,
+        value: '1.0'
+      },
+    },
+    {
+      data: {
+        source: 2,
+        target: 3,
+        value: '1.0'
+      }
+    },
+    {
+      data: {
+        source: 3,
+        target: 4,
+        value: '0.5'
+      },
+    },
+    {
+      data: {
+        source: 4,
+        target: 5,
+        value: '1.0'
+      }
+    },
+    {
+      data: {
+        source: 5,
+        target: 6,
+        value: '1.0'
+      },
+    },
+    {
+      data: {
+        source: 7,
+        target: 8,
+        value: '1.0'
+      }
+    },
+    {
+      data: {
+        source: 8,
+        target: 3,
+        value: '1.0'
+      }
+    },
+    {
+      data: {
+        source: 3,
+        target: 9,
+        value: '0.5'
+      }
+    },
+    {
+      data: {
+        source: 9,
+        target: 10,
+        value: '1.0'
+      }
+    },
+    {
+      data: {
+        source: 10,
+        target: 11,
+        value: '1.0'
+      }
+    },
+  ],
+  layout: {
+    name: 'grid',
+    padding: 10,
+    rows: 3,
+    cols: 6,
+    "position": function(d) {
+      console.log(d.data('row'), d.data('col'), d.data('name'));
+      return {row: d.data('row'), col: d.data('col')};
+    }
+  }
+};
+
+var example3data = $.extend(true, {}, example2data);
+example3data.links.forEach(function(e) {
+  if(e.data.source == 3) {
+    if(e.data.target == 4) {
+      e.data.value = '0.667';
+    } else if(e.data.target == 9) {
+      e.data.value = '0.333';
+    }
+  }
+});
+
+function renderSimpleMarkovChain(container, nodes, links, layout={}) {
+  if(layout == {}) {
+    layout["name"] = "grid";
+  }
+
+  cytoscape({
+    container: $(container)[0],
+
+    boxSelectionEnabled: false,
+    autounselectify: false,
+
+    userZoomingEnabled: false,
+    panningEnabled: false,
+
+    selectionType: 'none',
+
+    style: [
+      {
+        selector: 'node',
+        style: {
+          'width': 75,
+          'height': 75,
+          'content': 'data(name)',
+          'text-valign': 'center',
+          'color': 'white',
+          'font-size': 18
+        }
+      },
+      {
+        selector: 'edge',
+        style: {
+          'content': function(d) {
+            return Math.round(d.data('value') * 1000) / 10 + "%";
+          },
+          'width': 5,
+          'target-arrow-shape': 'triangle',
+          'line-color': 'black',
+          'target-arrow-color': 'black',
+          'curve-style': 'bezier',
+          'text-margin-y': -15,
+          'edge-text-rotation': 'autorotate'
+        }
+      }
+    ],
+    elements: {
+      nodes: nodes,
+      edges: links,
+    },
+    layout: layout
+  });
+}
+
+
+// Example 3
+var cyex3;
 
 $.ajax({
       url: "/scripts/marko/words.json",
       dataType: "json",
       success: function (data, textStatus, jqXHR) {
-        cy = cytoscape({
+        cyex3 = cytoscape({
         container: $('#markov-chain-letter-graph')[0],
 
         boxSelectionEnabled: false,
@@ -24,7 +304,6 @@ $.ajax({
               'text-outline-color': '#888'
             }
           },
-
           {
             selector: 'edge',
             style: {
@@ -42,7 +321,6 @@ $.ajax({
               'curve-style': 'bezier'
             }
           },
-
           {
             selector: 'edge:selected',
             style: {
@@ -62,7 +340,6 @@ $.ajax({
               'opacity': 1,
             }
           },
-
           {
             selector: 'edge:active',
             style: {
@@ -125,7 +402,7 @@ function getNextLetter(cy, currentnode) {
 }
 
 function generateWord() {
-  var node = cy.nodes('[name="^"]')[0];
+  var node = cyex3.nodes('[name="^"]')[0];
 
-  getNextLetter(cy, node);
+  getNextLetter(cyex3, node);
 }
