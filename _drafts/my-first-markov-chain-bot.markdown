@@ -25,7 +25,7 @@ Seeborg came up in a discussion with [Nathan Jarus](http://nathanjar.us/) in Nov
 Markov chains, for the purposes of an IRC bot, are best represented by directional graphs. Each node in this graph will hold data (a "word") and each edge will have a number, (0, 1], representing the probability of traversing this edge. Below is a visualization of a Markov chain with 3 nodes:
 
 {% raw %}
-<div id="markov-chain" style="width: 768px; height: 175px;"></div>
+<div id="markov-chain" class="markov-graph" style="width: 768px; height: 175px;"></div>
 
 <script>
   markov.graphs.renderFirstExample("#markov-chain");
@@ -45,7 +45,7 @@ When "data" is swapped out for words in a couple of sentences (which I'll refer 
 Note that with capitalization, there is only one word, "jumps", which is common to both sentences. A Markov chain would combine those words into a single node with two input edges and one output. This can be seen below.
 
 {% raw %}
-<div id="markov-chain-sentence" style="width: 768px; height: 300px;"></div>
+<div id="markov-chain-sentence" class="markov-graph" style="width: 768px; height: 300px;"></div>
 
 <script>
   markov.graphs.renderSecondExample("#markov-chain-sentence");
@@ -74,7 +74,7 @@ Now, if instead the source text had instead been:
 > The bear jumps clear of harm
 
 {% raw %}
-<div id="markov-chain-sentence-two" style="width: 768px; height: 300px;"></div>
+<div id="markov-chain-sentence-two" class="markov-graph" style="width: 768px; height: 300px;"></div>
 
 <script>
   markov.graphs.renderThirdExample("#markov-chain-sentence-two");
@@ -110,7 +110,7 @@ It's easy to demonstrate how this method fails at scale by choosing a node value
 [Here's the list of 100 words](/json/100words.json) we will use as a source to make a Markov chain from. Click "Create a word" below to start.
 
 {% raw %}
-<div id="markov-chain-letter-graph" style="height: 600px; width: 768px;"></div>
+<div id="markov-chain-letter-graph" class="markov-graph" style="height: 600px; width: 768px;"></div>
 <br />
 <div id="built-word" style="height: 25px;"></div>
 <a href="javascript:$('#built-word').text(''); markov.graphs.generateWord();">Create a word</a>
@@ -118,4 +118,8 @@ It's easy to demonstrate how this method fails at scale by choosing a node value
 
 A few notes regarding some non-letter symbols. "^" represents an arbitrary start of a word. This entry node in our graph ensures that the first letter on each word is in proportion with our source. "$", similarly, represents the end of a word, and ensures that letters which typically end words have that probability represented.
 
-After running a few trials, it's fairly apparent that the generated words typically follow English rules. It does frequently make mistakes.jk
+For the simplicity of the generation, the generated words do a lot right: "u" always follows "q", letters such as "y" usually end words, and most [consonant clusters](https://en.wikipedia.org/wiki/Consonant_cluster) and syllables in the words all appear in English. But there are also some drawbacks; the generated words can sometimes loop due to the cycles in this graph (much more on that later) and become incredibly long. There are also consonant clusters which never begin or never end a syllable that do--- for example, "nt" in English does not begin syllables nor does "pl" end syllables.
+
+These drawbacks are all caused by a loss in context by the Markov chain. While it's traversing the graph, there's no way for it to represent the relationship between "pl" and "a", all it has is that "l" is preceded by "p" and followed by "l". One method for storing this relationship is by using n-grams. Our current representation could be considered a 1-gram; if we instead used a bigram, we could represent the relationship between "pl" and "a-" where "a- is followed by another letter."
+
+Below is yet another example of a Markov chain which does just that. You can also click "Create a word" to see how the output is.
