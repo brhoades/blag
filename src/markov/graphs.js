@@ -283,100 +283,106 @@ function renderSimpleMarkovChain(container, nodes, links, layout={}) {
 // Example 3
 var cyex3;
 
-$.ajax({
-      url: "/assets/scripts/markov/words.json",
-      dataType: "json",
-      success: function (data, textStatus, jqXHR) {
-        cyex3 = cytoscape({
-        container: $('#markov-chain-letter-graph')[0],
+// Example 4
+var cyex4;
 
-        boxSelectionEnabled: false,
-        autounselectify: false,
+// cb is called with cytoscape instance
+function renderCircularGraph(json, container, cb) {
+  $.ajax({
+        url: json,
+        dataType: "json",
+        success: function (data, textStatus, jqXHR) {
+          cb(cytoscape({
+            container: container,
 
-        userZoomingEnabled: false,
-        panningEnabled: false,
+            boxSelectionEnabled: false,
+            autounselectify: false,
 
-        style: [
-          {
-            selector: 'node',
-            style: {
-              'content': 'data(name)',
-              'text-valign': 'center',
-              'color': 'white',
-              'text-outline-width': 1,
-              'text-outline-color': '#888'
-            }
-          },
-          {
-            selector: 'edge',
-            style: {
-              'width': 1,
-              'target-arrow-shape': 'triangle',
-              'line-color': 'blue',
-              'target-arrow-color': 'blue',
-              'opacity': function(d) {
-                var opacity = parseFloat(d.data("value"));
-                if(opacity < 0.2)
-                  opacity = 0.2;
+            userZoomingEnabled: false,
+            panningEnabled: false,
 
-                return opacity;
+            style: [
+              {
+                selector: 'node',
+                style: {
+                  'content': 'data(name)',
+                  'text-valign': 'center',
+                  'color': 'white',
+                  'text-outline-width': 1,
+                  'text-outline-color': '#888'
+                }
               },
-              'curve-style': 'bezier'
-            }
-          },
-          {
-            selector: 'edge:selected',
-            style: {
-              'content': function(d) {
-                return Math.round(d.data('value') * 1000) / 1000;
+              {
+                selector: 'edge',
+                style: {
+                  'width': 1,
+                  'target-arrow-shape': 'triangle',
+                  'line-color': 'blue',
+                  'target-arrow-color': 'blue',
+                  'opacity': function(d) {
+                    var opacity = parseFloat(d.data("value"));
+                    if(opacity < 0.2)
+                      opacity = 0.2;
+
+                    return opacity;
+                  },
+                  'curve-style': 'bezier'
+                }
               },
-              'width': 1,
-              'text-outline-width': 1,
-              'text-outline-color': '#888',
-              'background-color': 'black',
-              'target-arrow-shape': 'triangle',
-              'line-color': 'red',
-              'target-arrow-color': 'red',
-              'text-outline-width': 1,
-              'curve-style': 'bezier',
-              'z-index': 100000,
-              'opacity': 1,
-            }
-          },
-          {
-            selector: 'edge:active',
-            style: {
-              'content': function(d) {
-                return d.data('source') + " -> " + d.data('target') + "    " + Math.round(d.data('value') * 1000) / 1000;
+              {
+                selector: 'edge:selected',
+                style: {
+                  'content': function(d) {
+                    return Math.round(d.data('value') * 1000) / 1000;
+                  },
+                  'width': 1,
+                  'text-outline-width': 1,
+                  'text-outline-color': '#888',
+                  'background-color': 'black',
+                  'target-arrow-shape': 'triangle',
+                  'line-color': 'red',
+                  'target-arrow-color': 'red',
+                  'text-outline-width': 1,
+                  'curve-style': 'bezier',
+                  'z-index': 100000,
+                  'opacity': 1,
+                }
               },
-              'color': 'black',
-              'text-outline-width': 1,
-              'text-outline-color': '#888',
-              'background-color': 'black',
-              'line-color': 'black',
-              'target-arrow-color': 'black',
-              'source-arrow-color': 'black',
-              'text-outline-color': 'black',
-            }
-          }
-        ],
-        elements: {
-          nodes: data.nodes,
-          edges: data.links,
-        },
-        layout: {
-          name: 'circle',
-          sort: function(a, b){
-            if(a.data('id') < b.data('id')) return -1;
-            if(a.data('id') > b.data('id')) return 1;
-            return 0;
-          }
-        },
+              {
+                selector: 'edge:active',
+                style: {
+                  'content': function(d) {
+                    return d.data('source') + " -> " + d.data('target') + "    " + Math.round(d.data('value') * 1000) / 1000;
+                  },
+                  'color': 'black',
+                  'text-outline-width': 1,
+                  'text-outline-color': '#888',
+                  'background-color': 'black',
+                  'line-color': 'black',
+                  'target-arrow-color': 'black',
+                  'source-arrow-color': 'black',
+                  'text-outline-color': 'black',
+                }
+              }
+            ],
+            elements: {
+              nodes: data.nodes,
+              edges: data.links,
+            },
+            layout: {
+              name: 'circle',
+              sort: function(a, b){
+                if(a.data('id') < b.data('id')) return -1;
+                if(a.data('id') > b.data('id')) return 1;
+                return 0;
+              }
+            },
+          }));
+        }
       });
-    }
-  });
+}
 
-function getNextLetter(cy, currentnode) {
+function getNextLetter(cy, currentnode, output_div) {
   var edges = cy.edges('[source="' + currentnode.data('name') + '"]');
 
   // nodes are sorted by cum_value implicitly. The first time one exceeds
@@ -402,17 +408,25 @@ function getNextLetter(cy, currentnode) {
     edge.deselect();
     if(nextnode.data('name') != "$") {
       getNextLetter(cy, nextnode);
-      $("#built-word").append(nextnode.data('name'));
+      $(output_div).append(nextnode.data('name'));
     } else {
       nextnode.deselect();
     }
   }, 1000);
 }
 
-function generateWord() {
-  var node = cyex3.nodes('[name="^"]')[0];
+function generateWord(example=3, output_div="") {
+  var cy;
 
-  getNextLetter(cyex3, node);
+  if(example == 3) {
+     cy = cyex3;
+  } else {
+     cy = cyex4;
+  }
+
+  var node = cy.nodes('[name="^"]')[0];
+
+  getNextLetter(cy, node, output_div);
 }
 
 module.exports = {
@@ -425,5 +439,17 @@ module.exports = {
   },
   renderThirdExample: function(ele) {
     renderSimpleMarkovChain(ele, example3data.nodes, example3data.links, example3data.layout);
+  },
+  renderFourthExample: function() {
+    renderCircularGraph("/assets/scripts/markov/words.json", $('#markov-chain-letter-graph')[0], function(cy) {
+      cyex3 = cy;
+      console.log("DONE");
+    });
+  },
+  renderFifthExample: function() {
+    renderCircularGraph("/assets/scripts/markov/words.json", $('#markov-chain-digram-graph')[0], function(cy) {
+      cyex4 = cy;
+      console.log("DONE2");
+    });
   }
-}
+};

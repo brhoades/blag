@@ -113,7 +113,11 @@ It's easy to demonstrate how this method fails at scale by choosing a node value
 <div id="markov-chain-letter-graph" class="markov-graph" style="height: 600px; width: 768px;"></div>
 <br />
 <div id="built-word" style="height: 25px;"></div>
-<a href="javascript:$('#built-word').text(''); markov.graphs.generateWord();">Create a word</a>
+<a href="javascript:$('#built-word').text(''); markov.graphs.generateWord(3, "#built-word");">Create a word</a>
+
+<script>
+  markov.graphs.renderFourthExample();
+</script>
 {% endraw %}
 
 A few notes regarding some non-letter symbols. "^" represents an arbitrary start of a word. This entry node in our graph ensures that the first letter on each word is in proportion with our source. "$", similarly, represents the end of a word, and ensures that letters which typically end words have that probability represented.
@@ -123,3 +127,14 @@ For the simplicity of the generation, the generated words do a lot right: "u" al
 These drawbacks are all caused by a loss in context by the Markov chain. While it's traversing the graph, there's no way for it to represent the relationship between "pl" and "a", all it has is that "l" is preceded by "p" and followed by "l". One method for storing this relationship is by using n-grams. Our current representation could be considered a 1-gram; if we instead used a bigram, we could represent the relationship between "pl" and "a-" where "a- is followed by another letter."
 
 Below is yet another example of a Markov chain which does just that. You can also click "Create a word" to see how the output is.
+
+{% raw %}
+<div id="markov-chain-digram-graph" class="markov-graph" style="height: 600px; width: 768px;"></div>
+<br />
+<div id="built-word-2" style="height: 25px;"></div>
+<a href="javascript:$('#built-word-2').text(''); markov.graphs.generateWord(4, "#built-word-2");">Create a word</a>
+
+<script>
+  markov.graphs.renderFifthExample();
+</script>
+{% endraw %}
