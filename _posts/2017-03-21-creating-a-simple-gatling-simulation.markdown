@@ -6,7 +6,7 @@ categories: gatling simulation getting started
 ---
 
 Background
-----------
+==========
 I've written this as an aid for someone completely new to Gatling. I could not find material online
 which contained any "getting started" information for the latest version of Gatling that
 targeted someone without a great deal of functional experience. This is not comprehensive; I just hope
@@ -34,7 +34,7 @@ as odds are that even if you record a simulation you will be editing it. I've pr
 project to help follow along [here](https://github.com/brhoades/example-gatling-simulation).
 
 Recording a Simulation
-----------------------
+======================
 Gatling supports recording simulations using its
 [HTTP recorder](http://gatling.io/docs/current/http/recorder/). It acts as a proxy which records
 all traffic between a browser and a server and then saves it into a simulation. If the target
@@ -43,8 +43,8 @@ of creating simulations is ideal. It serves as a good starting point for simulat
 For the website I started load testing, it wasn't possible to use this recorder, so I am unaware of
 most of its functionality.
 
-Manually Creating a Simple Simulation
--------------------------------------
+Manually Creating a Simulation
+=====================================
 Structuring a simulation is defined at length [here](http://gatling.io/docs/current/general/simulation_structure/), but a minimal functioning example helps illustrate this:
 
 ```scala
@@ -138,9 +138,10 @@ follows all redirects on an HTTP chain and labels them as "Name - Redirect #". T
 can disabled globally, per chain, and capped. More information about redirect configuration
 [here](http://gatling.io/docs/current/http/http_protocol/#follow-redirects).
 
-### Chaining Requests
-In the example simulation above, there was a single request to a single page. Typically in
-simulations there will be more than one request. As each call to exec returns the modified
+Chaining Requests
+-----------------
+In the example simulation above, there was a single request to a single page. For useful simulations,
+there will likely be more than one request. As each call to exec returns the modified
 scenario object, scenarios can be chained to perform more complex behaviors.
 
 ```scala
@@ -153,11 +154,13 @@ scenario object, scenarios can be chained to perform more complex behaviors.
 // ...
 ```
 
-This scenario now also runs a search, visiting https://google.com/?q=Some+Query . The HTTP
-protocol supports POST requests, cookies, redirects, and more complex configurations with proxies.
-Further information is also available on the [official documentation page](http://gatling.io/docs/current/http/).
+This scenario now also runs a search, visiting https://google.com/?q=Some+Query . Cookies and other
+session data are retained and passed between each exec call. Redirects will still be followed at
+each step, then continued on the next step. The HTTP protocol supports POST requests,
+cookies, redirects, and more complex configurations with proxies. More on this later.
 
-### Assertions
+Assertions
+----------
 Assertions can be used to verify that responses contain expected content. One of the most basic
 assertions is for status codes. For example, if we we wanted our scenario to verify that
 the Google main page returned HTTP200:
@@ -269,10 +272,45 @@ Session(Scenario Name,
 In between the first and second session output, I set "hello" to "bla" which can be see in the second session.
 This is the primary mechanism to inspect and modify the session from the level of scenario definition.
 
-Individual http chains, where requests are made, can also save and read from the session by
-[assertions](http://gatling.io/docs/current/general/assertions/).
-[saveAs](http://gatling.io/docs/current/http/http_check/#http-check-saving) serves as a session-saving
-mechanism which allows conditional branching, posting form data, and more.
+POST Requests and Session Variables
+-----------------------------------
+POST requests typically make use of the
+[saveAs](http://gatling.io/docs/current/http/http_check/#http-check-saving)
+assertion in order to retain response details from a previous server response. However, this doesn't
+always have to be the case. Here's a contrived simulation below for the sake of an easy example:
+
+```scala
+// ...
+  val scn = scenario("Scenario Name")
+    .exec(http("Login Form")
+      .get("/login")
+        .check(status.is(200)))
+        .check(css("form[action]", "value").saveAs("form_action"))
+        .check(css("input[name='csrf_token']", "value").saveAs("csrf_token"))
+    .exec(http("Login (POST)")
+      .post("${form_action}")
+        .formParam("csrf_token", "${csrf_token}")
+        .formParam("login_username", "someuser")
+        .formParam("login_password", "somepassword")
+      .check(status.is(200)))
+// ...
+```
+
+A few new things here; let's begin with the `post` HTTP chain method. This method behaves similarly
+to `get`, but typically uses some sort of input. There are
+[other methods](http://gatling.io/docs/current/http/http_request/#form-parameters) which allow the use
+of `Map`s, but here we will manually build our request data using `formParam`. These parameters are
+sent to the url specified in the `post` method's first argument as a response using the keys and
+values specified.
+
+In this example the form's action value was captured and saved into "form_action" on the session.
+The next POST request then read from the session using a bash-like syntax, `${keyname}`. This reads
+the key from the session `Map` directly, and will print warning if it's not found. Once the POST is complete,
+the status will be checked to verify the server responded with HTTP200.
+
+Further information about the HTTP protocol is also available on the
+[official documentation page](http://gatling.io/docs/current/http/). Information regarding the session
+object be found [here](http://gatling.io/docs/current/session/session_api/).
 
 Distribution
 ------------
@@ -348,6 +386,5 @@ $ sbt gatling:lastReport
 A list of all sbt tasks are available [here](http://gatling.io/docs/current/extensions/sbt_plugin/).
 
 Reference Material
-------------------
-
+==================
 [Gatling cheat sheet](http://gatling.io/docs/current/cheat-sheet/)
