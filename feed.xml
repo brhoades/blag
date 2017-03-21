@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-03-21T10:47:14-05:00</updated><id>/</id><title type="html">Billy Rhoades</title><subtitle></subtitle><entry><title type="html">Creating a Gatling Simulation</title><link href="/gatling/simulation/getting/started/2017/03/21/creating-a-simple-gatling-simulation.html" rel="alternate" type="text/html" title="Creating a Gatling Simulation" /><published>2017-03-21T08:41:00-05:00</published><updated>2017-03-21T08:41:00-05:00</updated><id>/gatling/simulation/getting/started/2017/03/21/creating-a-simple-gatling-simulation</id><content type="html" xml:base="/gatling/simulation/getting/started/2017/03/21/creating-a-simple-gatling-simulation.html">&lt;h1 id=&quot;background&quot;&gt;Background&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-03-21T10:49:04-05:00</updated><id>/</id><title type="html">Billy Rhoades</title><subtitle></subtitle><entry><title type="html">Creating a Gatling Simulation</title><link href="/gatling/simulation/getting/started/2017/03/21/creating-a-simple-gatling-simulation.html" rel="alternate" type="text/html" title="Creating a Gatling Simulation" /><published>2017-03-21T08:41:00-05:00</published><updated>2017-03-21T08:41:00-05:00</updated><id>/gatling/simulation/getting/started/2017/03/21/creating-a-simple-gatling-simulation</id><content type="html" xml:base="/gatling/simulation/getting/started/2017/03/21/creating-a-simple-gatling-simulation.html">&lt;h1 id=&quot;background&quot;&gt;Background&lt;/h1&gt;
 &lt;p&gt;I’ve written this as an aid for someone completely new to Gatling. I could not find material online
 which contained any “getting started” information for the latest version of Gatling that
 targeted someone without a great deal of functional experience. This is not comprehensive; I just hope
@@ -194,7 +194,7 @@ that the main page had an &lt;code class=&quot;highlighter-rouge&quot;&gt;html&l
 performance requirements, etc. More details are available
 &lt;a href=&quot;http://gatling.io/docs/current/general/assertions/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h3 id=&quot;session-modification-and-inspection&quot;&gt;Session Modification and Inspection&lt;/h3&gt;
+&lt;h2 id=&quot;session-modification-and-inspection&quot;&gt;Session Modification and Inspection&lt;/h2&gt;
 &lt;p&gt;Sessions are implicitly passed between each exec call. They can manually inspected or modified
 during scenario definition by executing a custom function with exec.&lt;/p&gt;
 
@@ -257,7 +257,7 @@ session is being repeated after printing it, try to only print it and see what h
 &lt;p&gt;In between the first and second session output, I set “hello” to “bla” which can be see in the second session.
 This is the primary mechanism to inspect and modify the session from the level of scenario definition.&lt;/p&gt;
 
-&lt;h2 id=&quot;post-requests-and-session-variables&quot;&gt;POST Requests and Session Variables&lt;/h2&gt;
+&lt;h2 id=&quot;post-requests-and-session-access&quot;&gt;POST Requests and Session Access&lt;/h2&gt;
 &lt;p&gt;POST requests typically make use of the
 &lt;a href=&quot;http://gatling.io/docs/current/http/http_check/#http-check-saving&quot;&gt;saveAs&lt;/a&gt;
 assertion in order to retain response details from a previous server response. However, this doesn’t

@@ -260,7 +260,7 @@ that the main page had an <code class="highlighter-rouge">html</code> node with 
 performance requirements, etc. More details are available
 <a href="http://gatling.io/docs/current/general/assertions/">here</a>.</p>
 
-<h3 id="session-modification-and-inspection">Session Modification and Inspection</h3>
+<h2 id="session-modification-and-inspection">Session Modification and Inspection</h2>
 <p>Sessions are implicitly passed between each exec call. They can manually inspected or modified
 during scenario definition by executing a custom function with exec.</p>
 
@@ -323,7 +323,7 @@ session is being repeated after printing it, try to only print it and see what h
 <p>In between the first and second session output, I set “hello” to “bla” which can be see in the second session.
 This is the primary mechanism to inspect and modify the session from the level of scenario definition.</p>
 
-<h2 id="post-requests-and-session-variables">POST Requests and Session Variables</h2>
+<h2 id="post-requests-and-session-access">POST Requests and Session Access</h2>
 <p>POST requests typically make use of the
 <a href="http://gatling.io/docs/current/http/http_check/#http-check-saving">saveAs</a>
 assertion in order to retain response details from a previous server response. However, this doesn’t
