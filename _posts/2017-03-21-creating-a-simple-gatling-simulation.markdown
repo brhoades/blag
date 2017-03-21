@@ -12,6 +12,8 @@ which contained any "getting started" information for the latest version of Gatl
 targeted someone without a great deal of functional experience. This is not comprehensive; I just hope
 this serves as a starting point to jump off to official documentation.
 
+I've provided a set up Gatling project to help follow along [here](https://github.com/brhoades/example-gatling-simulation).
+
 Recommended Reading
 -------------------
 [What is functional programming](http://blog.jenkster.com/2015/12/what-is-functional-programming.html)
