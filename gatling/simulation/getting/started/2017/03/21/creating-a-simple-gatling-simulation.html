@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Creating a Gatling Simulation</title>
-  <meta name="description" content="Background I’ve written this as an aid for someone completely new to Gatling. I could not find material online which contained any “getting started” informat...">
+  <meta name="description" content="Background I could not find material online that targeted the latest version of Gatling, meant for someone without a great deal of functional experience. I a...">
 
   <link rel="stylesheet" href="/assets/main.css">
   <link rel="canonical" href="/gatling/simulation/getting/started/2017/03/21/creating-a-simple-gatling-simulation.html">
@@ -65,9 +65,8 @@
 
   <div class="post-content" itemprop="articleBody">
     <h1 id="background">Background</h1>
-<p>I’ve written this as an aid for someone completely new to Gatling. I could not find material online
-which contained any “getting started” information for the latest version of Gatling that
-targeted someone without a great deal of functional experience. This is not comprehensive; I just hope
+<p>I could not find material online that targeted the latest version of Gatling, meant for someone without
+a great deal of functional experience. I also don’t mean for this to be comprehensive; I just hope
 this serves as a starting point to jump off to official documentation.</p>
 
 <h2 id="recommended-reading">Recommended Reading</h2>
@@ -78,25 +77,25 @@ this serves as a starting point to jump off to official documentation.</p>
 <p><a href="http://gatling.io/docs/current/">Gatling documentation</a></p>
 
 <h2 id="what-is-gatling">What is Gatling</h2>
-<p>Gatling is a load testing framework written in Scala. It efficiently simulates HTTP traffic for websites
+<p>Gatling is a load testing framework written in Scala. It efficiently simulates HTTP traffic
 in a way which allows thousands of concurrent users from a single machine. Gatling does not parse HTML
 or run Javascript, if this is your objective you will need to look
 <a href="https://github.com/nmeans/phantomherd">elsewhere</a> for that. However, by not rendering HTML,
 loading dependencies, or running Javascript Gatling scales incredibly well.</p>
 
-<p>Gatling has two major sources of writing simulations. The easiest of the two is the recorder
-which I will describe first. I will spend the most time describing how to manually write simulations,
-as odds are that even if you record a simulation you will be editing it. I’ve provided a set up Gatling
-project to help follow along <a href="https://github.com/brhoades/example-gatling-simulation">here</a>.</p>
+<p>Gatling has two major ways to begin writing a simulation. The easiest of the two is the recorder,
+although I do not have much experience with it. I will spend the most time describing how to
+manually write simulations. Odds are that even if you record a simulation, you will be editing it.
+I’ve provided a sample Gatling project to help follow along
+<a href="https://github.com/brhoades/example-gatling-simulation">here</a>.</p>
 
 <h1 id="recording-a-simulation">Recording a Simulation</h1>
 <p>Gatling supports recording simulations using its
 <a href="http://gatling.io/docs/current/http/recorder/">HTTP recorder</a>. It acts as a proxy which records
 all traffic between a browser and a server and then saves it into a simulation. If the target
 website is not https or a custom, self-signed certificate can be used, this method
-of creating simulations is ideal. It serves as a good starting point for simulations if it can be used.
-For the website I started load testing, it wasn’t possible to use this recorder, so I am unaware of
-most of its functionality.</p>
+of creating simulations is ideal. For the website I started load testing,
+it wasn’t possible to use this recorder, so I am unaware of most of its functionality.</p>
 
 <h1 id="manually-creating-a-simulation">Manually Creating a Simulation</h1>
 <p>Structuring a simulation is defined at length <a href="http://gatling.io/docs/current/general/simulation_structure/">here</a>, but a minimal functioning example helps illustrate this:</p>
