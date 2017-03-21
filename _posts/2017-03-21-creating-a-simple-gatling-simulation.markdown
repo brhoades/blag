@@ -23,9 +23,9 @@ What is Gatling
 ---------------
 Gatling is a load testing framework written in Scala. It efficiently simulates HTTP traffic
 in a way which allows thousands of concurrent users from a single machine. Gatling does not parse HTML
-or run Javascript, if this is your objective you will need to look
+or run Javascript; if this is your objective you will need to look
 [elsewhere](https://github.com/nmeans/phantomherd) for that. However, by not rendering HTML,
-loading dependencies, or running Javascript Gatling scales incredibly well.
+loading dependencies, or running Javascript, Gatling scales incredibly well.
 
 There are two ways to begin writing a simulation: use the recorder for a basic starting simulation, or
 manually write one from scratch. As I did not have the luxury of starting with a recorder,
@@ -154,7 +154,7 @@ scenario object, scenarios can be chained to perform more complex behaviors.
 // ...
 ```
 
-This scenario now also runs a search, visiting https://google.com/?q=Some+Query . Cookies and other
+This scenario now also runs a search, visiting https://google.com/?q=Some+Query. Cookies and other
 session data are retained and passed between each exec call. Redirects will still be followed at
 each step, then continued on the next step. The HTTP protocol supports POST requests,
 cookies, redirects, and more complex configurations with proxies. More on this later.
