@@ -27,10 +27,11 @@ or run Javascript, if this is your objective you will need to look
 [elsewhere](https://github.com/nmeans/phantomherd) for that. However, by not rendering HTML,
 loading dependencies, or running Javascript Gatling scales incredibly well.
 
-Gatling has two major ways to begin writing a simulation. The easiest of the two is the recorder,
-although I do not have much experience with it. I will spend the most time describing how to
-manually write simulations. Odds are that even if you record a simulation, you will be editing it.
-I've provided a sample Gatling project to help follow along
+There are two ways to begin writing a simulation: use the recorder for a basic starting simulation, or
+manually write one from scratch. As I did not have the luxury of starting with a recorder,
+I cannot discuss how to begin that way. I would imagine, however, that even if you record a simulation,
+you will still be editing it. So, most of this post will be covering how to manually write a
+Gatling simulation. I've provided a sample Gatling project to help follow along
 [here](https://github.com/brhoades/example-gatling-simulation).
 
 Recording a Simulation
