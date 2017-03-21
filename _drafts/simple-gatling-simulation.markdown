@@ -207,7 +207,7 @@ during scenario definition by executing a custom function with exec.
 
 Above is the same scenario as our first one. However, this scenario prints the session,
 sets "hello" in the session to "bla", then prints it again. *Note: if you are not sure why
-session is being repeated after printing it, read more about scala and then try it out.*
+session is being repeated after printing it, try to only print it and see what happens.*
 
 Here is the output:
 
