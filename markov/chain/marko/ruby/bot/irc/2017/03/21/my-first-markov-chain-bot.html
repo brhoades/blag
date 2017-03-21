@@ -10,7 +10,7 @@
   <meta name="description" content="">
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="/markov/chain/marko/ruby/bot/irc/2017/02/26/my-first-markov-chain-bot.html">
+  <link rel="canonical" href="/markov/chain/marko/ruby/bot/irc/2017/03/21/my-first-markov-chain-bot.html">
   <link rel="alternate" type="application/rss+xml" title="Billy Rhoades" href="/feed.xml">
   
   
@@ -60,7 +60,7 @@
 
   <header class="post-header">
     <h1 class="post-title" itemprop="name headline">Markov Chain Speech Generation Part 1: Background</h1>
-    <p class="post-meta"><time datetime="2017-02-26T13:20:29-06:00" itemprop="datePublished">Feb 26, 2017</time></p>
+    <p class="post-meta"><time datetime="2017-03-21T09:18:30-05:00" itemprop="datePublished">Mar 21, 2017</time></p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
@@ -70,6 +70,8 @@
 <script src="http://underscorejs.org/underscore-min.js"></script>
 
 <script src="/assets/javascripts/dist/cytoscape.js"></script>
+
+<script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-spread/1.2.0/cytoscape-spread.js"></script>
 
 <script src="/assets/javascripts/markov.js"></script>
 
@@ -188,7 +190,11 @@
 <div id="markov-chain-letter-graph" class="markov-graph" style="height: 600px; width: 768px;"></div>
 <p><br /></p>
 <div id="built-word" style="height: 25px;"></div>
-<p><a href="javascript:$('#built-word').text(''); markov.graphs.generateWord();">Create a word</a></p>
+<p>&lt;a href=”javascript:$(‘#built-word’).text(‘’); markov.graphs.generateWord(3, “#built-word”);”&gt;Create a word&lt;/a&gt;</p>
+
+<script>
+  markov.graphs.renderFourthExample();
+</script>
 
 <p>A few notes regarding some non-letter symbols. “^” represents an arbitrary start of a word. This entry node in our graph ensures that the first letter on each word is in proportion with our source. “$”, similarly, represents the end of a word, and ensures that letters which typically end words have that probability represented.</p>
 
@@ -197,6 +203,16 @@
 <p>These drawbacks are all caused by a loss in context by the Markov chain. While it’s traversing the graph, there’s no way for it to represent the relationship between “pl” and “a”, all it has is that “l” is preceded by “p” and followed by “l”. One method for storing this relationship is by using n-grams. Our current representation could be considered a 1-gram; if we instead used a bigram, we could represent the relationship between “pl” and “a-“ where “a- is followed by another letter.”</p>
 
 <p>Below is yet another example of a Markov chain which does just that. You can also click “Create a word” to see how the output is.</p>
+
+<div id="markov-chain-digram-graph" class="markov-graph" style="height: 800px; width: 800px;"></div>
+<p><br /></p>
+<div id="built-word-2" style="height: 25px;"></div>
+<p><a href="javascript:$('#built-word-2').text(''); markov.graphs.generateWord(4, '#built-word-2');">Create a word</a></p>
+
+<script>
+  markov.graphs.renderFifthExample();
+</script>
+
 
   </div>
 

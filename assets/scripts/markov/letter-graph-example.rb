@@ -26,7 +26,11 @@ chains = {
 }
 
 words.each do |w|
-  letters = w.split('')
+  if ARGV[0] == "monograms"
+    letters = w.split('')
+  else
+    letters = w.scan(/\w{1,2}/)
+  end
   chains["^"][letters.first] = 0 if not chains["^"].has_key?(letters.first)
   chains["^"][letters.first] += 1
 
@@ -37,7 +41,7 @@ words.each do |w|
 
     # if this isn't the end of a word, set the letter
     if i + 1 != letters.size
-      nextl = w[i+1]
+      nextl = letters[i+1]
     end
 
     if not thisletter.has_key?(nextl)
@@ -99,4 +103,4 @@ chains.each do |letter, l_links|
   end
 end
 
-IO.write("words.json", JSON.dump(output))
+IO.write("words-#{ARGV[0]}.json", JSON.dump(output))
