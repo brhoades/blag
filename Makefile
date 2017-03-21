@@ -22,7 +22,7 @@ publish: _posts _drafts
 	@ rm -rf assets
 	git mv -f site/* .
 	@ rm -rf site
-	git commit -a
+	git commit -a -m "Updated blog from master `git log master --abbrev-commit --pretty=oneline | head -1`"
 	git push origin gh-pages
 	git checkout master
 
