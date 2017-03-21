@@ -1,3 +1,31 @@
+module.exports = {
+  generateWord: generateWord,
+  renderFirstExample: function(ele) {
+    renderSimpleMarkovChain(ele, example1data.nodes, example1data.links);
+  },
+  renderSecondExample: function(ele) {
+    renderSimpleMarkovChain(ele, example2data.nodes, example2data.links, example2data.layout);
+  },
+  renderThirdExample: function(ele) {
+    renderSimpleMarkovChain(ele, example3data.nodes, example3data.links, example3data.layout);
+  },
+  renderFourthExample: function() {
+    renderCircularGraph("/assets/scripts/markov/words-monograms.json", $('#markov-chain-letter-graph')[0], function(cy) {
+      cyex3 = cy;
+    });
+  },
+  renderFifthExample: function() {
+    var layout = {
+      name: "spread",
+      padding: 5,
+      minDist: 5,
+    };
+    renderCircularGraph("/assets/scripts/markov/words-digrams.json", $('#markov-chain-digram-graph')[0], function(cy) {
+      cyex4 = cy;
+    }, layout);
+  }
+};
+
 // Example 1 and 2
 var example1data = {
   nodes: [
@@ -223,10 +251,6 @@ example3data.links.forEach(function(e) {
   }
 });
 
-renderSimpleMarkovChain("#markov-chain", example1data.nodes, example1data.links);
-renderSimpleMarkovChain("#markov-chain-sentence", example2data.nodes, example2data.links, example2data.layout);
-renderSimpleMarkovChain("#markov-chain-sentence-two", example3data.nodes, example3data.links, example3data.layout);
-
 function renderSimpleMarkovChain(container, nodes, links, layout={}) {
   if(layout == {}) {
     layout["name"] = "grid";
@@ -287,7 +311,10 @@ var cyex3;
 var cyex4;
 
 // cb is called with cytoscape instance
-function renderCircularGraph(json, container, cb) {
+function renderCircularGraph(json, container, cb, layout={}) {
+  if(layout == {}) {
+    layout["name"] = "cirle";
+  }
   $.ajax({
         url: json,
         dataType: "json",
@@ -298,8 +325,8 @@ function renderCircularGraph(json, container, cb) {
             boxSelectionEnabled: false,
             autounselectify: false,
 
-            userZoomingEnabled: false,
-            panningEnabled: false,
+            userZoomingEnabled: true,
+            panningEnabled: true,
 
             style: [
               {
@@ -369,14 +396,7 @@ function renderCircularGraph(json, container, cb) {
               nodes: data.nodes,
               edges: data.links,
             },
-            layout: {
-              name: 'circle',
-              sort: function(a, b){
-                if(a.data('id') < b.data('id')) return -1;
-                if(a.data('id') > b.data('id')) return 1;
-                return 0;
-              }
-            },
+            layout: layout,
           }));
         }
       });
@@ -428,28 +448,3 @@ function generateWord(example=3, output_div="") {
 
   getNextLetter(cy, node, output_div);
 }
-
-module.exports = {
-  generateWord: generateWord,
-  renderFirstExample: function(ele) {
-    renderSimpleMarkovChain(ele, example1data.nodes, example1data.links);
-  },
-  renderSecondExample: function(ele) {
-    renderSimpleMarkovChain(ele, example2data.nodes, example2data.links, example2data.layout);
-  },
-  renderThirdExample: function(ele) {
-    renderSimpleMarkovChain(ele, example3data.nodes, example3data.links, example3data.layout);
-  },
-  renderFourthExample: function() {
-    renderCircularGraph("/assets/scripts/markov/words.json", $('#markov-chain-letter-graph')[0], function(cy) {
-      cyex3 = cy;
-      console.log("DONE");
-    });
-  },
-  renderFifthExample: function() {
-    renderCircularGraph("/assets/scripts/markov/words.json", $('#markov-chain-digram-graph')[0], function(cy) {
-      cyex4 = cy;
-      console.log("DONE2");
-    });
-  }
-};

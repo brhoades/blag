@@ -9,6 +9,7 @@ categories: markov chain marko ruby bot irc
   <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
   <script src="http://underscorejs.org/underscore-min.js"></script>
   <script src="/assets/javascripts/dist/cytoscape.js"></script>
+  <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-spread/1.2.0/cytoscape-spread.js"></script>
   <script src="/assets/javascripts/markov.js"></script>
 {% endraw %}
 
@@ -129,10 +130,10 @@ These drawbacks are all caused by a loss in context by the Markov chain. While i
 Below is yet another example of a Markov chain which does just that. You can also click "Create a word" to see how the output is.
 
 {% raw %}
-<div id="markov-chain-digram-graph" class="markov-graph" style="height: 600px; width: 768px;"></div>
+<div id="markov-chain-digram-graph" class="markov-graph" style="height: 800px; width: 800px;"></div>
 <br />
 <div id="built-word-2" style="height: 25px;"></div>
-<a href="javascript:$('#built-word-2').text(''); markov.graphs.generateWord(4, "#built-word-2");">Create a word</a>
+<a href="javascript:$('#built-word-2').text(''); markov.graphs.generateWord(4, '#built-word-2');">Create a word</a>
 
 <script>
   markov.graphs.renderFifthExample();

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "cytoscape": "^2.7.15",
+    "cytoscape-cola": "^1.5.0",
     "jquery": "^3.1.1",
     "underscore": "^1.8.3"
   },
