@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Creating a Gatling Simulation</title>
+  <meta name="description" content="Background I’ve written this as an aid for someone completely new to Gatling. I could not find material online which contained any “getting started” informat...">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="/gatling/simulation/getting/started/2017/03/21/simple-gatling-simulation.html">
+  <link rel="alternate" type="application/rss+xml" title="Billy Rhoades" href="/feed.xml">
+  
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Billy Rhoades</a>
+
+    <nav class="site-nav">
+      <span class="menu-icon">
+        <svg viewBox="0 0 18 15" width="18px" height="15px">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </span>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Creating a Gatling Simulation</h1>
+    <p class="post-meta"><time datetime="2017-03-21T09:18:30-05:00" itemprop="datePublished">Mar 21, 2017</time></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <h2 id="background">Background</h2>
+<p>I’ve written this as an aid for someone completely new to Gatling. I could not find material online
+which contained any “getting started” information for the latest version of Gatling that
+targeted someone without a great deal of functional experience. This is not comprehensive; I just hope
+this serves as a starting point to jump off to official documentation.</p>
+
+<h2 id="recommended-reading">Recommended Reading</h2>
+<p><a href="http://blog.jenkster.com/2015/12/what-is-functional-programming.html">What is functional programming</a></p>
+
+<p><a href="https://www.scala-lang.org/documentation/">Scala documentation</a></p>
+
+<p><a href="http://gatling.io/docs/current/">Gatling documentation</a></p>
+
+<h2 id="manually-creating-a-simple-simulation">Manually Creating a Simple Simulation</h2>
+<p>Structuring a simulation is defined at length <a href="http://gatling.io/docs/current/general/simulation_structure/">here</a>, but a minimal functioning example helps illustrate this:</p>
+
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">package</span> <span class="nn">simpleexample</span>
+
+<span class="k">import</span> <span class="nn">io.gatling.core.Predef._</span>
+<span class="k">import</span> <span class="nn">io.gatling.http.Predef._</span>
+
+<span class="k">class</span> <span class="nc">ExampleSimulation</span> <span class="k">extends</span> <span class="nc">Simulation</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">httpConf</span> <span class="k">=</span> <span class="n">http</span>
+    <span class="o">.</span><span class="n">baseURL</span><span class="o">(</span><span class="s">"https://google.com"</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">acceptHeader</span><span class="o">(</span><span class="s">"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">doNotTrackHeader</span><span class="o">(</span><span class="s">"1"</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">acceptLanguageHeader</span><span class="o">(</span><span class="s">"en-US,en;q=0.5"</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">acceptEncodingHeader</span><span class="o">(</span><span class="s">"gzip, deflate"</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">userAgentHeader</span><span class="o">(</span><span class="s">"Mozilla/5.0 (Windows NT 5.1; rv:31.0) Gecko/20100101 Firefox/31.0"</span><span class="o">)</span>
+
+  <span class="k">val</span> <span class="n">scn</span> <span class="k">=</span> <span class="n">scenario</span><span class="o">(</span><span class="s">"Scenario Name"</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">exec</span><span class="o">(</span><span class="n">http</span><span class="o">(</span><span class="s">"Main Page"</span><span class="o">)</span>
+      <span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">"/"</span><span class="o">))</span>
+
+  <span class="n">setUp</span><span class="o">(</span><span class="n">scn</span><span class="o">.</span><span class="n">inject</span><span class="o">(</span><span class="n">atOnceUsers</span><span class="o">(</span><span class="mi">1</span><span class="o">)).</span><span class="n">protocols</span><span class="o">(</span><span class="n">httpConf</span><span class="o">))</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>This simulation loads https://google.com/ with the provided HTTP headers with a single user.
+The Simulation above describes a single scenario, although there can be many. This scenario
+has a single HTTP chain “Main Page”; it visits <code class="highlighter-rouge">/</code> relative to the baseURL described in
+our <code class="highlighter-rouge">httpConf</code>.</p>
+
+<p>The <code class="highlighter-rouge">setUp</code> function called at the end of the class definition is what defines the simulation’s execution
+parameters. In this case, a single user immediately begins the scenario, walking through the single
+step of getting <code class="highlighter-rouge">/</code>. There are many other options for defining
+<a href="http://gatling.io/docs/current/session/feeder/">how user(s) enter the simulation</a> and
+<a href="http://gatling.io/docs/current/general/simulation_setup/">at what rate they enter the simulation</a>.</p>
+
+<p>The output of the example simulation above is the following:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Simulation simpleexample.ExampleSimulation started...
+
+================================================================================
+2017-03-15 12:47:51                                           2s elapsed
+---- Requests ------------------------------------------------------------------
+&gt; Global                                                   (OK=2      KO=0     )
+&gt; Main Page                                                (OK=1      KO=0     )
+&gt; Main Page Redirect 1                                     (OK=1      KO=0     )
+
+---- Scenario Name -------------------------------------------------------------
+[##########################################################################]100%
+          waiting: 0      / active: 0      / done:1
+================================================================================
+
+Simulation simpleexample.ExampleSimulation completed in 0 seconds
+Parsing log file(s)...
+Parsing log file(s) done
+Generating reports...
+
+================================================================================
+---- Global Information --------------------------------------------------------
+&gt; request count                                          2 (OK=2      KO=0     )
+&gt; min response time                                    159 (OK=159    KO=-     )
+&gt; max response time                                    477 (OK=477    KO=-     )
+&gt; mean response time                                   318 (OK=318    KO=-     )
+&gt; std deviation                                        159 (OK=159    KO=-     )
+&gt; response time 50th percentile                        318 (OK=318    KO=-     )
+&gt; response time 75th percentile                        398 (OK=398    KO=-     )
+&gt; response time 95th percentile                        461 (OK=461    KO=-     )
+&gt; response time 99th percentile                        474 (OK=474    KO=-     )
+&gt; mean requests/sec                                      2 (OK=2      KO=-     )
+---- Response Time Distribution ------------------------------------------------
+&gt; t &lt; 800 ms                                             2 (100%)
+&gt; 800 ms &lt; t &lt; 1200 ms                                   0 (  0%)
+&gt; t &gt; 1200 ms                                            0 (  0%)
+&gt; failed                                                 0 (  0%)
+================================================================================
+
+Reports generated in 0s.
+Please open the following file: target/gatling/examplesimulation-1489600069122/index.html
+[info] Simulation ExampleSimulation successful.
+[info] Simulation(s) execution ended.
+[success] Total time: 8 s, completed Mar 15, 2017 12:47:52 PM
+</code></pre>
+</div>
+
+<p>Extended report information can be found in the linked report HTML file. Simulation status
+is output while the simulation runs, displaying the number of errors with their details, if
+there are any.</p>
+
+<p>It can be seen that when visiting the site’s root, a redirect occurred. By default, Gatling
+follows all redirects on an HTTP chain and labels them as “Name - Redirect #”. This behavior
+can disabled globally, per chain, and capped. More information about redirect configuration
+<a href="http://gatling.io/docs/current/http/http_protocol/#follow-redirects">here</a>.</p>
+
+<h3 id="chaining-requests">Chaining Requests</h3>
+<p>In the example simulation above, there was a single request to a single page. Typically in
+simulations there will be more than one request. As each call to exec returns the modified
+scenario object, scenarios can be chained to perform more complex behaviors.</p>
+
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="c1">// ...
+</span>  <span class="k">val</span> <span class="n">scn</span> <span class="k">=</span> <span class="n">scenario</span><span class="o">(</span><span class="s">"Scenario Name"</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">exec</span><span class="o">(</span><span class="n">http</span><span class="o">(</span><span class="s">"Main Page"</span><span class="o">)</span>
+      <span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">"/"</span><span class="o">))</span>
+    <span class="o">.</span><span class="n">exec</span><span class="o">(</span><span class="n">http</span><span class="o">(</span><span class="s">"Search"</span><span class="o">)</span>
+      <span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">"/?q=Some+Query"</span><span class="o">))</span>
+<span class="c1">// ...
+</span></code></pre>
+</div>
+
+<p>This scenario now also runs a search, visiting https://google.com/?q=Some+Query . The HTTP
+protocol supports POST requests, cookies, redirects, and more complex configurations with proxies.
+Further information is also available on the <a href="http://gatling.io/docs/current/http/">official documentation page</a>.</p>
+
+<h3 id="assertions">Assertions</h3>
+<p>Assertions can be used to verify that responses contain expected content. One of the most basic
+assertions is for status codes. For example, if we we wanted our scenario to verify that
+the Google main page returned HTTP200:</p>
+
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="c1">// ...
+</span>  <span class="k">val</span> <span class="n">scn</span> <span class="k">=</span> <span class="n">scenario</span><span class="o">(</span><span class="s">"Scenario Name"</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">exec</span><span class="o">(</span><span class="n">http</span><span class="o">(</span><span class="s">"Main Page"</span><span class="o">)</span>
+      <span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">"/"</span><span class="o">)</span>
+      <span class="o">.</span><span class="n">check</span><span class="o">(</span><span class="n">status</span><span class="o">.</span><span class="n">is</span><span class="o">(</span><span class="mi">200</span><span class="o">)))</span>
+    <span class="o">.</span><span class="n">exec</span><span class="o">(</span><span class="n">http</span><span class="o">(</span><span class="s">"Search"</span><span class="o">)</span>
+      <span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">"/?q=Some+Query"</span><span class="o">))</span>
+<span class="c1">// ...
+</span></code></pre>
+</div>
+
+<p>If there was not an HTTP200, the scenario would print the name of the request, <code class="highlighter-rouge">'Main Page'</code>, and state
+the expected and found status codes. This would count as a KO in the statistics output as well:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>...
+&gt; Global                                                   (OK=1      KO=1     )
+&gt; Main Page                                                (OK=0      KO=1     )
+&gt; Search                                                   (OK=1      KO=0     )
+...
+</code></pre>
+</div>
+<p>Which signifies that this particular request failed to pass validation. <strong>Note that the simulation
+continues</strong> even though there was a failure at a prior step. There are
+<a href="http://gatling.io/docs/current/general/scenario/#exithereiffailed">methods which work around this</a>,
+which can be useful when authentication fails.</p>
+
+<p>CSS selectors are also used to verify content on pages. For example, if we wanted to ensure
+that the main page had an <code class="highlighter-rouge">html</code> node with the attribute <code class="highlighter-rouge">size</code> set to <code class="highlighter-rouge">mobile</code>:</p>
+
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="c1">// ...
+</span>  <span class="k">val</span> <span class="n">scn</span> <span class="k">=</span> <span class="n">scenario</span><span class="o">(</span><span class="s">"Scenario Name"</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">exec</span><span class="o">(</span><span class="n">http</span><span class="o">(</span><span class="s">"Main Page"</span><span class="o">)</span>
+      <span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">"/"</span><span class="o">)</span>
+      <span class="o">.</span><span class="n">check</span><span class="o">(</span><span class="n">status</span><span class="o">.</span><span class="n">is</span><span class="o">(</span><span class="mi">200</span><span class="o">))</span>
+      <span class="o">.</span><span class="n">check</span><span class="o">(</span><span class="n">css</span><span class="o">(</span><span class="s">"html[size]"</span><span class="o">,</span> <span class="s">"mobile"</span><span class="o">).</span><span class="n">exists</span><span class="o">))</span>
+<span class="c1">// ...
+</span></code></pre>
+</div>
+
+<p>A great deal of other assertions exist for optionality, performance, header values,
+performance requirements, etc. More details are available
+<a href="http://gatling.io/docs/current/general/assertions/">here</a>.</p>
+
+<h3 id="session-modification-and-inspection">Session Modification and Inspection</h3>
+<p>Sessions are implicitly passed between each exec call. They can manually inspected or modified
+during scenario definition by executing a custom function with exec.</p>
+
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="c1">// ...
+</span>  <span class="k">val</span> <span class="n">scn</span> <span class="k">=</span> <span class="n">scenario</span><span class="o">(</span><span class="s">"Scenario Name"</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">exec</span><span class="o">(</span><span class="n">http</span><span class="o">(</span><span class="s">"Main Page"</span><span class="o">)</span>
+      <span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">"/"</span><span class="o">))</span>
+    <span class="o">.</span><span class="n">exec</span><span class="o">(</span><span class="n">session</span> <span class="k">=&gt;</span> <span class="o">{</span>
+      <span class="n">println</span><span class="o">(</span><span class="n">session</span><span class="o">)</span>
+      <span class="n">session</span>
+    <span class="o">})</span>
+    <span class="o">.</span><span class="n">exec</span><span class="o">(</span><span class="n">session</span> <span class="k">=&gt;</span> <span class="n">session</span><span class="o">.</span><span class="n">set</span><span class="o">(</span><span class="s">"hello"</span><span class="o">,</span> <span class="s">"bla"</span><span class="o">))</span>
+    <span class="o">.</span><span class="n">exec</span><span class="o">(</span><span class="n">session</span> <span class="k">=&gt;</span> <span class="o">{</span>
+      <span class="n">println</span><span class="o">(</span><span class="n">session</span><span class="o">)</span>
+      <span class="n">session</span>
+    <span class="o">})</span>
+<span class="c1">// ...
+</span></code></pre>
+</div>
+
+<p>Above is the same scenario as our first one. However, this scenario prints the session,
+sets “hello” in the session to “bla”, then prints it again. <em>Note: if you are not sure why
+session is being repeated after printing it, read more about scala and then try it out.</em></p>
+
+<p>Here is the output:</p>
+
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="nc">Simulation</span> <span class="n">simpleexample</span><span class="o">.</span><span class="nc">ExampleSimulation</span> <span class="n">started</span><span class="o">...</span>
+<span class="nc">Session</span><span class="o">(</span><span class="nc">Scenario</span> <span class="nc">Name</span><span class="o">,</span>
+<span class="mi">1</span><span class="o">,</span>
+<span class="nc">Map</span><span class="o">(</span>
+  <span class="n">gatling</span><span class="o">.</span><span class="n">http</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">dns</span> <span class="o">-&gt;</span> <span class="n">io</span><span class="o">.</span><span class="n">gatling</span><span class="o">.</span><span class="n">http</span><span class="o">.</span><span class="n">resolver</span><span class="o">.</span><span class="nc">ShuffleJdkNameResolver</span><span class="k">@</span><span class="mi">582701</span><span class="n">e2</span><span class="o">,</span>
+  <span class="n">gatling</span><span class="o">.</span><span class="n">http</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">redirects</span> <span class="o">-&gt;</span> <span class="n">io</span><span class="o">.</span><span class="n">gatling</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="nc">Cache</span><span class="k">@</span><span class="mi">2</span><span class="n">c5ead52</span><span class="o">,</span>
+  <span class="n">gatling</span><span class="o">.</span><span class="n">http</span><span class="o">.</span><span class="n">cookies</span> <span class="o">-&gt;</span> <span class="nc">CookieJar</span><span class="o">(</span>
+  <span class="nc">Map</span><span class="o">(</span>
+    <span class="nc">CookieKey</span><span class="o">(</span><span class="n">nid</span><span class="o">,</span><span class="n">google</span><span class="o">.</span><span class="n">com</span><span class="o">,/)</span> <span class="o">-&gt;</span> <span class="nc">StoredCookie</span><span class="o">(</span><span class="nc">NID</span><span class="k">=</span><span class="mi">99</span><span class="k">=</span><span class="nc">SkqwEzuPt4c2J</span><span class="o">-</span><span class="n">cwZMPjX0rPxHeZHWTiDaeyEvQr</span><span class="o">-</span><span class="mf">82D</span><span class="n">h0NlSie_-trLh9SO9OfYVed4nShyQv0wFIWUnyCDsshfjsEgE0M5eYT_W3Hn2Jm20vxV56nyq4q7uRvM96bP8qnL_HPAfiMH2fXb4w</span><span class="o">;</span> <span class="n">domain</span><span class="o">=.</span><span class="n">google</span><span class="o">.</span><span class="n">com</span><span class="o">;</span> <span class="n">path</span><span class="o">=/;</span> <span class="nc">HTTPOnly</span><span class="o">,</span><span class="kc">false</span><span class="o">,</span><span class="kc">false</span><span class="o">,</span><span class="mi">1489611434846</span><span class="o">))),</span>
+  <span class="n">gatling</span><span class="o">.</span><span class="n">http</span><span class="o">.</span><span class="n">referer</span> <span class="o">-&gt;</span> <span class="n">https</span><span class="o">://</span><span class="n">www</span><span class="o">.</span><span class="n">google</span><span class="o">.</span><span class="n">com</span><span class="o">/),</span>
+  <span class="mi">1489611433728</span><span class="o">,</span>
+  <span class="mi">42</span><span class="o">,</span>
+  <span class="nc">OK</span><span class="o">,</span>
+  <span class="nc">List</span><span class="o">(),</span>
+  <span class="n">io</span><span class="o">.</span><span class="n">gatling</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">protocol</span><span class="o">.</span><span class="nc">ProtocolComponentsRegistry$$Lambda$149</span><span class="o">/</span><span class="mi">418118518</span><span class="nd">@c4d1ae6</span><span class="o">)</span>
+
+<span class="nc">Session</span><span class="o">(</span><span class="nc">Scenario</span> <span class="nc">Name</span><span class="o">,</span>
+  <span class="mi">1</span><span class="o">,</span>
+  <span class="nc">Map</span><span class="o">(</span>
+    <span class="n">gatling</span><span class="o">.</span><span class="n">http</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">dns</span> <span class="o">-&gt;</span> <span class="n">io</span><span class="o">.</span><span class="n">gatling</span><span class="o">.</span><span class="n">http</span><span class="o">.</span><span class="n">resolver</span><span class="o">.</span><span class="nc">ShuffleJdkNameResolver</span><span class="k">@</span><span class="mi">582701</span><span class="n">e2</span><span class="o">,</span>
+    <span class="n">gatling</span><span class="o">.</span><span class="n">http</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">redirects</span> <span class="o">-&gt;</span> <span class="n">io</span><span class="o">.</span><span class="n">gatling</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="nc">Cache</span><span class="k">@</span><span class="mi">2</span><span class="n">c5ead52</span><span class="o">,</span>
+    <span class="n">gatling</span><span class="o">.</span><span class="n">http</span><span class="o">.</span><span class="n">cookies</span> <span class="o">-&gt;</span> <span class="nc">CookieJar</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span>
+      <span class="nc">CookieKey</span><span class="o">(</span><span class="n">nid</span><span class="o">,</span><span class="n">google</span><span class="o">.</span><span class="n">com</span><span class="o">,/)</span> <span class="o">-&gt;</span> <span class="nc">StoredCookie</span><span class="o">(</span><span class="nc">NID</span><span class="k">=</span><span class="mi">99</span><span class="k">=</span><span class="nc">SkqwEzuPt4c2J</span><span class="o">-</span><span class="n">cwZMPjX0rPxHeZHWTiDaeyEvQr</span><span class="o">-</span><span class="mf">82D</span><span class="n">h0NlSie_-trLh9SO9OfYVed4nShyQv0wFIWUnyCDsshfjsEgE0M5eYT_W3Hn2Jm20vxV56nyq4q7uRvM96bP8qnL_HPAfiMH2fXb4w</span><span class="o">;</span> <span class="n">domain</span><span class="o">=.</span><span class="n">google</span><span class="o">.</span><span class="n">com</span><span class="o">;</span> <span class="n">path</span><span class="o">=/;</span> <span class="nc">HTTPOnly</span><span class="o">,</span><span class="kc">false</span><span class="o">,</span><span class="kc">false</span><span class="o">,</span><span class="mi">1489611434846</span><span class="o">))),</span>
+  <span class="n">gatling</span><span class="o">.</span><span class="n">http</span><span class="o">.</span><span class="n">referer</span> <span class="o">-&gt;</span> <span class="n">https</span><span class="o">://</span><span class="n">www</span><span class="o">.</span><span class="n">google</span><span class="o">.</span><span class="n">com</span><span class="o">/,</span>
+  <span class="n">hello</span> <span class="o">-&gt;</span> <span class="n">bla</span><span class="o">),</span>
+  <span class="mi">1489611433728</span><span class="o">,</span>
+  <span class="mi">42</span><span class="o">,</span>
+  <span class="nc">OK</span><span class="o">,</span>
+  <span class="nc">List</span><span class="o">(),</span>
+  <span class="n">io</span><span class="o">.</span><span class="n">gatling</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">protocol</span><span class="o">.</span><span class="nc">ProtocolComponentsRegistry$$Lambda$149</span><span class="o">/</span><span class="mi">418118518</span><span class="nd">@c4d1ae6</span><span class="o">)</span>
+</code></pre>
+</div>
+
+<p>In between the first and second session output, I set “hello” to “bla” which can be see in the second session.
+This is the primary mechanism to inspect and modify the session from the level of scenario definition.</p>
+
+<p>Individual http chains, where requests are made, can also save and read from the session by
+<a href="http://gatling.io/docs/current/general/assertions/">assertions</a>.
+<a href="http://gatling.io/docs/current/http/http_check/#http-check-saving">saveAs</a> serves as a session-saving
+mechanism which allows conditional branching, posting form data, and more.</p>
+
+<h2 id="recording-a-simulation">Recording a Simulation</h2>
+<p>Gatling also supports recording simulations using its
+<a href="http://gatling.io/docs/current/http/recorder/">HTTP recorder</a>. It acts as a proxy which records
+all traffic between a browser and a server and then saves it into a simulation. If the target
+website is not https or a custom, self-signed certificate can be used, this method
+of creating simulations is ideal.</p>
+
+<h2 id="distribution">Distribution</h2>
+<p>Gatling plugins exist for both <a href="http://gatling.io/docs/current/extensions/sbt_plugin/">sbt</a> and
+<a href="https://github.com/lkishalmi/gradle-gatling-plugin">Gradle</a>. Both work very well, however the sbt
+plugin is an official extension to Gatling and contains the most comprehensive documentation and examples.
+Unless Gatling is being added to an existing Gradle project, I would highly recommend using the sbt
+extension. As the <a href="http://gatling.io/docs/current/extensions/sbt_plugin/">official documentation</a> does
+not explicitly state this, here is a minimal collection of files to get an sbt project running:</p>
+
+<p>Your project tree, for a standalone sbt project, should look similar to this:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>├── build.sbt
+├── project
+│   ├── build.properties
+│   └── plugins.sbt
+└── src
+    └── test
+        ├── resources
+        └── scala
+            └── simpleexample
+                └── ExampleSimulation.scala
+</code></pre>
+</div>
+
+<p>build.sbt</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>enablePlugins(GatlingPlugin)
+
+scalaVersion := "2.11.8"
+
+scalacOptions := Seq(
+  "-encoding", "UTF-8", "-target:jvm-1.8", "-deprecation",
+  "-feature", "-unchecked", "-language:implicitConversions", "-language:postfixOps")
+
+libraryDependencies += "io.gatling.highcharts" % "gatling-charts-highcharts" % "2.2.4" % "test,it"
+libraryDependencies += "io.gatling"            % "gatling-test-framework"    % "2.2.4" % "test,it"
+
+addCompilerPlugin("org.psywerx.hairyfotr" %% "linter" % "0.1.17")
+</code></pre>
+</div>
+
+<p>project/build.properties</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>sbt.version=0.13.13
+</code></pre>
+</div>
+
+<p>project/plugins.sbt</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>addSbtPlugin("io.gatling" % "gatling-sbt" % "2.2.1")
+</code></pre>
+</div>
+
+<p>Once the above files are set up, install sbt and run:</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>sbt
+</code></pre>
+</div>
+
+<p>Then simulations may be run either from the sbt shell:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sbt
+&gt; gatling:testOnly somepackage.GeneralBrowse
+</code></pre>
+</div>
+
+<p>Or, instead, from your shell:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sbt "gatling:testOnly somepackage.GeneralBrowse"
+</code></pre>
+</div>
+
+<p>The reports can be found in <code class="highlighter-rouge">/target/gatling/</code> and the last report can be opened in a web browser
+with:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sbt gatling:lastReport
+</code></pre>
+</div>
+
+<p>A list of all sbt tasks are available <a href="http://gatling.io/docs/current/extensions/sbt_plugin/">here</a>.</p>
+
+<h2 id="reference-material">Reference Material</h2>
+
+<p><a href="http://gatling.io/docs/current/cheat-sheet/">Gatling cheat sheet</a></p>
+
+  </div>
+
+  
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Billy Rhoades</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>
+            
+              Billy Rhoades
+            
+            </li>
+            
+            <li><a href="mailto:billyarhoades@gmail.com">billyarhoades@gmail.com</a></li>
+            
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/brhoades"><span class="icon icon--github"><svg viewBox="0 0 16 16" width="16px" height="16px"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">brhoades</span></a>
+
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
