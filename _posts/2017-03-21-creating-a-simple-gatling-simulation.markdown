@@ -209,7 +209,8 @@ performance requirements, etc. More details are available
 [here](http://gatling.io/docs/current/general/assertions/).
 
 
-### Session Modification and Inspection
+Session Modification and Inspection
+-----------------------------------
 Sessions are implicitly passed between each exec call. They can manually inspected or modified
 during scenario definition by executing a custom function with exec.
 
@@ -272,8 +273,8 @@ Session(Scenario Name,
 In between the first and second session output, I set "hello" to "bla" which can be see in the second session.
 This is the primary mechanism to inspect and modify the session from the level of scenario definition.
 
-POST Requests and Session Variables
------------------------------------
+POST Requests and Session Access
+--------------------------------
 POST requests typically make use of the
 [saveAs](http://gatling.io/docs/current/http/http_check/#http-check-saving)
 assertion in order to retain response details from a previous server response. However, this doesn't
