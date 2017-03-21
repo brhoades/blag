@@ -12,8 +12,6 @@ which contained any "getting started" information for the latest version of Gatl
 targeted someone without a great deal of functional experience. This is not comprehensive; I just hope
 this serves as a starting point to jump off to official documentation.
 
-I've provided a set up Gatling project to help follow along [here](https://github.com/brhoades/example-gatling-simulation).
-
 Recommended Reading
 -------------------
 [What is functional programming](http://blog.jenkster.com/2015/12/what-is-functional-programming.html)
@@ -22,6 +20,28 @@ Recommended Reading
 
 [Gatling documentation](http://gatling.io/docs/current/)
 
+What is Gatling
+---------------
+Gatling is a load testing framework written in Scala. It efficiently simulates HTTP traffic for websites
+in a way which allows thousands of concurrent users from a single machine. Gatling does not parse HTML
+or run Javascript, if this is your objective you will need to look
+[elsewhere](https://github.com/nmeans/phantomherd) for that. However, by not rendering HTML,
+loading dependencies, or running Javascript Gatling scales incredibly well.
+
+Gatling has two major sources of writing simulations. The easiest of the two is the recorder
+which I will describe first. I will spend the most time describing how to manually write simulations,
+as odds are that even if you record a simulation you will be editing it. I've provided a set up Gatling
+project to help follow along [here](https://github.com/brhoades/example-gatling-simulation).
+
+Recording a Simulation
+----------------------
+Gatling supports recording simulations using its
+[HTTP recorder](http://gatling.io/docs/current/http/recorder/). It acts as a proxy which records
+all traffic between a browser and a server and then saves it into a simulation. If the target
+website is not https or a custom, self-signed certificate can be used, this method
+of creating simulations is ideal. It serves as a good starting point for simulations if it can be used.
+For the website I started load testing, it wasn't possible to use this recorder, so I am unaware of
+most of its functionality.
 
 Manually Creating a Simple Simulation
 -------------------------------------
@@ -253,14 +273,6 @@ Individual http chains, where requests are made, can also save and read from the
 [assertions](http://gatling.io/docs/current/general/assertions/).
 [saveAs](http://gatling.io/docs/current/http/http_check/#http-check-saving) serves as a session-saving
 mechanism which allows conditional branching, posting form data, and more.
-
-Recording a Simulation
-----------------------
-Gatling also supports recording simulations using its
-[HTTP recorder](http://gatling.io/docs/current/http/recorder/). It acts as a proxy which records
-all traffic between a browser and a server and then saves it into a simulation. If the target
-website is not https or a custom, self-signed certificate can be used, this method
-of creating simulations is ideal.
 
 Distribution
 ------------
