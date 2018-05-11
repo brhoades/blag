@@ -5,15 +5,12 @@ title:  "React Pitfalls"
 categories: react design component mistakes best practices
 ---
 
-Introduction
-=================
+# Introduction
 There are some common pitfalls that I've seen React developers, new and old, fall into when designing React components. The most common seem to center around readability and performance. Now, there's easily a dozen [good]() [articles](http://americanexpress.io/clean-code-dirty-code/) [about]() [React]() [best]() [practices]() but these lean abstract with contrived examples. Personally, I find it much easier to see where people made mistakes, see how we fixed them, and then break those examples down.
 
-Deadly Pitfalls
-=====================
+## Deadly Pitfalls
 
-Nested Component Definitions
---------------------------------
+## Nested Component Definitions
 Defining components within components breaks reusability, causes unnecessary rendering, and crowds files unnecessarily. It can be tempting to nest components, particularly when one component effectively closes over another, but it will always lead to coupling. Fortunately, it's easy to fix.
 
 ### Bad
@@ -84,46 +81,34 @@ const Section = ({ description, footer, header, sectionId, onChange }) => {
 });
 ```
 
-Shared State
---------------
+## Shared State
 
-Abusing Keys
----------------
+## Abusing Keys
 
-Redux: Overloading mapStateToProps
----------------------------------------
+## Redux: Overloading mapStateToProps
 
-Delayed Pitfalls
-=====================
+# Delayed Pitfalls
 
-Branching Logic in Render
-----------------------------
+## Branching Logic in Render
 Hard to read, harder to debug.
 
-shouldComponentUpdate
-------------------------
+## shouldComponentUpdate
 It's a smell.
 
-Potholes
-===========
+# Potholes
 There's aren't pitfalls... they're just potholes.
 
-Lambdas in Render
--------------------
+## Lambdas in Render
 
-&& / || with Objects in Passed Props
------------------------------------------
+## && / || with Objects in Passed Props
 
-Wrapping with Dummy Components
-----------------------------------
+## Wrapping with Dummy Components
 
 ```javascript
 <React.Fragment />
 ```
 
-Avoid Class Components
--------------------------
+## Avoid Class Components
 
-Resources
-=============
+# Resources
  * [Optimizing React Performance](https://reactjs.org/docs/optimizing-performance.html)
