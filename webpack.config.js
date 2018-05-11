@@ -10,7 +10,7 @@ module.exports = {
   },
   output: {
     // we’re going to put the generated file in the assets folder so jekyll will grab it.
-    path: 'assets/javascripts/',
+    path: path.resolve(__dirname, 'assets/javascripts/'),
     filename: '[name].js',
     library: '[name]'
   },
