@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-03-21T11:14:27-05:00</updated><id>/</id><title type="html">Billy Rhoades</title><subtitle></subtitle><entry><title type="html">Creating a Gatling Simulation</title><link href="/gatling/simulation/getting/started/2017/03/21/creating-a-simple-gatling-simulation.html" rel="alternate" type="text/html" title="Creating a Gatling Simulation" /><published>2017-03-21T08:41:00-05:00</published><updated>2017-03-21T08:41:00-05:00</updated><id>/gatling/simulation/getting/started/2017/03/21/creating-a-simple-gatling-simulation</id><content type="html" xml:base="/gatling/simulation/getting/started/2017/03/21/creating-a-simple-gatling-simulation.html">&lt;h1 id=&quot;background&quot;&gt;Background&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-05-10T20:25:57-05:00</updated><id>/</id><title type="html">Billy Rhoades</title><subtitle></subtitle><entry><title type="html">Creating a Gatling Simulation</title><link href="/gatling/simulation/getting/started/2017/03/21/creating-a-simple-gatling-simulation.html" rel="alternate" type="text/html" title="Creating a Gatling Simulation" /><published>2017-03-21T08:41:00-05:00</published><updated>2017-03-21T08:41:00-05:00</updated><id>/gatling/simulation/getting/started/2017/03/21/creating-a-simple-gatling-simulation</id><content type="html" xml:base="/gatling/simulation/getting/started/2017/03/21/creating-a-simple-gatling-simulation.html">&lt;h1 id=&quot;background&quot;&gt;Background&lt;/h1&gt;
 &lt;p&gt;I could not find material online that targeted the latest version of Gatling, meant for someone without
 a great deal of functional experience. I also don’t mean for this to be comprehensive; I just hope
 this serves as a starting point to jump off to official documentation.&lt;/p&gt;
@@ -13,9 +13,9 @@ this serves as a starting point to jump off to official documentation.&lt;/p&gt;
 &lt;h2 id=&quot;what-is-gatling&quot;&gt;What is Gatling&lt;/h2&gt;
 &lt;p&gt;Gatling is a load testing framework written in Scala. It efficiently simulates HTTP traffic
 in a way which allows thousands of concurrent users from a single machine. Gatling does not parse HTML
-or run Javascript, if this is your objective you will need to look
+or run Javascript; if this is your objective you will need to look
 &lt;a href=&quot;https://github.com/nmeans/phantomherd&quot;&gt;elsewhere&lt;/a&gt; for that. However, by not rendering HTML,
-loading dependencies, or running Javascript Gatling scales incredibly well.&lt;/p&gt;
+loading dependencies, or running Javascript, Gatling scales incredibly well.&lt;/p&gt;
 
 &lt;p&gt;There are two ways to begin writing a simulation: use the recorder for a basic starting simulation, or
 manually write one from scratch. As I did not have the luxury of starting with a recorder,
@@ -141,7 +141,7 @@ scenario object, scenarios can be chained to perform more complex behaviors.&lt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;This scenario now also runs a search, visiting https://google.com/?q=Some+Query . Cookies and other
+&lt;p&gt;This scenario now also runs a search, visiting https://google.com/?q=Some+Query. Cookies and other
 session data are retained and passed between each exec call. Redirects will still be followed at
 each step, then continued on the next step. The HTTP protocol supports POST requests,
 cookies, redirects, and more complex configurations with proxies. More on this later.&lt;/p&gt;
