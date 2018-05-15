@@ -10,7 +10,7 @@
   <meta name="description" content="Introduction There are some common pitfalls that I’ve seen React developers, new and old, fall into when designing React components. The most common seem to ...">
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="/react/design/component/mistakes/best/practices/2018/05/10/react-pitfalls.html">
+  <link rel="canonical" href="/react/design/component/mistakes/best/practices/2018/05/14/react-pitfalls.html">
   <link rel="alternate" type="application/rss+xml" title="Billy Rhoades" href="/feed.xml">
   
   
@@ -60,26 +60,29 @@
 
   <header class="post-header">
     <h1 class="post-title" itemprop="name headline">React Pitfalls</h1>
-    <p class="post-meta"><time datetime="2018-05-10T20:20:26-05:00" itemprop="datePublished">May 10, 2018</time></p>
+    <p class="post-meta"><time datetime="2018-05-14T20:06:10-05:00" itemprop="datePublished">May 14, 2018</time></p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <h1 id="introduction">Introduction</h1>
+    <h2 id="introduction">Introduction</h2>
 <p>There are some common pitfalls that I’ve seen React developers, new and old, fall into when designing React components. The most common seem to center around readability and performance. Now, there’s easily a dozen <a href="">good</a> <a href="http://americanexpress.io/clean-code-dirty-code/">articles</a> <a href="">about</a> <a href="">React</a> <a href="">best</a> <a href="">practices</a> but these lean abstract with contrived examples. Personally, I find it much easier to see where people made mistakes, see how we fixed them, and then break those examples down.</p>
 
-<h1 id="deadly-pitfalls">Deadly Pitfalls</h1>
+<p>All code in this post is <em>real code</em> that exists or did exist. Names were changed and content was trimmed for simplicity, but the structure is the same. Some of this code was written by someone else, some of it I wrote (in the past). It’s important to emphasize that the intention isn’t to shame anyone, but rather to learn from mistakes.</p>
 
-<h2 id="nested-component-definitions">Nested Component Definitions</h2>
-<p>Defining components within components breaks reusability, causes unnecessary rendering, and crowds files unnecessarily. It can be tempting to nest components, particularly when one component effectively closes over another, but it will always lead to coupling. Fortunately, it’s easy to fix.</p>
+<h2 id="deadly-pitfalls">Deadly Pitfalls</h2>
+<p>These pitfalls are <em>bad</em>. These cause broken/unexpected/undefined behavior and are not performant, not reusable, difficult to debug, and/or hard to understand.</p>
 
-<h3 id="bad">Bad</h3>
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">Section</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">description</span><span class="p">,</span> <span class="nx">footer</span><span class="p">,</span> <span class="nx">header</span><span class="p">,</span> <span class="nx">sectionId</span><span class="p">,</span> <span class="nx">onChange</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">Item</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">content</span><span class="p">,</span> <span class="nx">label</span><span class="p">,</span> <span class="nx">index</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
+<h3 id="nested-component-definitions">Nested Component Definitions</h3>
+<p>Defining components within components breaks reusability, causes unnecessary rendering, and crowds files. It’s particularly tempting to nest components when one component needs variables from the other, but iit leads to coupling. Fortunately, it’s easy to fix.</p>
+
+<h4 id="bad">Bad</h4>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">Section</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">description</span><span class="p">,</span> <span class="nx">footer</span><span class="p">,</span> <span class="nx">header</span><span class="p">,</span> <span class="nx">items</span><span class="p">,</span> <span class="nx">sectionId</span><span class="p">,</span> <span class="nx">onChange</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">Item</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">content</span><span class="p">,</span> <span class="nx">label</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">value</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">React</span><span class="p">.</span><span class="nx">Fragment</span><span class="o">&gt;</span>
       <span class="o">&lt;</span><span class="nx">Header</span> <span class="nx">size</span><span class="o">=</span><span class="s2">"small"</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">label</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/Header</span><span class="err">&gt;
 </span>      <span class="p">{</span><span class="nx">content</span><span class="p">}</span>
-      <span class="o">&lt;</span><span class="nx">Input</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">onChange</span><span class="p">(</span><span class="nx">sectionId</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)}</span>
-      <span class="o">&lt;</span><span class="nx">Spacer</span> <span class="nx">size</span><span class="o">=</span><span class="s2">"small"</span> <span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Input</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">onChange</span><span class="p">(</span><span class="nx">sectionId</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)}</span> <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">value</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Spacer</span> <span class="nx">size</span><span class="o">=</span><span class="s2">"small"</span> <span class="o">/&gt;</span>
     <span class="o">&lt;</span><span class="sr">/React.Fragment</span><span class="err">&gt;
 </span>  <span class="p">);</span>
   
@@ -105,26 +108,30 @@
 </code></pre>
 </div>
 
-<p>Closing over id.
-React updates every item when any item changes. With well-defined components, <a href="https://reactjs.org/docs/rendering-elements.html#react-only-updates-whats-necessary">only components which changed are updated</a>.</p>
+<p>Here you can see a section component which, within it, defines an Item component and a Content component. Defining an internal Content component here is only a coupling issue. However, defining Item within this component is going to cause some pain. Item is defined within this component because it’s only used by Section and it needs sectionId and onChange from Section.</p>
 
-<h3 id="good">Good</h3>
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">Item</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">content</span><span class="p">,</span> <span class="nx">label</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">sectionId</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
+<p>However, defining the component within Section causes Item to be redefined every time any Section prop changes. When any Section prop is updated, everything will be redefined and rerendered. Any Inputs on the page will be destroyed and mounted again within the DOM. If you were typing into an Input component and a Section prop changed, your focus would be lost. I’ve ran into this scenario quite a few times— onChange updates Section’s items which causes a rerender.</p>
+
+<p>If Item were moved outside of Section, React would behave differently.</p>
+
+<h4 id="good">Good</h4>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">Item</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">content</span><span class="p">,</span> <span class="nx">label</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">onChange</span><span class="p">,</span> <span class="nx">sectionId</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
   <span class="o">&lt;</span><span class="nx">React</span><span class="p">.</span><span class="nx">Fragment</span><span class="o">&gt;</span>
     <span class="o">&lt;</span><span class="nx">Header</span> <span class="nx">size</span><span class="o">=</span><span class="s2">"small"</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">label</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/Header</span><span class="err">&gt;
 </span>    <span class="p">{</span><span class="nx">content</span><span class="p">}</span>
-    <span class="o">&lt;</span><span class="nx">Input</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">onChange</span><span class="p">(</span><span class="nx">sectionId</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)}</span>
-    <span class="o">&lt;</span><span class="nx">Spacer</span> <span class="nx">size</span><span class="o">=</span><span class="s2">"small"</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nx">Input</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">onChange</span><span class="p">(</span><span class="nx">sectionId</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="nx">Spacer</span> <span class="nx">size</span><span class="o">=</span><span class="s2">"small"</span> <span class="o">/&gt;</span>
   <span class="o">&lt;</span><span class="sr">/React.Fragment</span><span class="err">&gt;
 </span><span class="p">);</span>
 
-<span class="kr">const</span> <span class="nx">Section</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">description</span><span class="p">,</span> <span class="nx">footer</span><span class="p">,</span> <span class="nx">header</span><span class="p">,</span> <span class="nx">sectionId</span><span class="p">,</span> <span class="nx">onChange</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="kr">const</span> <span class="nx">Section</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">description</span><span class="p">,</span> <span class="nx">footer</span><span class="p">,</span> <span class="nx">header</span><span class="p">,</span> <span class="nx">items</span><span class="p">,</span> <span class="nx">sectionId</span><span class="p">,</span> <span class="nx">onChange</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="kr">const</span> <span class="nx">content</span> <span class="o">=</span> <span class="nx">items</span><span class="p">.</span><span class="nx">map</span><span class="p">(({</span> <span class="nx">content</span><span class="p">,</span> <span class="nx">label</span> <span class="p">},</span> <span class="nx">i</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">Item</span>
       <span class="nx">content</span><span class="o">=</span><span class="p">{</span><span class="nx">content</span><span class="p">}</span>
       <span class="nx">label</span><span class="o">=</span><span class="p">{</span><span class="nx">label</span><span class="p">}</span>
       <span class="nx">index</span><span class="o">=</span><span class="p">{</span><span class="nx">i</span><span class="p">}</span>
       <span class="nx">sectionId</span><span class="o">=</span><span class="p">{</span><span class="nx">sectionId</span><span class="p">}</span>
+      <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">onChange</span><span class="p">}</span>
       <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">sectionId</span><span class="p">}</span><span class="nx">$</span><span class="p">{</span><span class="nx">label</span><span class="p">}</span><span class="err">`</span><span class="p">}</span>
     <span class="sr">/</span><span class="err">&gt;
 </span>  <span class="p">));</span>
@@ -140,36 +147,39 @@ React updates every item when any item changes. With well-defined components, <a
 </code></pre>
 </div>
 
-<h2 id="shared-state">Shared State</h2>
+<p>As mentioned above, with Item defined outside of section any changes to Section’s props which don’t affect Item’s props will not cause a rerender. <a href="https://reactjs.org/docs/rendering-elements.html#react-only-updates-whats-necessary">Only components with modified props will be updated</a>. Input’s focus will not be lost as long as its props aren’t changed. We save unnecessary renders here and remove future coupling issues.</p>
 
-<h2 id="abusing-keys">Abusing Keys</h2>
+<h3 id="abusing-keys">Abusing Keys</h3>
 
-<h2 id="redux-overloading-mapstatetoprops">Redux: Overloading mapStateToProps</h2>
+<h3 id="shared-state">Shared State</h3>
 
-<h1 id="delayed-pitfalls">Delayed Pitfalls</h1>
+<h3 id="redux-overloading-mapstatetoprops">Redux: Overloading mapStateToProps</h3>
 
-<h2 id="branching-logic-in-render">Branching Logic in Render</h2>
+<h2 id="delayed-pitfalls">Delayed Pitfalls</h2>
+<p>These won’t get you when you develop, but they’ll get you when you don’t expect it.</p>
+
+<h3 id="branching-logic-in-render">Branching Logic in Render</h3>
 <p>Hard to read, harder to debug.</p>
 
-<h2 id="shouldcomponentupdate">shouldComponentUpdate</h2>
+<h3 id="shouldcomponentupdate">shouldComponentUpdate</h3>
 <p>It’s a smell.</p>
 
-<h1 id="potholes">Potholes</h1>
+<h2 id="potholes">Potholes</h2>
 <p>There’s aren’t pitfalls… they’re just potholes.</p>
 
-<h2 id="lambdas-in-render">Lambdas in Render</h2>
+<h3 id="lambdas-in-render">Lambdas in Render</h3>
 
-<h2 id="---with-objects-in-passed-props">&amp;&amp; / || with Objects in Passed Props</h2>
+<h3 id="---with-objects-in-passed-props">&amp;&amp; / || with Objects in Passed Props</h3>
 
-<h2 id="wrapping-with-dummy-components">Wrapping with Dummy Components</h2>
+<h3 id="wrapping-with-dummy-components">Wrapping with Dummy Components</h3>
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">React</span><span class="p">.</span><span class="nx">Fragment</span> <span class="o">/&gt;</span>
 </code></pre>
 </div>
 
-<h2 id="avoid-class-components">Avoid Class Components</h2>
+<h3 id="avoid-class-components">Avoid Class Components</h3>
 
-<h1 id="resources">Resources</h1>
+<h2 id="resources">Resources</h2>
 <ul>
   <li><a href="https://reactjs.org/docs/optimizing-performance.html">Optimizing React Performance</a></li>
 </ul>
