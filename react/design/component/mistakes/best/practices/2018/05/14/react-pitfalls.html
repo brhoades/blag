@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>React Pitfalls</title>
-  <meta name="description" content="Introduction There are some common pitfalls that I’ve seen React developers, new and old, fall into when designing React components. The most common seem to ...">
+  <meta name="description" content="Introduction React has some common pitfalls that I see developers fall into when designing components. The most common seem to center around readability and ...">
 
   <link rel="stylesheet" href="/assets/main.css">
   <link rel="canonical" href="/react/design/component/mistakes/best/practices/2018/05/14/react-pitfalls.html">
@@ -60,20 +60,26 @@
 
   <header class="post-header">
     <h1 class="post-title" itemprop="name headline">React Pitfalls</h1>
-    <p class="post-meta"><time datetime="2018-05-14T20:06:10-05:00" itemprop="datePublished">May 14, 2018</time></p>
+    <p class="post-meta"><time datetime="2018-05-14T20:58:35-05:00" itemprop="datePublished">May 14, 2018</time></p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
     <h2 id="introduction">Introduction</h2>
-<p>There are some common pitfalls that I’ve seen React developers, new and old, fall into when designing React components. The most common seem to center around readability and performance. Now, there’s easily a dozen <a href="">good</a> <a href="http://americanexpress.io/clean-code-dirty-code/">articles</a> <a href="">about</a> <a href="">React</a> <a href="">best</a> <a href="">practices</a> but these lean abstract with contrived examples. Personally, I find it much easier to see where people made mistakes, see how we fixed them, and then break those examples down.</p>
+<p>React has some common pitfalls that I see developers fall into when designing components. The most common seem to center around readability and performance. Now, there’s easily a dozen <a href="">good</a> <a href="http://americanexpress.io/clean-code-dirty-code/">articles</a> <a href="">about</a> <a href="">React</a> <a href="">best</a> <a href="">practices</a> but these lean abstract with contrived examples. Personally, I find it much easier to see where people made mistakes, see how we fixed them, and then break those examples down.</p>
 
 <p>All code in this post is <em>real code</em> that exists or did exist. Names were changed and content was trimmed for simplicity, but the structure is the same. Some of this code was written by someone else, some of it I wrote (in the past). It’s important to emphasize that the intention isn’t to shame anyone, but rather to learn from mistakes.</p>
 
 <h2 id="deadly-pitfalls">Deadly Pitfalls</h2>
-<p>These pitfalls are <em>bad</em>. These cause broken/unexpected/undefined behavior and are not performant, not reusable, difficult to debug, and/or hard to understand.</p>
+<p>These pitfalls are <em>bad</em>. These cause undefined, unperformant, or undeseriable behavior and also tend to be difficult to debug, hard to understand, or not reusable.</p>
 
 <h3 id="nested-component-definitions">Nested Component Definitions</h3>
-<p>Defining components within components breaks reusability, causes unnecessary rendering, and crowds files. It’s particularly tempting to nest components when one component needs variables from the other, but iit leads to coupling. Fortunately, it’s easy to fix.</p>
+<p>Defining components within components breaks reusability, causes unnecessary rendering, and crowds files. It’s particularly tempting to nest components when one component needs variables from the other, but it leads to coupling. Nesting components will always lead to rerenders of child compoents when any prop in the parent component is changed. Fortunately, it’s easy to fix and fairly easy to diagnose.</p>
+
+<h4 id="recommended-reading">Recommended Reading</h4>
+<ul>
+  <li><a href="https://reactjs.org/docs/rendering-elements.html">React Documentation: rendering elements</a></li>
+  <li><a href="https://medium.com/@ryanbas21/react-reconciliation-7075e3f07437">React Reconciliation</a></li>
+</ul>
 
 <h4 id="bad">Bad</h4>
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">Section</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">description</span><span class="p">,</span> <span class="nx">footer</span><span class="p">,</span> <span class="nx">header</span><span class="p">,</span> <span class="nx">items</span><span class="p">,</span> <span class="nx">sectionId</span><span class="p">,</span> <span class="nx">onChange</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -110,7 +116,7 @@
 
 <p>Here you can see a section component which, within it, defines an Item component and a Content component. Defining an internal Content component here is only a coupling issue. However, defining Item within this component is going to cause some pain. Item is defined within this component because it’s only used by Section and it needs sectionId and onChange from Section.</p>
 
-<p>However, defining the component within Section causes Item to be redefined every time any Section prop changes. When any Section prop is updated, everything will be redefined and rerendered. Any Inputs on the page will be destroyed and mounted again within the DOM. If you were typing into an Input component and a Section prop changed, your focus would be lost. I’ve ran into this scenario quite a few times— onChange updates Section’s items which causes a rerender.</p>
+<p>However, defining the component within Section causes Item to be redefined and rerendered every time any Section prop changes. Any Inputs on the page will be destroyed and mounted again within the DOM. If you were typing into an Input component and a Section prop changed, your focus would be lost. I’ve ran into this scenario quite a few times— onChange updates Section’s items which causes a rerender.</p>
 
 <p>If Item were moved outside of Section, React would behave differently.</p>
 
@@ -150,10 +156,72 @@
 <p>As mentioned above, with Item defined outside of section any changes to Section’s props which don’t affect Item’s props will not cause a rerender. <a href="https://reactjs.org/docs/rendering-elements.html#react-only-updates-whats-necessary">Only components with modified props will be updated</a>. Input’s focus will not be lost as long as its props aren’t changed. We save unnecessary renders here and remove future coupling issues.</p>
 
 <h3 id="abusing-keys">Abusing Keys</h3>
+<p>Keys in React are used when returning procedurally generated components. One of the most common uses is an array of values which will be individually passed into equally many components, as can be seen below. React’s <a href="https://reactjs.org/docs/lists-and-keys.html#keys">documentation describes this well</a>:</p>
 
-<h3 id="shared-state">Shared State</h3>
+<blockquote>
+  <p>Keys help React identify which items have changed, are added, or are removed. Keys should be given to the elements inside the array to give the elements a stable identity.</p>
+</blockquote>
+
+<p>Unfortunately, keys aren’t always available inside a data source. When not available, keys can be chosen that aren’t stable between renders or not unique among sibling components. React’s documentation <a href="https://reactjs.org/docs/reconciliation.html#tradeoffs">mentions this</a>:</p>
+
+<blockquote>
+  <p>Keys should be stable, predictable, and unique. Unstable keys (like those produced by Math.random()) will cause many component instances and DOM nodes to be unnecessarily recreated, which can cause performance degradation and lost state in child components.</p>
+</blockquote>
+
+<p>In a pinch, using the array index may suffice. However, I’m in the camp that index as a key is an antipattern; you only do this until you encounter a bug from it. Bugs resulting from index as a key are incredibly difficulty to diagnose; they usually arise from where components that have state are change keys. The bug’s symptoms will be varied: maybe state tranfers when an element is deleted from an index, or maybe it gets a random state from an older component. You don’t want to learn the symptoms.</p>
+
+<h4 id="recommended-reading-1">Recommended Reading</h4>
+<ul>
+  <li><a href="https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318">Index as a key is an antipattern</a></li>
+  <li><a href="https://reactjs.org/docs/lists-and-keys.html">React documentation: Keys</a></li>
+  <li><a href="https://reactjs.org/docs/reconciliation.html#recursing-on-children">React documentation: Recursing on Children</a></li>
+</ul>
+
+<h4 id="bad-1">Bad</h4>
+<div class="highlighter-rouge"><pre class="highlight"><code>const shortid = require('shortid');
+
+const Quiz = ({ sections }) =&gt; {
+  return (
+    &lt;div&gt;
+      {
+        sections.map((section) =&gt; (
+          &lt;Section
+            {...section}
+            key={shortid.generate()}
+          /&gt;
+        ))
+      }
+    &lt;/div&gt;
+  );
+});
+</code></pre>
+</div>
+
+<p>We’re using <a href="https://github.com/dylang/shortid#usage">shortid</a> to generate a unique, per render random key for our sections. This would be a nonissue if sections never change position or the list never changes size. However, if sections does change, it’s possible that there could be <a href="https://reactjs.org/docs/reconciliation.html#recursing-on-children">performance issues</a> or <a href="https://codepen.io/pen?&amp;editors=0010">state bugs</a>. This can sometimes be easy to solve… sometimes it’s not.</p>
+
+<h4 id="good-1">Good</h4>
+<div class="highlighter-rouge"><pre class="highlight"><code>const Quiz = ({ sections }) =&gt; {
+  return (
+    &lt;div&gt;
+      {
+        sections.map((section) =&gt; (
+          &lt;Section
+            {...section}
+            key={section.label}
+          /&gt;
+        ))
+      }
+    &lt;/div&gt;
+  );
+});
+</code></pre>
+</div>
+
+<p>The shortid is now swapped for label, which in this case is both unique among all sections and consistent. If you can’t find a key that’s unique, you may find yourself resorting to using an index, but that should be <a href="https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318">a last resort</a>.</p>
 
 <h3 id="redux-overloading-mapstatetoprops">Redux: Overloading mapStateToProps</h3>
+
+<h3 id="shared-state">Shared State</h3>
 
 <h2 id="delayed-pitfalls">Delayed Pitfalls</h2>
 <p>These won’t get you when you develop, but they’ll get you when you don’t expect it.</p>
