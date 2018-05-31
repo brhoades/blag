@@ -8,8 +8,6 @@ categories: react design component mistakes best practices
 ## Introduction
 React has some common pitfalls that I see developers fall into when designing components. The most common seem to center around readability and performance. Now, there's easily a dozen [good]() [articles](http://americanexpress.io/clean-code-dirty-code/) [about]() [React]() [best]() [practices]() but these lean abstract with contrived examples. Personally, I find it much easier to see where people made mistakes, see how we fixed them, and then break those examples down.
 
-All code in this post is _real code_ that exists or did exist. Names were changed and content was trimmed for simplicity, but the structure is the same. Some of this code was written by someone else, some of it I wrote (in the past). It's important to emphasize that the intention isn't to shame anyone, but rather to learn from mistakes.
-
 ## Deadly Pitfalls
 These pitfalls are *bad*. These cause undefined, unperformant, or undeseriable behavior and also tend to be difficult to debug, hard to understand, or not reusable.
 
@@ -111,7 +109,7 @@ In a pinch, using the array index may suffice. However, I'm in the camp that ind
  * [React documentation: Recursing on Children](https://reactjs.org/docs/reconciliation.html#recursing-on-children)
 
 #### Bad
-```
+```javascript
 const shortid = require('shortid');
 
 const Quiz = ({ sections }) => {
@@ -133,7 +131,7 @@ const Quiz = ({ sections }) => {
 We're using [shortid](https://github.com/dylang/shortid#usage) to generate a unique, per render random key for our sections. This would be a nonissue if sections never change position or the list never changes size. However, if sections does change, it's possible that there could be [performance issues](https://reactjs.org/docs/reconciliation.html#recursing-on-children) or [state bugs](https://codepen.io/pen?&editors=0010). This can sometimes be easy to solve... sometimes it's not.
 
 #### Good
-```
+```javascript
 const Quiz = ({ sections }) => {
   return (
     <div>
@@ -153,6 +151,35 @@ const Quiz = ({ sections }) => {
 The shortid is now swapped for label, which in this case is both unique among all sections and consistent. If you can't find a key that's unique, you may find yourself resorting to using an index, but that should be [a last resort](https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318).
 
 ### Redux: Overloading mapStateToProps
+With Redux, [mapStateToProps](https://github.com/reduxjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) is used to subscribe to updates from the store. Any time the store is updated, every component decorated with connect will have its mapStateToProps called. The output of mapStateToProps is then passed to the component via props.
+
+Since mapStateToProps is called on every update, React applications which heavily utilize the store could see a performance impact. For example, if you are storing [the contents of a form](https://redux-form.com/7.3.0/) in Redux, every letter typed may trigger a store update. Depending on how your application is laid out, this would trigger every mapStateToProps on every keypress, and possible trigger rerenders if those result in prop changes.
+
+If there are any mapStateToProps functions which do a lot of calculation, such as computing the initial values for the form which a user is inputting into, those will be recalculated _every time a key is input_. Since the initial state of a form likely wouldn't change from user input, it wouldn't affect the output for mapStateToProps here. However, the calculation would still happen under the hood.
+
+One workaround here is to use [Reselect](https://github.com/reduxjs/reselect) in any place you are performing complex logic within mapStateToProps. Reselect, which behaves very similarly to mapStateToProps, excepts a list of input functions (which pull data from the store), and passes the list of outputs from those input functions to a result function, which should have the heavy lifting in it. From reselect's documentation:
+
+```javascript
+// createSelector(...inputSelectors | [inputSelectors], resultFunc)
+
+const totalSelector = createSelector(
+  [
+    state => state.values.value1,
+    state => state.values.value2
+  ],
+  (value1, value2) => value1 + value2
+)
+```
+
+This example is very simple, but it demonstrates basic usage well. Here we created a selector with two input selectors that grab values from the store. These values are passed through to the result function passed as a second argument to `createSelector`. `totalSelector` would be used in your mapStateToProps:
+
+```javascript
+mapStateToProps = (state) => ({
+  totalOutput: totalSelector(state),
+});
+```
+
+`totalSelector` is memoized; it is only called when one of its input selectors return a different value. So if `value1 + value2` were an expensive operation that rarely occurred, it would only be called if the two input selectors had changed. This stops expensive computations from occurring when they will provide the same output.
 
 ### Shared State
 
