@@ -10,7 +10,7 @@
   <meta name="description" content="Introduction React has some common pitfalls that I see developers fall into when designing components. The most common seem to center around readability and ...">
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="/react/design/component/mistakes/best/practices/2018/05/14/react-pitfalls.html">
+  <link rel="canonical" href="/react/design/component/mistakes/best/practices/2018/05/31/react-pitfalls.html">
   <link rel="alternate" type="application/rss+xml" title="Billy Rhoades" href="/feed.xml">
   
   
@@ -60,14 +60,12 @@
 
   <header class="post-header">
     <h1 class="post-title" itemprop="name headline">React Pitfalls</h1>
-    <p class="post-meta"><time datetime="2018-05-14T20:58:35-05:00" itemprop="datePublished">May 14, 2018</time></p>
+    <p class="post-meta"><time datetime="2018-05-31T09:05:55-05:00" itemprop="datePublished">May 31, 2018</time></p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
     <h2 id="introduction">Introduction</h2>
 <p>React has some common pitfalls that I see developers fall into when designing components. The most common seem to center around readability and performance. Now, there’s easily a dozen <a href="">good</a> <a href="http://americanexpress.io/clean-code-dirty-code/">articles</a> <a href="">about</a> <a href="">React</a> <a href="">best</a> <a href="">practices</a> but these lean abstract with contrived examples. Personally, I find it much easier to see where people made mistakes, see how we fixed them, and then break those examples down.</p>
-
-<p>All code in this post is <em>real code</em> that exists or did exist. Names were changed and content was trimmed for simplicity, but the structure is the same. Some of this code was written by someone else, some of it I wrote (in the past). It’s important to emphasize that the intention isn’t to shame anyone, but rather to learn from mistakes.</p>
 
 <h2 id="deadly-pitfalls">Deadly Pitfalls</h2>
 <p>These pitfalls are <em>bad</em>. These cause undefined, unperformant, or undeseriable behavior and also tend to be difficult to debug, hard to understand, or not reusable.</p>
@@ -178,48 +176,77 @@
 </ul>
 
 <h4 id="bad-1">Bad</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>const shortid = require('shortid');
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">shortid</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'shortid'</span><span class="p">);</span>
 
-const Quiz = ({ sections }) =&gt; {
-  return (
-    &lt;div&gt;
-      {
-        sections.map((section) =&gt; (
-          &lt;Section
-            {...section}
-            key={shortid.generate()}
-          /&gt;
-        ))
-      }
-    &lt;/div&gt;
-  );
-});
+<span class="kr">const</span> <span class="nx">Quiz</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">sections</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+      <span class="p">{</span>
+        <span class="nx">sections</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">section</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span>
+          <span class="o">&lt;</span><span class="nx">Section</span>
+            <span class="p">{...</span><span class="nx">section</span><span class="p">}</span>
+            <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">shortid</span><span class="p">.</span><span class="nx">generate</span><span class="p">()}</span>
+          <span class="sr">/</span><span class="err">&gt;
+</span>        <span class="p">))</span>
+      <span class="p">}</span>
+    <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">});</span>
 </code></pre>
 </div>
 
 <p>We’re using <a href="https://github.com/dylang/shortid#usage">shortid</a> to generate a unique, per render random key for our sections. This would be a nonissue if sections never change position or the list never changes size. However, if sections does change, it’s possible that there could be <a href="https://reactjs.org/docs/reconciliation.html#recursing-on-children">performance issues</a> or <a href="https://codepen.io/pen?&amp;editors=0010">state bugs</a>. This can sometimes be easy to solve… sometimes it’s not.</p>
 
 <h4 id="good-1">Good</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>const Quiz = ({ sections }) =&gt; {
-  return (
-    &lt;div&gt;
-      {
-        sections.map((section) =&gt; (
-          &lt;Section
-            {...section}
-            key={section.label}
-          /&gt;
-        ))
-      }
-    &lt;/div&gt;
-  );
-});
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">Quiz</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">sections</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+      <span class="p">{</span>
+        <span class="nx">sections</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">section</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span>
+          <span class="o">&lt;</span><span class="nx">Section</span>
+            <span class="p">{...</span><span class="nx">section</span><span class="p">}</span>
+            <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">section</span><span class="p">.</span><span class="nx">label</span><span class="p">}</span>
+          <span class="sr">/</span><span class="err">&gt;
+</span>        <span class="p">))</span>
+      <span class="p">}</span>
+    <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">});</span>
 </code></pre>
 </div>
 
 <p>The shortid is now swapped for label, which in this case is both unique among all sections and consistent. If you can’t find a key that’s unique, you may find yourself resorting to using an index, but that should be <a href="https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318">a last resort</a>.</p>
 
 <h3 id="redux-overloading-mapstatetoprops">Redux: Overloading mapStateToProps</h3>
+<p>With Redux, <a href="https://github.com/reduxjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options">mapStateToProps</a> is used to subscribe to updates from the store. Any time the store is updated, every component decorated with connect will have its mapStateToProps called. The output of mapStateToProps is then passed to the component via props.</p>
+
+<p>Since mapStateToProps is called on every update, React applications which heavily utilize the store could see a performance impact. For example, if you are storing <a href="https://redux-form.com/7.3.0/">the contents of a form</a> in Redux, every letter typed may trigger a store update. Depending on how your application is laid out, this would trigger every mapStateToProps on every keypress, and possible trigger rerenders if those result in prop changes.</p>
+
+<p>If there are any mapStateToProps functions which do a lot of calculation, such as computing the initial values for the form which a user is inputting into, those will be recalculated <em>every time a key is input</em>. Since the initial state of a form likely wouldn’t change from user input, it wouldn’t affect the output for mapStateToProps here. However, the calculation would still happen under the hood.</p>
+
+<p>One workaround here is to use <a href="https://github.com/reduxjs/reselect">Reselect</a> in any place you are performing complex logic within mapStateToProps. Reselect, which behaves very similarly to mapStateToProps, excepts a list of input functions (which pull data from the store), and passes the list of outputs from those input functions to a result function, which should have the heavy lifting in it. From reselect’s documentation:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// createSelector(...inputSelectors | [inputSelectors], resultFunc)</span>
+
+<span class="kr">const</span> <span class="nx">totalSelector</span> <span class="o">=</span> <span class="nx">createSelector</span><span class="p">(</span>
+  <span class="p">[</span>
+    <span class="nx">state</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">values</span><span class="p">.</span><span class="nx">value1</span><span class="p">,</span>
+    <span class="nx">state</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">values</span><span class="p">.</span><span class="nx">value2</span>
+  <span class="p">],</span>
+  <span class="p">(</span><span class="nx">value1</span><span class="p">,</span> <span class="nx">value2</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">value1</span> <span class="o">+</span> <span class="nx">value2</span>
+<span class="p">)</span>
+</code></pre>
+</div>
+
+<p>This example is very simple, but it demonstrates basic usage well. Here we created a selector with two input selectors that grab values from the store. These values are passed through to the result function passed as a second argument to <code class="highlighter-rouge">createSelector</code>. <code class="highlighter-rouge">totalSelector</code> would be used in your mapStateToProps:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">mapStateToProps</span> <span class="o">=</span> <span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+  <span class="na">totalOutput</span><span class="p">:</span> <span class="nx">totalSelector</span><span class="p">(</span><span class="nx">state</span><span class="p">),</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">totalSelector</code> is memoized; it is only called when one of its input selectors return a different value. So if <code class="highlighter-rouge">value1 + value2</code> were an expensive operation that rarely occurred, it would only be called if the two input selectors had changed. This stops expensive computations from occurring when they will provide the same output.</p>
 
 <h3 id="shared-state">Shared State</h3>
 
