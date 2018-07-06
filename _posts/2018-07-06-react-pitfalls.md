@@ -1,12 +1,12 @@
 ---
 layout: post
 title:  "React Pitfalls"
-#date:   2018-05-10 12:00:00 -0600
+date:   2018-07-06 12:00:00 -0600
 categories: react design component mistakes best practices
 ---
 
 ## Introduction
-React has some common pitfalls that I see developers fall into when designing components. The most common seem to center around readability and performance. Now, there's easily a dozen [articles](http://americanexpress.io/clean-code-dirty-code/) [about](https://engineering.musefind.com/our-best-practices-for-writing-react-components-dec3eb5c3fc8) [React](https://reactjs.org/docs/thinking-in-react.html) [best](https://preact.gitbooks.io/react-book/content/jsx/index.html) [practices](https://blog.andrewray.me/youre-missing-the-point-of-jsx/) but these lean abstract with contrived examples. Personally, I find it much easier to see where people made mistakes, see how we fixed them, and then break those examples down.
+React has some common pitfalls that I've seen developers fall into when designing components. The most common center around readability and performance. Now, there's easily a dozen [articles](http://americanexpress.io/clean-code-dirty-code/) [about](https://engineering.musefind.com/our-best-practices-for-writing-react-components-dec3eb5c3fc8) [React](https://reactjs.org/docs/thinking-in-react.html) [best](https://preact.gitbooks.io/react-book/content/jsx/index.html) [practices](https://blog.andrewray.me/youre-missing-the-point-of-jsx/) but these lean abstract with contrived examples. Personally, I find it much easier to see where people made mistakes, see how we fixed them, and then break those examples down.
 
 ## Nested Component Definitions
 Defining components within components breaks reusability, causes unnecessary rendering, and crowds files. It's particularly tempting to nest components when one component needs variables from the other, but it leads to coupling. Nesting components will always lead to rerenders of child compoents when any prop in the parent component is changed. Fortunately, it's easy to fix and fairly easy to diagnose.
@@ -14,7 +14,6 @@ Defining components within components breaks reusability, causes unnecessary ren
 ### Recommended Reading
  * [React Documentation: rendering elements](https://reactjs.org/docs/rendering-elements.html)
  * [React Reconciliation](https://medium.com/@ryanbas21/react-reconciliation-7075e3f07437)
- * [Comprehensive React article list for architecting applications](https://github.com/markerikson/react-redux-links/blob/master/react-architecture.md)
 
 ### Bad
 ```javascript
@@ -181,3 +180,4 @@ mapStateToProps = (state) => ({
 
 ## Resources
  * [Optimizing React Performance](https://reactjs.org/docs/optimizing-performance.html)
+ * [Comprehensive React article list for architecting applications](https://github.com/markerikson/react-redux-links/blob/master/react-architecture.md)
