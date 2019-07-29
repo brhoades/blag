@@ -62,7 +62,7 @@ I've found that lying to my reports about 1-on-1s being their meeting is a great
 
 I tell reports to copy and fill this ahead of each meeting in our document. This template provides a clear agenda and reduces the amount of time spent digging like a congressional hearing. If the agenda isn't filled out in advance, you must pressure them to recollect for each section. Being honest, it usually isn't filled out ahead of time and they fill it out as I walk to the meeting room. This template also varies for each report; the question "What have you learned?" provides little value to more senior engineers versus a college apprentice.
 
-### Semi-weekly minutes
+### Semi-weekly Minutes
 The top half of this template serves as minutes for our 1-on-1s. During the meeting, its primary purpose is as a conversation starter. At the end of the year, it becomes a historical record of accomplishments and challenges for the review cycle. Throughout the meeting, I dig and discuss discuss each point of each section. Some example questions for the first four sections include:
  * How was that?
  * Would you want to do it again, knowing what you know now? How would you change?
@@ -113,7 +113,7 @@ This gives them a cold splash of water without outright telling them that they a
 
 The solution to other non-relationship feedback difficulties is simpler: give more of it, more often, and ask them if you are correct. Aim for quantity; people are really good at sifting through noisy data and engineers are especially good at arguing. To assist in this, I can easily say that most of my feedback is less wide-reaching than outright failing to meet expectations. Zhuo has a clever way of splitting feedback up into three categories, two I'll steal: situational feedback and behavioral feedback.
 
-Situational feedback is task-specific or accident-based. Report made a notable a mistake on a code review? I didn't expect you to do this, let's talk about it and how we can improve. This is fairly easy to do but it must be delivered early. A good rule of thumb for how early is to literally follow your gut. **Feedback urgency is directly proportional to how uncomfortable it makes you to deliver**. Some real examples:
+Situational feedback is task-specific or accident-based. A report made a notable a mistake on a code review? I didn't expect you to do this, let's talk about it and how we can improve. This is fairly easy to do but it must be delivered early. A good rule of thumb for how early is to literally follow your gut. **Feedback urgency is directly proportional to how uncomfortable it makes you to deliver**. Some real examples:
 
 > Report making the same, major mistake for the third time. You are disappointed and nauseous and you'll need to rethink your approach.
 
@@ -125,7 +125,7 @@ Can wait until after vacation.
 
 > Report misled you for two weeks with their progress. Now you're reading a book about management and tossing and turning at night thinking about it.
 
-That's a 9 AM "<Manager> / <Report> Sync" with no description on it for added flare. You need to speak with them _yesterday_.
+That's a 9 AM "\<Manager\> / \<Report\> Sync" with no description on it for added flare. You need to speak with them *yesterday*.
 
 > Report blew your mind with finding a solution to a hard problem.
 
@@ -163,13 +163,13 @@ Do not ask "Do you have any feedback for \<report\>?" If you get something out o
  * Have they done anything this week that really impressed you?
 
 ### Manager Feedback
-1-on-1s should be a two way street. You spend the first part of 1-on-1s digging for the known unknowns and discussing / recording them. The free time at the tail end of the meeting should be dedicated to finding the unknown unknowns. There's a lot more to be said on this than I care to detail on this blog, but recently I've added a recurring topic to my 1-on-1s. We flip between documenting goals, accomplishments, and areas of opportunities and reflecting on _my_ performance as a manager. After all, my reports' fates are intertwined with the quality of my management; if I'm doing an awful job they'll likely fail with me.
+1-on-1s should be a two way street. You spend the first part of 1-on-1s digging for the known unknowns and discussing / recording them. The free time at the tail end of the meeting should be dedicated to finding the unknown unknowns. There's a lot more to be said on this than I care to detail on this blog, but recently I've added a recurring topic to my 1-on-1s. We flip between documenting goals, accomplishments, and areas of opportunities and reflecting on *my* performance as a manager. After all, my reports' fates are intertwined with the quality of my management; if I'm doing an awful job they'll likely fail with me.
 
 Here are a few questions that I ask every other 1-on-1:
  * What could I do to make your job awesome?
  * How am I doing and how could I be doing better?
  * If you had your pick at the company, who would you want to be your manager and why?
- * What should _we_ be doing that we are not?
+ * What should *we* be doing that we are not?
  * If I gave you carte blanche this sprint, what would you do for two weeks?
  * Are there any questions that I'm not asking you that I should be?
 
