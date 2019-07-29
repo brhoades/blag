@@ -101,7 +101,7 @@ it wasn’t possible to use this recorder, so I am unaware of most of its functi
 <h1 id="manually-creating-a-simulation">Manually Creating a Simulation</h1>
 <p>Structuring a simulation is defined at length <a href="http://gatling.io/docs/current/general/simulation_structure/">here</a>, but a minimal functioning example helps illustrate this:</p>
 
-<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">package</span> <span class="nn">simpleexample</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="nn">simpleexample</span>
 
 <span class="k">import</span> <span class="nn">io.gatling.core.Predef._</span>
 <span class="k">import</span> <span class="nn">io.gatling.http.Predef._</span>
@@ -121,8 +121,7 @@ it wasn’t possible to use this recorder, so I am unaware of most of its functi
 
   <span class="n">setUp</span><span class="o">(</span><span class="n">scn</span><span class="o">.</span><span class="n">inject</span><span class="o">(</span><span class="n">atOnceUsers</span><span class="o">(</span><span class="mi">1</span><span class="o">)).</span><span class="n">protocols</span><span class="o">(</span><span class="n">httpConf</span><span class="o">))</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>This simulation loads https://google.com/ with the provided HTTP headers with a single user.
 The Simulation above describes a single scenario, although there can be many. This scenario
@@ -137,7 +136,7 @@ step of getting <code class="highlighter-rouge">/</code>. There are many other o
 
 <p>The output of the example simulation above is the following:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Simulation simpleexample.ExampleSimulation started...
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Simulation simpleexample.ExampleSimulation started...
 
 ================================================================================
 2017-03-15 12:47:51                                           2s elapsed
@@ -180,8 +179,7 @@ Please open the following file: target/gatling/examplesimulation-1489600069122/i
 [info] Simulation ExampleSimulation successful.
 [info] Simulation(s) execution ended.
 [success] Total time: 8 s, completed Mar 15, 2017 12:47:52 PM
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Extended report information can be found in the linked report HTML file. Simulation status
 is output while the simulation runs, displaying the number of errors with their details, if
@@ -197,15 +195,14 @@ can disabled globally, per chain, and capped. More information about redirect co
 there will likely be more than one request. As each call to exec returns the modified
 scenario object, scenarios can be chained to perform more complex behaviors.</p>
 
-<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="c1">// ...
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...
 </span>  <span class="k">val</span> <span class="n">scn</span> <span class="k">=</span> <span class="n">scenario</span><span class="o">(</span><span class="s">"Scenario Name"</span><span class="o">)</span>
     <span class="o">.</span><span class="n">exec</span><span class="o">(</span><span class="n">http</span><span class="o">(</span><span class="s">"Main Page"</span><span class="o">)</span>
       <span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">"/"</span><span class="o">))</span>
     <span class="o">.</span><span class="n">exec</span><span class="o">(</span><span class="n">http</span><span class="o">(</span><span class="s">"Search"</span><span class="o">)</span>
       <span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">"/?q=Some+Query"</span><span class="o">))</span>
 <span class="c1">// ...
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>This scenario now also runs a search, visiting https://google.com/?q=Some+Query. Cookies and other
 session data are retained and passed between each exec call. Redirects will still be followed at
@@ -217,7 +214,7 @@ cookies, redirects, and more complex configurations with proxies. More on this l
 assertions is for status codes. For example, if we we wanted our scenario to verify that
 the Google main page returned HTTP200:</p>
 
-<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="c1">// ...
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...
 </span>  <span class="k">val</span> <span class="n">scn</span> <span class="k">=</span> <span class="n">scenario</span><span class="o">(</span><span class="s">"Scenario Name"</span><span class="o">)</span>
     <span class="o">.</span><span class="n">exec</span><span class="o">(</span><span class="n">http</span><span class="o">(</span><span class="s">"Main Page"</span><span class="o">)</span>
       <span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">"/"</span><span class="o">)</span>
@@ -225,19 +222,17 @@ the Google main page returned HTTP200:</p>
     <span class="o">.</span><span class="n">exec</span><span class="o">(</span><span class="n">http</span><span class="o">(</span><span class="s">"Search"</span><span class="o">)</span>
       <span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">"/?q=Some+Query"</span><span class="o">))</span>
 <span class="c1">// ...
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>If there was not an HTTP200, the scenario would print the name of the request, <code class="highlighter-rouge">'Main Page'</code>, and state
 the expected and found status codes. This would count as a KO in the statistics output as well:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>...
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
 &gt; Global                                                   (OK=1      KO=1     )
 &gt; Main Page                                                (OK=0      KO=1     )
 &gt; Search                                                   (OK=1      KO=0     )
 ...
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>Which signifies that this particular request failed to pass validation. <strong>Note that the simulation
 continues</strong> even though there was a failure at a prior step. There are
 <a href="http://gatling.io/docs/current/general/scenario/#exithereiffailed">methods which work around this</a>,
@@ -246,15 +241,14 @@ which can be useful when authentication fails.</p>
 <p>CSS selectors are also used to verify content on pages. For example, if we wanted to ensure
 that the main page had an <code class="highlighter-rouge">html</code> node with the attribute <code class="highlighter-rouge">size</code> set to <code class="highlighter-rouge">mobile</code>:</p>
 
-<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="c1">// ...
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...
 </span>  <span class="k">val</span> <span class="n">scn</span> <span class="k">=</span> <span class="n">scenario</span><span class="o">(</span><span class="s">"Scenario Name"</span><span class="o">)</span>
     <span class="o">.</span><span class="n">exec</span><span class="o">(</span><span class="n">http</span><span class="o">(</span><span class="s">"Main Page"</span><span class="o">)</span>
       <span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">"/"</span><span class="o">)</span>
       <span class="o">.</span><span class="n">check</span><span class="o">(</span><span class="n">status</span><span class="o">.</span><span class="n">is</span><span class="o">(</span><span class="mi">200</span><span class="o">))</span>
       <span class="o">.</span><span class="n">check</span><span class="o">(</span><span class="n">css</span><span class="o">(</span><span class="s">"html[size]"</span><span class="o">,</span> <span class="s">"mobile"</span><span class="o">).</span><span class="n">exists</span><span class="o">))</span>
 <span class="c1">// ...
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>A great deal of other assertions exist for optionality, performance, header values,
 performance requirements, etc. More details are available
@@ -264,7 +258,7 @@ performance requirements, etc. More details are available
 <p>Sessions are implicitly passed between each exec call. They can manually inspected or modified
 during scenario definition by executing a custom function with exec.</p>
 
-<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="c1">// ...
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...
 </span>  <span class="k">val</span> <span class="n">scn</span> <span class="k">=</span> <span class="n">scenario</span><span class="o">(</span><span class="s">"Scenario Name"</span><span class="o">)</span>
     <span class="o">.</span><span class="n">exec</span><span class="o">(</span><span class="n">http</span><span class="o">(</span><span class="s">"Main Page"</span><span class="o">)</span>
       <span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">"/"</span><span class="o">))</span>
@@ -278,8 +272,7 @@ during scenario definition by executing a custom function with exec.</p>
       <span class="n">session</span>
     <span class="o">})</span>
 <span class="c1">// ...
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>Above is the same scenario as our first one. However, this scenario prints the session,
 sets “hello” in the session to “bla”, then prints it again. <em>Note: if you are not sure why
@@ -287,7 +280,7 @@ session is being repeated after printing it, try to only print it and see what h
 
 <p>Here is the output:</p>
 
-<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="nc">Simulation</span> <span class="n">simpleexample</span><span class="o">.</span><span class="nc">ExampleSimulation</span> <span class="n">started</span><span class="o">...</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Simulation</span> <span class="n">simpleexample</span><span class="o">.</span><span class="nc">ExampleSimulation</span> <span class="n">started</span><span class="o">...</span>
 <span class="nc">Session</span><span class="o">(</span><span class="nc">Scenario</span> <span class="nc">Name</span><span class="o">,</span>
 <span class="mi">1</span><span class="o">,</span>
 <span class="nc">Map</span><span class="o">(</span>
@@ -317,8 +310,7 @@ session is being repeated after printing it, try to only print it and see what h
   <span class="nc">OK</span><span class="o">,</span>
   <span class="nc">List</span><span class="o">(),</span>
   <span class="n">io</span><span class="o">.</span><span class="n">gatling</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">protocol</span><span class="o">.</span><span class="nc">ProtocolComponentsRegistry$$Lambda$149</span><span class="o">/</span><span class="mi">418118518</span><span class="nd">@c4d1ae6</span><span class="o">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>In between the first and second session output, I set “hello” to “bla” which can be see in the second session.
 This is the primary mechanism to inspect and modify the session from the level of scenario definition.</p>
@@ -329,7 +321,7 @@ This is the primary mechanism to inspect and modify the session from the level o
 assertion in order to retain response details from a previous server response. However, this doesn’t
 always have to be the case. Here’s a contrived simulation below for the sake of an easy example:</p>
 
-<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="c1">// ...
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...
 </span>  <span class="k">val</span> <span class="n">scn</span> <span class="k">=</span> <span class="n">scenario</span><span class="o">(</span><span class="s">"Scenario Name"</span><span class="o">)</span>
     <span class="o">.</span><span class="n">exec</span><span class="o">(</span><span class="n">http</span><span class="o">(</span><span class="s">"Login Form"</span><span class="o">)</span>
       <span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">"/login"</span><span class="o">)</span>
@@ -343,8 +335,7 @@ always have to be the case. Here’s a contrived simulation below for the sake o
         <span class="o">.</span><span class="n">formParam</span><span class="o">(</span><span class="s">"login_password"</span><span class="o">,</span> <span class="s">"somepassword"</span><span class="o">)</span>
       <span class="o">.</span><span class="n">check</span><span class="o">(</span><span class="n">status</span><span class="o">.</span><span class="n">is</span><span class="o">(</span><span class="mi">200</span><span class="o">)))</span>
 <span class="c1">// ...
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>A few new things here; let’s begin with the <code class="highlighter-rouge">post</code> HTTP chain method. This method behaves similarly
 to <code class="highlighter-rouge">get</code>, but typically uses some sort of input. There are
@@ -371,7 +362,7 @@ extension. As the <a href="http://gatling.io/docs/current/extensions/sbt_plugin/
 not explicitly state this, here is a minimal collection of files to get an sbt project running:</p>
 
 <p>Your project tree, for a standalone sbt project, should look similar to this:</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>├── build.sbt
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>├── build.sbt
 ├── project
 │   ├── build.properties
 │   └── plugins.sbt
@@ -381,11 +372,10 @@ not explicitly state this, here is a minimal collection of files to get an sbt p
         └── scala
             └── simpleexample
                 └── ExampleSimulation.scala
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>build.sbt</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>enablePlugins(GatlingPlugin)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>enablePlugins(GatlingPlugin)
 
 scalaVersion := "2.11.8"
 
@@ -397,40 +387,33 @@ libraryDependencies += "io.gatling.highcharts" % "gatling-charts-highcharts" % "
 libraryDependencies += "io.gatling"            % "gatling-test-framework"    % "2.2.4" % "test,it"
 
 addCompilerPlugin("org.psywerx.hairyfotr" %% "linter" % "0.1.17")
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>project/build.properties</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>sbt.version=0.13.13
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sbt.version=0.13.13
+</code></pre></div></div>
 
 <p>project/plugins.sbt</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>addSbtPlugin("io.gatling" % "gatling-sbt" % "2.2.1")
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>addSbtPlugin("io.gatling" % "gatling-sbt" % "2.2.1")
+</code></pre></div></div>
 
 <p>Once the above files are set up, install sbt and run:</p>
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>sbt
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>sbt
+</code></pre></div></div>
 
 <p>Then simulations may be run either from the sbt shell:</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>$ sbt
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sbt
 &gt; gatling:testOnly somepackage.GeneralBrowse
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Or, instead, from your shell:</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>$ sbt "gatling:testOnly somepackage.GeneralBrowse"
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sbt "gatling:testOnly somepackage.GeneralBrowse"
+</code></pre></div></div>
 
 <p>The reports can be found in <code class="highlighter-rouge">/target/gatling/</code> and the last report can be opened in a web browser
 with:</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>$ sbt gatling:lastReport
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sbt gatling:lastReport
+</code></pre></div></div>
 
 <p>A list of all sbt tasks are available <a href="http://gatling.io/docs/current/extensions/sbt_plugin/">here</a>.</p>
 
