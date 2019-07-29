@@ -80,9 +80,9 @@ There are three steadfast rules about feedback:
 
 #### Positive Feedback and Performance Cycles
 ![feedback comic](/assets/images/oneonones-feedback.png)
-*Julie Zhou, **The Making of a Manager***
+*Julie Zhuo, **The Making of a Manager***
 
-More or less, this is the song Julie Zhou sings about feedback in [_The Making of a Manager_](https://www.amazon.com/Making-Manager-What-Everyone-Looks/dp/0735219567). People want to succeed, but it's very hard to without being told how they are doing. In reality, positive feedback should be easy and you should have a lot of it. It could be as simple as "you finished up early this sprint, nice job" or "you really wow'd me with how you took that problem and ran with it". If you need to aim low, as someone is struggling, it can be simply acknowledging that "I can tell you are really trying hard: keep at it."
+More or less, this is the song Julie Zhuo sings about feedback in [_The Making of a Manager_](https://www.amazon.com/Making-Manager-What-Everyone-Looks/dp/0735219567). People want to succeed, but it's very hard to without being told how they are doing. In reality, positive feedback should be easy and you should have a lot of it. It could be as simple as "you finished up early this sprint, nice job" or "you really wow'd me with how you took that problem and ran with it". If you need to aim low, as someone is struggling, it can be simply acknowledging that "I can tell you are really trying hard: keep at it."
 
 **You must give positive feedback**. The amount will vary and it's an art; some people know where they're at while others need a few pep talks from time-to-time. Whatever it takes, your reports should leave 1-on-1s with an impression of where they sit in your eyes. If they only learn where they sit with you when raises come 'round, **you have failed them as a manager**. Whether you're meeting expectations should never be a surprise for anyone. By waiting until the of the cycle, you have stolen report's agency to do anything about what you just told them. This is a grave disservice; you stole a year of opportunity from them to discuss how they could be even better. Additionally, your report likely spent the year feeling uneasy about where they stand in your eyes.
 
@@ -111,7 +111,7 @@ This gives them a cold splash of water without outright telling them that they a
 
 ##### Situational Feedback
 
-The solution to other non-relationship feedback difficulties is simpler: give more of it, more often, and ask them if you are correct. Aim for quantity; people are really good at sifting through noisy data and engineers are especially good at arguing. To assist in this, I can easily say that most of my feedback is less wide-reaching than outright failing to meet expectations. Zhou has a clever way of splitting feedback up into three categories, two I'll steal: situational feedback and behavioral feedback.
+The solution to other non-relationship feedback difficulties is simpler: give more of it, more often, and ask them if you are correct. Aim for quantity; people are really good at sifting through noisy data and engineers are especially good at arguing. To assist in this, I can easily say that most of my feedback is less wide-reaching than outright failing to meet expectations. Zhuo has a clever way of splitting feedback up into three categories, two I'll steal: situational feedback and behavioral feedback.
 
 Situational feedback is task-specific or accident-based. Report made a notable a mistake on a code review? I didn't expect you to do this, let's talk about it and how we can improve. This is fairly easy to do but it must be delivered early. A good rule of thumb for how early is to literally follow your gut. **Feedback urgency is directly proportional to how uncomfortable it makes you to deliver**. Some real examples:
 
