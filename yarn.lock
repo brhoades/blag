@@ -280,7 +280,7 @@ babel-core@^5.6.4:
     trim-right "^1.0.0"
     try-resolve "^1.0.0"
 
-babel-core@^6.23.1, babel-core@^6.26.0:
+babel-core@^6.26.0, babel-core@^6.26.3:
   version "6.26.3"
   resolved "https://registry.yarnpkg.com/babel-core/-/babel-core-6.26.3.tgz#b2e2f09e342d0f0c88e2f02e067794125e75c207"
   integrity sha512-6jyFLuDmeidKmUEb3NM+/yawG0M2bDZ9Z1qbZP59cyHLz8kYGKYwpJP0UwUKKUiTRNvxfLesJnTedqczP7cTDA==
@@ -1233,10 +1233,10 @@ copy-descriptor@^0.1.0:
   resolved "https://registry.yarnpkg.com/copy-descriptor/-/copy-descriptor-0.1.1.tgz#676f6eb3c39997c2ee1ac3a924fd6124748f578d"
   integrity sha1-Z29us8OZl8LuGsOpJP1hJHSPV40=
 
-copy-webpack-plugin@^2.1.6:
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/copy-webpack-plugin/-/copy-webpack-plugin-2.1.6.tgz#4f88c388fceaf2b7ab0bb239c7d6222c829c9f60"
-  integrity sha1-T4jDiPzq8rerC7I5x9YiLIKcn2A=
+copy-webpack-plugin@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/copy-webpack-plugin/-/copy-webpack-plugin-3.0.1.tgz#9bb3e9d6c6064de65c5bce44cf236b4d077a2131"
+  integrity sha1-m7Pp1sYGTeZcW85EzyNrTQd6ITE=
   dependencies:
     bluebird "^2.10.2"
     fs-extra "^0.26.4"
