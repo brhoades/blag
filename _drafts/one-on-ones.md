@@ -125,7 +125,7 @@ Can wait until after vacation.
 
 > Report misled you for two weeks with their progress. Now you're reading a book about management and tossing and turning at night thinking about it.
 
-That's a 9 AM "\<Manager\> / \<Report\> Sync" with no description on it for added flare. You need to speak with them *yesterday*.
+That's a next day at 9 AM "\<Manager\> / \<Report\> Sync" with no description on it (for added flare). You need to speak with them *yesterday*.
 
 > Report blew your mind with finding a solution to a hard problem.
 
@@ -178,7 +178,7 @@ These questions mean nothing if your report feels like they will be penalized fo
 At worst, these questions allow reports to feel heard. At best, these questions are a source of discussion, feedback from people who experience your job performance, and make you aware of what's going well or poorly in your organization.
 
 ### Accountability - Other Topics
-Other topics always carry an item to discuss previous TODOs and feedbacks from last meetings. This is a reminder for you and your report that you will revisit feedback and expectations each meeting. Leaf through the last month of 1-on-1s and bring up any feedback, discussions, and action items that are still relevant.
+Other topics always carry an item to discuss previous TODOs and feedback from previous meetings. This is a reminder for you and your report that you will revisit feedback and expectations each meeting. Leaf through the last month of 1-on-1s and bring up any feedback, discussions, and action items that are still relevant.
 
 ## Bad 1-on-1s
 # Criticality and Rescheduling
