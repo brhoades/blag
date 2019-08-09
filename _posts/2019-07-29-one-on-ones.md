@@ -5,7 +5,7 @@ title:  "One-on-Ones Are Mandatory"
 categories: management
 ---
 
-Effective one on ones are one of the most important tools a manager has. You either have effective, regular, clear 1-on-1s or you pay in employee retention, satisfaction, and development.
+One on ones are one of the most important tools a manager has. You either have effective, regular, clear 1-on-1s or you pay in employee retention, satisfaction, and development.
 
 # Why I am Writing This
 As an engineer, 1-on-1s were important to me. They gave an opportunity to bring topics to my manager that otherwise didn't have an outlet, receive and provide feedback, and track successes and failures throughout the year. Unfortunately, 1-on-1s aren't mandatory at Cerner, yet for me they were the reason I stayed 2 years and became a team lead.
@@ -87,7 +87,7 @@ Negative feedback is harder than positive feedback for a variety of reasons:
  * Atmosphere and relationship with your report must allow for a _conversation_ about their faults and mistakes.
  * Situational feedback must be given shortly after an event or else it reads passive aggressive.
  * Hopefully a nonzero amount of your reports exceed you in some domain and utilize those skills, leaving you groping for feedback in the dark.
- * Confrontation simultaneously uncomfortable and critical.
+ * Confrontation is simultaneously uncomfortable and critical.
  * Presenting feedback well is like making food that tastes _and_ looks good.
 
 
