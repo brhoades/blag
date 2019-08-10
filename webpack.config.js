@@ -15,21 +15,18 @@ module.exports = {
     library: '[name]'
   },
   module: {
-  loaders: [
-    {
-      test: /\.js$/,
-      loader: 'babel-loader',
-      query: {
-        presets: ['es2015']
+    rules: [
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /(node_modules|bower_components)/,
+        options: {
+          presets: ['@babel/preset-env']
+        }
       }
-    }
     ]
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      mangle: false
-    }),
     new CopyWebpackPlugin([
       {
         from: './node_modules/cytoscape/dist/cytoscape.min.js',

@@ -21,7 +21,7 @@ Superborg got really bogged down; its responses slowed and they became increasin
 
 Markov Chains
 -------------
-Seeborg came up in a discussion with [Nathan Jarus](http://nathanjar.us/) in November 2013. Nate had started a project a while before this conversation which aimed to make an IRC bot using the same underlying algorithm as seeborg, [Markov chains](https://en.wikipedia.org/wiki/Markov_chain). Markov chains have many, many applications which I won't even reference. I will instead explore a very specific niche where they can be used to generate speech.
+Seeborg came up in a discussion with [Nathasha Jarus](https://web.mst.edu/~nmjxv3/) in November 2013. Nat had started a project a while before this conversation which aimed to make an IRC bot using the same underlying algorithm as seeborg, [Markov chains](https://en.wikipedia.org/wiki/Markov_chain). Markov chains have many, many applications which I won't even reference. I will instead explore a very specific niche where they can be used to generate speech.
 
 Markov chains, for the purposes of an IRC bot, are best represented by directional graphs. Each node in this graph will hold data (a "word") and each edge will have a number, (0, 1], representing the probability of traversing this edge. Below is a visualization of a Markov chain with 3 nodes:
 
@@ -114,9 +114,9 @@ It's easy to demonstrate how this method fails at scale by choosing a node value
 <div id="markov-chain-letter-graph" class="markov-graph" style="height: 600px; width: 768px;"></div>
 <br />
 <div id="built-word" style="height: 25px;"></div>
-<a href="javascript:$('#built-word').text(''); markov.graphs.generateWord(3, "#built-word");">Create a word</a>
-
+<a id="build-word" href="#">Create a word</a>
 <script>
+  $('#build-word').on('click', function(e) { e.preventDefault(); $('#built-word').text(''); markov.graphs.generateWord(3, "#built-word"); });
   markov.graphs.renderFourthExample();
 </script>
 {% endraw %}

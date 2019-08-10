@@ -325,7 +325,7 @@ function renderCircularGraph(json, container, cb, layout={}) {
             boxSelectionEnabled: false,
             autounselectify: false,
 
-            userZoomingEnabled: true,
+            userZoomingEnabled: false,
             panningEnabled: true,
 
             style: [
@@ -409,10 +409,10 @@ function getNextLetter(cy, currentnode, output_div) {
   // our random number, return that
   var rand = Math.random(),
       edge = null;
-  for(var i=0; i<edges.length; i++) {
+  for (var i=0; i<edges.length; i++) {
     var cum_value = edges[i].data('cum_value');
 
-    if(cum_value > rand || cum_value >= 1) {
+    if (cum_value > rand || cum_value >= 1) {
       edge = edges[i];
       break
     }
@@ -424,11 +424,14 @@ function getNextLetter(cy, currentnode, output_div) {
   nextnode.select();
 
   setTimeout(function() {
+    debugger;
     currentnode.deselect();
     edge.deselect();
-    if(nextnode.data('name') != "$") {
-      getNextLetter(cy, nextnode);
-      $(output_div).append(nextnode.data('name'));
+    if (nextnode.data('name') !== "$") {
+      const output_text = $(output_div).text();
+
+      getNextLetter(cy, nextnode, output_div);
+      $(output_div).text(output_text + nextnode.data('name'));
     } else {
       nextnode.deselect();
     }
@@ -438,7 +441,8 @@ function getNextLetter(cy, currentnode, output_div) {
 function generateWord(example=3, output_div="") {
   var cy;
 
-  if(example == 3) {
+  // awful handoff per example.
+  if (example === 3) {
      cy = cyex3;
   } else {
      cy = cyex4;

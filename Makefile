@@ -1,15 +1,15 @@
 default: build
 
 build: _posts src
-	webpack
+	node_modules/.bin/webpack
 	bundle exec jekyll build
 
 serve: _posts _drafts
-	webpack
+	node_modules/.bin/webpack --mode development
 	bundle exec jekyll serve --drafts
 
 publish: _posts _drafts
-	webpack
+	node_modules/.bin/webpack
 	bundle exec jekyll build --drafts
 	git checkout gh-pages
 	@ rm -rf site &> /dev/null
