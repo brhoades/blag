@@ -5,7 +5,7 @@ title:  "One-on-Ones Are Mandatory"
 categories: management
 ---
 
-One on ones are one of the most important tools a manager has. You either have effective, regular, clear 1-on-1s or you pay in employee retention, satisfaction, and development.
+One on ones are one of the most important tools that a manager has. You either have effective, regular, clear 1-on-1s or you pay in employee retention, satisfaction, and development.
 
 # Why I am Writing This
 As an engineer, 1-on-1s were important to me. They gave an opportunity to bring topics to my manager that otherwise didn't have an outlet, receive and provide feedback, and track successes and failures throughout the year. Unfortunately, 1-on-1s aren't mandatory at Cerner; yet for me, they were the reason that I hit 2 years and became a team lead.
@@ -163,4 +163,4 @@ Other topics always carry an item to discuss previous TODOs and feedback from pr
 ## Extra reading
  * [A Good Place to Work](https://a16z.com/2012/08/18/a-good-place-to-work)
  * [The Hard Thing about Hard Things](https://www.amazon.com/Hard-Thing-About-Things-Building-ebook/dp/B00DQ845EA)
- * [The Making of a Manager: What to Do When Everyone Looks at You](https://www.amazon.com/Making-Manager-What-Everyone-Looks-ebook/dp/B079WNPRL2)
+ * [The Making of a Manager: What to Do When Everyone Looks to You](https://www.amazon.com/Making-Manager-What-Everyone-Looks-ebook/dp/B079WNPRL2)
