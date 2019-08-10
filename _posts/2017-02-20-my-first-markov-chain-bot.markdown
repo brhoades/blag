@@ -108,7 +108,7 @@ As more source text is added, the responses will become exponentially more diver
 
 It's easy to demonstrate how this method fails at scale by choosing a node value with a smaller set of possible values. Let's use letters, where our source text will be individual words. In theory, Markov chains would be able to randomly make new words using whatever source text we provide.
 
-[Here's the list of 100 words](/json/100words.json) we will use as a source to make a Markov chain from. Click "Create a word" below to start.
+[Here's the list of 100 words](/assets/scripts/markov/100words.json) we will use as a source to make a Markov chain from. Click "Create a word" below to start.
 
 {% raw %}
 <div id="markov-chain-letter-graph" class="markov-graph" style="height: 600px; width: 768px;"></div>
