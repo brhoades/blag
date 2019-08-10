@@ -169,7 +169,7 @@ Ben Horowitz, [A Good Place to Work](https://a16z.com/2012/08/18/a-good-place-to
 
 Being too busy to have 1-on-1s is the same as being too thirsty to drink. You will become busier when an employee quits due to a circumstance that could have been identified and rectified. When you have to onboard a new hire, you'll be sacrificing team capacity to get them up to speed. When a senior engineer leaves, you'll get their their work and distribute it to teammates.
 
-You can't cancel 1-on-1s when something critical comes up. Something is always wrong, something is always on fire, something will always be critical. But nothing is more important than your people. You can prevent fires by training, growing, and building relationships your people. You can delegate critical things to people that you trust and have established relationships with.
+You can't cancel 1-on-1s when something critical comes up. Something is always wrong, something is always on fire, something will always be critical. Nothing is more important than your people. Unlike individual events, people are a constant. You can prevent fires by training, growing, and building relationships your people. You can delegate critical things to people that you trust and have established relationships with.
 
 1-on-1s are an end to a potential death spiral of being busy, fighting fires, having unhappy employees, and losing important people.
 
