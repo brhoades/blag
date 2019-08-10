@@ -161,6 +161,12 @@ At worst, these questions allow reports to feel heard. At best, these questions 
 Other topics always carry an item to discuss previous TODOs and feedback from previous meetings. This is a reminder for you and your report that you will revisit feedback and expectations each meeting. Leaf through the last month of 1-on-1s and bring up any feedback, discussions, and action items that are still relevant.
 
 ## Summary
+> 1. Being a good company doesn’t matter when things go well, but it can be the difference between life and death when things go wrong.
+> 2. Things always go wrong.
+> 3. Being a good company is itself an end.
+
+Ben Horowitz, [A Good Place to Work](https://a16z.com/2012/08/18/a-good-place-to-work/)
+
 Being too busy to have 1-on-1s is the same as being too thirsty to drink. You will become busier when an employee quits due to a circumstance that could have been identified and rectified. When you have to onboard a new hire, you'll be sacrificing team capacity to get them up to speed. When a senior engineer leaves, you'll get their their work and distribute it to teammates.
 
 You can't cancel 1-on-1s when something critical comes up. Something is always wrong, something is always on fire, something will always be critical. But nothing is more important than your people. You can prevent fires by training, growing, and building relationships your people. You can delegate critical things to people that you trust and have established relationships with.
