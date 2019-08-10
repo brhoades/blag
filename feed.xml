@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.6.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-08-10T12:23:41-05:00</updated><id>/</id><title type="html">Billy Rhoades</title><subtitle></subtitle><entry><title type="html">One-on-Ones Are Mandatory</title><link href="/management/2019/07/29/one-on-ones.html" rel="alternate" type="text/html" title="One-on-Ones Are Mandatory" /><published>2019-07-29T00:00:00-05:00</published><updated>2019-07-29T00:00:00-05:00</updated><id>/management/2019/07/29/one-on-ones</id><content type="html" xml:base="/management/2019/07/29/one-on-ones.html">&lt;p&gt;One on ones are one of the most important tools that a manager has. You either have effective, regular, clear 1-on-1s or you pay in employee retention, satisfaction, and development.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.6.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-08-10T13:32:18-05:00</updated><id>/</id><title type="html">Billy Rhoades</title><subtitle></subtitle><entry><title type="html">One-on-Ones Are Mandatory</title><link href="/management/2019/07/29/one-on-ones.html" rel="alternate" type="text/html" title="One-on-Ones Are Mandatory" /><published>2019-07-29T00:00:00-05:00</published><updated>2019-07-29T00:00:00-05:00</updated><id>/management/2019/07/29/one-on-ones</id><content type="html" xml:base="/management/2019/07/29/one-on-ones.html">&lt;p&gt;One on ones are one of the most important tools that a manager has. You either have effective, regular, clear 1-on-1s or you pay in employee retention, satisfaction, and development.&lt;/p&gt;
 
 &lt;h1 id=&quot;why-i-am-writing-this&quot;&gt;Why I am Writing This&lt;/h1&gt;
 &lt;p&gt;As an engineer, 1-on-1s were important to me. They gave an opportunity to bring topics to my manager that otherwise didn’t have an outlet, receive and provide feedback, and track successes and failures throughout the year. Unfortunately, 1-on-1s aren’t mandatory at Cerner; yet for me, they were the reason that I hit 2 years and became a team lead.&lt;/p&gt;
@@ -192,6 +192,13 @@ I’ll give you details about this feedback and why you are getting it, then you
 
 &lt;h3 id=&quot;accountability---other-topics&quot;&gt;Accountability - Other Topics&lt;/h3&gt;
 &lt;p&gt;Other topics always carry an item to discuss previous TODOs and feedback from previous meetings. This is a reminder for you and your report that you will revisit feedback and expectations each meeting. Leaf through the last month of 1-on-1s and bring up any feedback, discussions, and action items that are still relevant.&lt;/p&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;Being too busy to have 1-on-1s is the same as being too thirsty to drink. You will become busier when an employee quits due to a circumstance that could have been identified and rectified. When you have to onboard a new hire, you’ll be sacrificing team capacity to get them up to speed. When a senior engineer leaves, you’ll get their their work and distribute it to teammates.&lt;/p&gt;
+
+&lt;p&gt;You can’t cancel 1-on-1s when something critical comes up. Something is always wrong, something is always on fire, something will always be critical. But nothing is more important than your people. You can prevent fires by training, growing, and building relationships your people. You can delegate critical things to people that you trust and have established relationships with.&lt;/p&gt;
+
+&lt;p&gt;1-on-1s are an end to a potential death spiral of being busy, fighting fires, having unhappy employees, and losing important people.&lt;/p&gt;
 
 &lt;h2 id=&quot;extra-reading&quot;&gt;Extra reading&lt;/h2&gt;
 &lt;ul&gt;
@@ -731,4 +738,150 @@ with:&lt;/p&gt;
 &lt;p&gt;A list of all sbt tasks are available &lt;a href=&quot;http://gatling.io/docs/current/extensions/sbt_plugin/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h1 id=&quot;reference-material&quot;&gt;Reference Material&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;http://gatling.io/docs/current/cheat-sheet/&quot;&gt;Gatling cheat sheet&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">Background I could not find material online that targeted the latest version of Gatling, meant for someone without a great deal of functional experience. I also don’t mean for this to be comprehensive; I just hope this serves as a starting point to jump off to official documentation.</summary></entry></feed>
+&lt;p&gt;&lt;a href=&quot;http://gatling.io/docs/current/cheat-sheet/&quot;&gt;Gatling cheat sheet&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">Background I could not find material online that targeted the latest version of Gatling, meant for someone without a great deal of functional experience. I also don’t mean for this to be comprehensive; I just hope this serves as a starting point to jump off to official documentation.</summary></entry><entry><title type="html">Markov Chain Speech Generation Part 1: Background</title><link href="/markov/chain/marko/ruby/bot/irc/2017/02/20/my-first-markov-chain-bot.html" rel="alternate" type="text/html" title="Markov Chain Speech Generation Part 1: Background" /><published>2017-02-20T00:00:00-06:00</published><updated>2017-02-20T00:00:00-06:00</updated><id>/markov/chain/marko/ruby/bot/irc/2017/02/20/my-first-markov-chain-bot</id><content type="html" xml:base="/markov/chain/marko/ruby/bot/irc/2017/02/20/my-first-markov-chain-bot.html">&lt;script src=&quot;https://code.jquery.com/jquery-3.1.1.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;http://underscorejs.org/underscore-min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;/assets/javascripts/dist/cytoscape.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://cdn.rawgit.com/cytoscape/cytoscape.js-spread/1.2.0/cytoscape-spread.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;/assets/javascripts/markov.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;history&quot;&gt;History&lt;/h2&gt;
+&lt;p&gt;Back around 2006, some friends and I had an IRC bot that we lovingly named superborg. Superborg would join channels and log any text it saw into a flatfile. After a while, it would randomly respond to a message with a cobbled together phrase from those stored messages. Typically, those phrases sounded incoherent, but every once in a while it would randomly create a real gem. In our excitement with superborg’s learning, we loaded it up hundreds of megabytes of Shakespeare, Wikipedia, and old speech transcripts.&lt;/p&gt;
+
+&lt;p&gt;Superborg got really bogged down; its responses slowed and they became increasingly schizophrenic. Although I knew superborg was open source and even had experience in C, I was quite green. Objects and algorithms were words to me, so when I delved into &lt;a href=&quot;https://github.com/hmage/seeborg&quot;&gt;seeborg&lt;/a&gt;’s source code, I ran the other way. However, the bot’s idea stuck with me for many years.&lt;/p&gt;
+
+&lt;h2 id=&quot;markov-chains&quot;&gt;Markov Chains&lt;/h2&gt;
+&lt;p&gt;Seeborg came up in a discussion with &lt;a href=&quot;https://web.mst.edu/~nmjxv3/&quot;&gt;Nathasha Jarus&lt;/a&gt; in November 2013. Nat had started a project a while before this conversation which aimed to make an IRC bot using the same underlying algorithm as seeborg, &lt;a href=&quot;https://en.wikipedia.org/wiki/Markov_chain&quot;&gt;Markov chains&lt;/a&gt;. Markov chains have many, many applications which I won’t even reference. I will instead explore a very specific niche where they can be used to generate speech.&lt;/p&gt;
+
+&lt;p&gt;Markov chains, for the purposes of an IRC bot, are best represented by directional graphs. Each node in this graph will hold data (a “word”) and each edge will have a number, (0, 1], representing the probability of traversing this edge. Below is a visualization of a Markov chain with 3 nodes:&lt;/p&gt;
+
+&lt;div id=&quot;markov-chain&quot; class=&quot;markov-graph&quot; style=&quot;width: 768px; height: 175px;&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+  markov.graphs.renderFirstExample(&quot;#markov-chain&quot;);
+&lt;/script&gt;
+
+&lt;p&gt;This chain’s three nodes all have edges with a probability of 1.0 and some arbitrary data “data”. It will always be the case that the sum of each node’s outward edges will be 1.0; however, on average, in a Markov chain bot there will be more than one edge. As there is only one edge from each node in this graph, the traversal of this graph will always be the same.&lt;/p&gt;
+
+&lt;h1 id=&quot;with-words&quot;&gt;With words&lt;/h1&gt;
+
+&lt;p&gt;When “data” is swapped out for words in a couple of sentences (which I’ll refer to a sources or source text) the application becomes a bit more clear:&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;A dog jumps over the log&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The bear jumps clear of harm&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Note that with capitalization, there is only one word, “jumps”, which is common to both sentences. A Markov chain would combine those words into a single node with two input edges and one output. This can be seen below.&lt;/p&gt;
+
+&lt;div id=&quot;markov-chain-sentence&quot; class=&quot;markov-graph&quot; style=&quot;width: 768px; height: 300px;&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+  markov.graphs.renderSecondExample(&quot;#markov-chain-sentence&quot;);
+&lt;/script&gt;
+
+&lt;p&gt;When starting from the beginning of both of these chains, each movement along an edge to next node has 100% probability. However, once reaching the “jump” node, there’s a 50% (0.5) chance of going to either destination. This comes from our original sentences where there are two distinct possibilities of what follows jumps, with one occurance of each. This gave each edge a probability of 0.5 (1/2). The decision of which edge to traverse will be made randomly by a program. For this Markov chain, there are 4 outputs which are all fairly coherent:&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;A dog jumps over the log&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The bear jumps clear of harm&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The dog jumps clear of harm&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The bear jumps over the log&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The chance of each output when traversing this chain, starting from a leftmost node randomly, is 25%.&lt;/p&gt;
+
+&lt;h1 id=&quot;duplicate-sources&quot;&gt;Duplicate sources&lt;/h1&gt;
+
+&lt;p&gt;Now, if instead the source text had instead been:&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;A dog jumps over the log&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;A dog jumps over the log&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The bear jumps clear of harm&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div id=&quot;markov-chain-sentence-two&quot; class=&quot;markov-graph&quot; style=&quot;width: 768px; height: 300px;&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+  markov.graphs.renderThirdExample(&quot;#markov-chain-sentence-two&quot;);
+&lt;/script&gt;
+
+&lt;p&gt;What held in the previous example still holds here: since there are two source sentences which have the transition “jumps” to “over”, and one for “jumps” to “clear”, the weight for each is 0.67 (2/3) and 0.33 (1/3) respectively. Traversing this graph after randomly choosing a leftmost node gives the following chances for each output sentence:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;A dog jumps over the log&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;33.3% (1/3)&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The bear jumps clear of harm&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;16.7% (1/6)&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The dog jumps clear of harm&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;16.7% (1/6)&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The bear jumps over the log&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;33.3% (1/3)&lt;/p&gt;
+
+&lt;h1 id=&quot;n-grams&quot;&gt;n-grams&lt;/h1&gt;
+&lt;p&gt;In the last example, by traversing a Markov chain we generated four possible sentences as output. These sentences were based entirely on the source text; if sentences were generated at scale in a large number of trials, the number of times specific fragments (subchain after a non-1.0 decision in this case) appeared would be proportional to frequency in the source text. This follows as the probabilites for these words appearing is equal to their frequency in the source text.&lt;/p&gt;
+
+&lt;p&gt;As more source text is added, the responses will become exponentially more diverse. At the same time, the total number of branch points where context can be lost will increase as well. The method I described above where each word in a sentence is a node is arbitrary— one I’ve chosen as I felt it was easy to explain. It worked well in the examples provided as, although the set of possible node values (words) was incredibly large,  I only selected a handful of them.&lt;/p&gt;
+
+&lt;p&gt;It’s easy to demonstrate how this method fails at scale by choosing a node value with a smaller set of possible values. Let’s use letters, where our source text will be individual words. In theory, Markov chains would be able to randomly make new words using whatever source text we provide.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/json/100words.json&quot;&gt;Here’s the list of 100 words&lt;/a&gt; we will use as a source to make a Markov chain from. Click “Create a word” below to start.&lt;/p&gt;
+
+&lt;div id=&quot;markov-chain-letter-graph&quot; class=&quot;markov-graph&quot; style=&quot;height: 600px; width: 768px;&quot;&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div id=&quot;built-word&quot; style=&quot;height: 25px;&quot;&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a id=&quot;build-word&quot; href=&quot;#&quot;&gt;Create a word&lt;/a&gt;
+&lt;script&gt;
+  $('#build-word').on('click', function(e) { e.preventDefault(); $('#built-word').text(''); markov.graphs.generateWord(3, &quot;#built-word&quot;); });
+  markov.graphs.renderFourthExample();
+&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;A few notes regarding some non-letter symbols. “^” represents an arbitrary start of a word. This entry node in our graph ensures that the first letter on each word is in proportion with our source. “$”, similarly, represents the end of a word, and ensures that letters which typically end words have that probability represented.&lt;/p&gt;
+
+&lt;p&gt;For the simplicity of the generation, the generated words do a lot right: “u” always follows “q”, letters such as “y” usually end words, and most &lt;a href=&quot;https://en.wikipedia.org/wiki/Consonant_cluster&quot;&gt;consonant clusters&lt;/a&gt; and syllables in the words all appear in English. But there are also some drawbacks; the generated words can sometimes loop due to the cycles in this graph (much more on that later) and become incredibly long. There are also consonant clusters which never begin or never end a syllable that do— for example, “nt” in English does not begin syllables nor does “pl” end syllables.&lt;/p&gt;
+
+&lt;p&gt;These drawbacks are all caused by a loss in context by the Markov chain. While it’s traversing the graph, there’s no way for it to represent the relationship between “pl” and “a”, all it has is that “l” is preceded by “p” and followed by “l”. One method for storing this relationship is by using n-grams. Our current representation could be considered a 1-gram; if we instead used a bigram, we could represent the relationship between “pl” and “a-“ where “a- is followed by another letter.”&lt;/p&gt;
+
+&lt;p&gt;Below is yet another example of a Markov chain which does just that. You can also click “Create a word” to see how the output is.&lt;/p&gt;
+
+&lt;div id=&quot;markov-chain-digram-graph&quot; class=&quot;markov-graph&quot; style=&quot;height: 800px; width: 800px;&quot;&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div id=&quot;built-word-2&quot; style=&quot;height: 25px;&quot;&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;javascript:$('#built-word-2').text(''); markov.graphs.generateWord(4, '#built-word-2');&quot;&gt;Create a word&lt;/a&gt;&lt;/p&gt;
+
+&lt;script&gt;
+  markov.graphs.renderFifthExample();
+&lt;/script&gt;</content><author><name></name></author><summary type="html"></summary></entry></feed>

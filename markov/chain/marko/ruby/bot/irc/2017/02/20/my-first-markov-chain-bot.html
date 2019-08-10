@@ -10,7 +10,7 @@
   <meta name="description" content="">
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="/markov/chain/marko/ruby/bot/irc/2019/08/10/my-first-markov-chain-bot.html">
+  <link rel="canonical" href="/markov/chain/marko/ruby/bot/irc/2017/02/20/my-first-markov-chain-bot.html">
   <link rel="alternate" type="application/rss+xml" title="Billy Rhoades" href="/feed.xml">
   
   
@@ -60,7 +60,7 @@
 
   <header class="post-header">
     <h1 class="post-title" itemprop="name headline">Markov Chain Speech Generation Part 1: Background</h1>
-    <p class="post-meta"><time datetime="2019-08-10T12:23:08-05:00" itemprop="datePublished">Aug 10, 2019</time></p>
+    <p class="post-meta"><time datetime="2017-02-20T00:00:00-06:00" itemprop="datePublished">Feb 20, 2017</time></p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
@@ -81,7 +81,7 @@
 <p>Superborg got really bogged down; its responses slowed and they became increasingly schizophrenic. Although I knew superborg was open source and even had experience in C, I was quite green. Objects and algorithms were words to me, so when I delved into <a href="https://github.com/hmage/seeborg">seeborg</a>’s source code, I ran the other way. However, the bot’s idea stuck with me for many years.</p>
 
 <h2 id="markov-chains">Markov Chains</h2>
-<p>Seeborg came up in a discussion with <a href="http://nathanjar.us/">Nathan Jarus</a> in November 2013. Nate had started a project a while before this conversation which aimed to make an IRC bot using the same underlying algorithm as seeborg, <a href="https://en.wikipedia.org/wiki/Markov_chain">Markov chains</a>. Markov chains have many, many applications which I won’t even reference. I will instead explore a very specific niche where they can be used to generate speech.</p>
+<p>Seeborg came up in a discussion with <a href="https://web.mst.edu/~nmjxv3/">Nathasha Jarus</a> in November 2013. Nat had started a project a while before this conversation which aimed to make an IRC bot using the same underlying algorithm as seeborg, <a href="https://en.wikipedia.org/wiki/Markov_chain">Markov chains</a>. Markov chains have many, many applications which I won’t even reference. I will instead explore a very specific niche where they can be used to generate speech.</p>
 
 <p>Markov chains, for the purposes of an IRC bot, are best represented by directional graphs. Each node in this graph will hold data (a “word”) and each edge will have a number, (0, 1], representing the probability of traversing this edge. Below is a visualization of a Markov chain with 3 nodes:</p>
 
@@ -190,11 +190,11 @@
 <div id="markov-chain-letter-graph" class="markov-graph" style="height: 600px; width: 768px;"></div>
 <p><br /></p>
 <div id="built-word" style="height: 25px;"></div>
-<p>&lt;a href=”javascript:$(‘#built-word’).text(‘’); markov.graphs.generateWord(3, “#built-word”);”&gt;Create a word&lt;/a&gt;</p>
-
+<p><a id="build-word" href="#">Create a word</a>
 <script>
+  $('#build-word').on('click', function(e) { e.preventDefault(); $('#built-word').text(''); markov.graphs.generateWord(3, "#built-word"); });
   markov.graphs.renderFourthExample();
-</script>
+</script></p>
 
 <p>A few notes regarding some non-letter symbols. “^” represents an arbitrary start of a word. This entry node in our graph ensures that the first letter on each word is in proportion with our source. “$”, similarly, represents the end of a word, and ensures that letters which typically end words have that probability represented.</p>
 
