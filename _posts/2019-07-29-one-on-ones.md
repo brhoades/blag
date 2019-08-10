@@ -8,10 +8,10 @@ categories: management
 One on ones are one of the most important tools a manager has. You either have effective, regular, clear 1-on-1s or you pay in employee retention, satisfaction, and development.
 
 # Why I am Writing This
-As an engineer, 1-on-1s were important to me. They gave an opportunity to bring topics to my manager that otherwise didn't have an outlet, receive and provide feedback, and track successes and failures throughout the year. Unfortunately, 1-on-1s aren't mandatory at Cerner, yet for me they were the reason I stayed 2 years and became a team lead.
+As an engineer, 1-on-1s were important to me. They gave an opportunity to bring topics to my manager that otherwise didn't have an outlet, receive and provide feedback, and track successes and failures throughout the year. Unfortunately, 1-on-1s aren't mandatory at Cerner; yet for me, they were the reason that I hit 2 years and became a team lead.
 
 Today, I manage a team that handles high priority client requests while simultaneously on-boarding new engineers (365 days/yr support). I could not have survived the last year and on-boarded 5 engineers without regular, effective 1-on-1s. Now that I'm on the opposite side of 1-on-1s, I can see the traps managers fall into that lead 1-on-1s to doom:
- * Rescheduling and pushing back as something "critical" came up.
+ * Rescheduling, pushing back, and cancelling as something "critical" came up.
  * Ending early / starting late frequently.
  * Neither participant drives or the meeting is too unstructured.
  * Conversation and information is one way.
@@ -59,9 +59,9 @@ I meet twice a month for one hour each with each of my reports in a private, qui
 
 This template provides a clear agenda and reduces the amount of time spent digging. If the agenda isn't filled out in advance, you must pressure them to recollect for each section. Honestly, it usually isn't filled out ahead of time and they fill it out as I walk to the meeting room. This template also varies for each report; the question "What have you learned?" provides little value to more senior engineers versus a college apprentice.
 
-The top half of this template serves as minutes for our 1-on-1s. During the meeting, its primary purpose is as a conversation starter. At the end of the year, it becomes a historical record of accomplishments and challenges for self-evaluations. For most of the meeting, we dig and discuss discuss each point of each section. Some example questions for the first four sections include:
+The top half of this template serves as minutes for our 1-on-1s. The contents of these sections doesn't matter, they are purely conversation starters. If you are using this template as a way to understand what your reports are doing, you are wasting their time and hurting their development. Depending on topics, we primarily dig into and discuss each point of these first sections. Some example questions to use:
  * How was that?
- * Would you want to do it again, knowing what you know now? How would you change?
+ * Would you want to do it again, knowing what you know now? How would you change your execution?
  * Did you do that without assistance?
  * What can we do to make other tasks [not] like that?
  * Is there anything I can do to help next time?
@@ -159,3 +159,8 @@ At worst, these questions allow reports to feel heard. At best, these questions 
 
 ### Accountability - Other Topics
 Other topics always carry an item to discuss previous TODOs and feedback from previous meetings. This is a reminder for you and your report that you will revisit feedback and expectations each meeting. Leaf through the last month of 1-on-1s and bring up any feedback, discussions, and action items that are still relevant.
+
+## Extra reading
+ * [A Good Place to Work](https://a16z.com/2012/08/18/a-good-place-to-work)
+ * [The Hard Thing about Hard Things](https://www.amazon.com/Hard-Thing-About-Things-Building-ebook/dp/B00DQ845EA)
+ * [The Making of a Manager: What to Do When Everyone Looks at You](https://www.amazon.com/Making-Manager-What-Everyone-Looks-ebook/dp/B079WNPRL2)
