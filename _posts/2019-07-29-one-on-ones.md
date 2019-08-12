@@ -59,8 +59,8 @@ I meet twice a month for one hour each with each of my reports in a private, qui
 
 This template provides a clear agenda and reduces the amount of time spent digging. If the agenda isn't filled out in advance, you must pressure them to recollect for each section. Honestly, it usually isn't filled out ahead of time and they fill it out as I walk to the meeting room. This template also varies for each report; the question "What have you learned?" provides little value to more senior engineers versus a college apprentice.
 
-The top half of this template serves as minutes for our 1-on-1s. The contents of these sections doesn't matter, they are purely conversation starters. If you are using this template as a way to understand what your reports are doing, you are wasting their time and hurting their development. Depending on topics, we primarily dig into and discuss each point of these first sections. Some example questions to use:
- * How was that?
+The top half of this template serves as minutes for our 1-on-1s. The contents of these sections are conversation starters, not status updates. 1-on-1s are not a long-form scrums. Depending on topics, we primarily dig into and discuss each point of these first sections. Some example questions to use:
+ * How was that? Did you enjoy it?
  * Would you want to do it again, knowing what you know now? How would you change your execution?
  * Did you do that without assistance?
  * What can we do to make other tasks [not] like that?
