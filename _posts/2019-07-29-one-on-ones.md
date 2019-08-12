@@ -143,7 +143,7 @@ Do not ask "Do you have any feedback for \<report\>?" If you get something out o
  * Have they done anything this week that really impressed you?
 
 ### Manager Feedback
-1-on-1s should be bidirectional. You spend the first part of 1-on-1s digging for the known unknowns and discussing them. The free time at the tail end of the meeting should be dedicated to finding the unknown unknowns. There's a lot to be said of this, but recently I've added a recurring topic to my 1-on-1s. where, on odd meetings, we reflect on *my* performance as a manager. After all, my reports' fates are intertwined with the quality of my management; if I'm doing an awful job they'll likely fail with me.
+1-on-1s should be bidirectional. You spend the first part of 1-on-1s digging for the known unknowns and discussing them. The free time at the tail end of the meeting should be dedicated to finding the unknown unknowns. On odd meetings, we reflect on *my* performance as a manager. After all, my reports' fates are intertwined with the quality of my management; if I'm doing an awful job they'll likely fail with me.
 
 Here are questions I ask every other 1-on-1:
  * What could I do to make your job awesome?
