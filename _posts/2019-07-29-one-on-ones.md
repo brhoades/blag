@@ -167,13 +167,13 @@ Other topics always carry an item to discuss previous TODOs and feedback from pr
 
 Ben Horowitz, [A Good Place to Work](https://a16z.com/2012/08/18/a-good-place-to-work/)
 
-Being too busy to have 1-on-1s is the same as being too thirsty to drink. You will become busier when an employee quits due to a circumstance that could have been identified and rectified. When you have to onboard a new hire, you'll be sacrificing team capacity to get them up to speed. When a senior engineer leaves, you'll get their their work and distribute it to teammates.
+Being too busy to have 1-on-1s is the same as being too thirsty to drink. You will be busy when an employee quits due to a circumstance that could have been identified and rectified. When you have to onboard a new hire, you'll sacrifice team capacity to get them up to speed. When a senior engineer leaves, you'll get their work and distribute it to teammates.
 
 You can't cancel 1-on-1s when something critical comes up. Something is always wrong, something is always on fire, something will always be critical. Nothing is more important than your people. Unlike individual events, people are a constant. You can prevent fires by training, growing, and building relationships your people. You can delegate critical things to people that you trust and have established relationships with.
 
 1-on-1s are an end to a potential death spiral of being busy, fighting fires, having unhappy employees, and losing important people.
 
-## Extra reading
+## Extra Reading
  * [A Good Place to Work](https://a16z.com/2012/08/18/a-good-place-to-work)
  * [The Hard Thing about Hard Things](https://www.amazon.com/Hard-Thing-About-Things-Building-ebook/dp/B00DQ845EA)
  * [The Making of a Manager: What to Do When Everyone Looks to You](https://www.amazon.com/Making-Manager-What-Everyone-Looks-ebook/dp/B079WNPRL2)
