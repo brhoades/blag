@@ -59,14 +59,14 @@ I meet twice a month for one hour each with each of my reports in a private, qui
 
 This template provides a clear agenda and reduces the amount of time spent digging. If the agenda isn't filled out in advance, you must pressure them to recollect for each section. Honestly, it usually isn't filled out ahead of time and they fill it out as I walk to the meeting room. This template also varies for each report; the question "What have you learned?" provides little value to more senior engineers versus a college apprentice.
 
-The top half of this template serves as minutes for our 1-on-1s. The contents of these sections are conversation starters, not status updates. 1-on-1s are not a long-form scrums. Depending on topics, we primarily dig into and discuss each point of these first sections. Some example questions to use:
+The top half of this template serves as minutes for our 1-on-1s. The contents of these sections are conversation starters: focus on the hows and whys over the whats. 1-on-1s are **not** long-form scrums. I dig into these bullets with questions like:
  * How was that? Did you enjoy it?
  * Would you want to do it again, knowing what you know now? How would you change your execution?
  * Did you do that without assistance?
  * What can we do to make other tasks [not] like that?
  * Is there anything I can do to help next time?
  * Everything else went awesome/terrible?
- * You didn't work on anything else this sprint, just \<single item\>? You didn't learn anything else?
+ * Digging: you didn't work on anything else this sprint, just \<single item\>? You didn't learn anything else?
 
 ### Feedback and Expectations
 The most important two sections of the 1-on-1 template cover feedback. I can't talk about feedback without giving the three steadfast rules of feedback:
