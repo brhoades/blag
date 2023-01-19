@@ -11,9 +11,12 @@
       devShells.default = with (pkgsFor system); mkShell {
         buildInputs = [
           ruby_3_1
+          bundler
           nodejs_latest
           yarn
-        ];
+        ] ++ (with pkgs.rubyPackages_3_1; [
+          rexml
+        ]);
       };
     }));
 }

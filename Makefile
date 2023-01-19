@@ -22,9 +22,14 @@ publish: _posts _drafts
 	@ rm -rf assets
 	git mv -f site/* .
 	@ rm -rf site
-	git commit -a -m "Updated blog from master `git log master --abbrev-commit --pretty=oneline | head -1`"
+	git commit -a -m "Updated blog from main `git log main --abbrev-commit --pretty=oneline | head -1`"
 	git push origin gh-pages
-	git checkout master
+	git checkout main
+
+update:
+	nix flake lock --update-input nixpkgs
+	bundle update
+	yarn upgrade
 
 clean:
 	@ rm -rf _site
