@@ -10,19 +10,12 @@
       # envrc
       devShells.default = with (pkgsFor system); mkShell {
         buildInputs = [
-          ruby_3_1
-          bundler
           nodejs_latest
           yarn
 
           readline
-        ] ++ (with pkgs.rubyPackages_3_1; [
-          rexml
-          rb-readline
-          jekyll-sass-converter
-          sassc
-          minima
-        ]);
+          pandoc
+        ];
       };
     }));
 }
