@@ -29,6 +29,7 @@ publish: _posts _drafts
 update:
 	nix flake lock --update-input nixpkgs
 	bundle update
+	gem update
 	yarn upgrade
 
 clean:
