@@ -8,6 +8,7 @@ _site
 *.fls
 *.log
 *.fdb_latexmk
+^*.html
 .projectile
 .bundle
 

@@ -1,12 +1,12 @@
 default: build
 
-build: _posts src
-	node_modules/.bin/webpack
-	bundle exec jekyll build
+build: index.html
+	# pandoc --from=markdown+raw_html+markdown_in_html_blocks --to=html -s -o main.html main.md
+	# pandoc --from=markdown+raw_html+markdown_in_html_blocks --to=html -s -o slides.html slides.md -V revealjs-url=https://revealjs.com --template=template-revealjs.html --standalone --section-divs -V theme=black -V transition=linear --no-highlight
+	# node_modules/.bin/webpack --mode development
 
-serve: _posts _drafts
-	node_modules/.bin/webpack --mode development
-	bundle exec jekyll serve --drafts
+index.html: src/main.md _posts
+	pandoc --from=markdown+raw_html+markdown_in_html_blocks --to=html -s -o main.html src/main.md --template src/templates/base.html
 
 publish: _posts _drafts
 	node_modules/.bin/webpack
