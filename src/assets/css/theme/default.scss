@@ -11,21 +11,19 @@
 
 */
 
+$base-color: #a8914b;
+
 body {
   font-family: Consolas, monaco, monospace;
-  color: rgb(115, 95, 50);
+  color: $base-color;
 }
 
 h1, h2, h3, h4, h5 {
-  color: rgb(198, 151, 73);
+  color: lighten($base-color, 25%);
 }
 
 a {
-  color: rgb(168, 121, 53);
-}
-
-a:visited {
-  color: rgb(148, 101, 53);
+  color: lighten($base-color, 50%);
 }
 
 html {

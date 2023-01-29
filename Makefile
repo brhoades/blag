@@ -1,12 +1,18 @@
 default: build
 
-build: index.html
-	# pandoc --from=markdown+raw_html+markdown_in_html_blocks --to=html -s -o main.html main.md
-	# pandoc --from=markdown+raw_html+markdown_in_html_blocks --to=html -s -o slides.html slides.md -V revealjs-url=https://revealjs.com --template=template-revealjs.html --standalone --section-divs -V theme=black -V transition=linear --no-highlight
-	# node_modules/.bin/webpack --mode development
+SOURCES := $(wildcard src/*.md)
+PAGES := $(SOURCES:%.md=%.html)
 
-index.html: src/main.md _posts
-	pandoc --from=markdown+raw_html+markdown_in_html_blocks --to=html -s -o main.html src/main.md --template src/templates/base.html
+build: $(PAGES)
+
+watch:
+	. ./watch.sh
+
+%.html: %.md _posts ./src/templates/base.html
+	pandoc --from=markdown+raw_html+markdown_in_html_blocks \
+        --to=html -s -o $@ $< \
+        --template ./src/templates/base.html
+
 
 publish: _posts _drafts
 	node_modules/.bin/webpack
