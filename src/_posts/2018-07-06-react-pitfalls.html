@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>React Pitfalls</title>
+    <meta name="description" content="React Pitfalls">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    /*
+        <link rel="stylesheet" href="assets/css/theme/default.scss" id="theme">
+    
+    <!-- For syntax highlighting -->
+        <!--<link rel="stylesheet" href="lib/css/zenburn.css"> -->
+    
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+    <![endif]-->
+
+      </head>
+
+  <body>
+    <nav>
+      <a href="index.html" alt="Blog List">
+        <h3>brodes blog</h3>
+      </a>
+      <ul>
+        <li>
+        </li>
+        <li>
+          <a href="https://brod.es/" alt="Resume">
+            About Me
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/brhoades">
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    
+    <main>
+      <h2 id="introduction">Introduction</h2>
+      <p>React has some common pitfalls that I’ve seen developers fall
+      into when designing components. The most common center around
+      readability and performance. Now, there’s easily a dozen <a
+      href="http://americanexpress.io/clean-code-dirty-code/">articles</a>
+      <a
+      href="https://engineering.musefind.com/our-best-practices-for-writing-react-components-dec3eb5c3fc8">about</a>
+      <a
+      href="https://reactjs.org/docs/thinking-in-react.html">React</a>
+      <a
+      href="https://preact.gitbooks.io/react-book/content/jsx/index.html">best</a>
+      <a
+      href="https://blog.andrewray.me/youre-missing-the-point-of-jsx/">practices</a>
+      but these lean abstract with contrived examples. Personally, I
+      find it much easier to see where people made mistakes, see how we
+      fixed them, and then break those examples down.</p>
+      <h2 id="nested-component-definitions">Nested Component
+      Definitions</h2>
+      <p>Defining components within components breaks reusability,
+      causes unnecessary rendering, and crowds files. It’s particularly
+      tempting to nest components when one component needs variables
+      from the other, but it leads to coupling. Nesting components will
+      always lead to rerenders of child compoents when any prop in the
+      parent component is changed. Fortunately, it’s easy to fix and
+      fairly easy to diagnose.</p>
+      <h3 id="recommended-reading">Recommended Reading</h3>
+      <ul>
+      <li><a
+      href="https://reactjs.org/docs/rendering-elements.html">React
+      Documentation: rendering elements</a></li>
+      <li><a
+      href="https://medium.com/@ryanbas21/react-reconciliation-7075e3f07437">React
+      Reconciliation</a></li>
+      </ul>
+      <h3 id="bad">Bad</h3>
+      <div class="sourceCode" id="cb1"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> Section <span class="op">=</span> ({ description<span class="op">,</span> footer<span class="op">,</span> header<span class="op">,</span> items<span class="op">,</span> sectionId<span class="op">,</span> onChange }) <span class="kw">=&gt;</span> {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> Item <span class="op">=</span> ({ content<span class="op">,</span> label<span class="op">,</span> index<span class="op">,</span> value }) <span class="kw">=&gt;</span> (</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>React<span class="op">.</span><span class="at">Fragment</span><span class="op">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>Header size<span class="op">=</span><span class="st">&quot;small&quot;</span><span class="op">&gt;</span>{label}<span class="op">&lt;/</span>Header<span class="op">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      {content}</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>Input onChange<span class="op">=</span>{(e) <span class="kw">=&gt;</span> <span class="fu">onChange</span>(sectionId<span class="op">,</span> index<span class="op">,</span> e<span class="op">.</span><span class="at">target</span><span class="op">.</span><span class="at">value</span>)} value<span class="op">=</span>{value} <span class="op">/&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>Spacer size<span class="op">=</span><span class="st">&quot;small&quot;</span> <span class="op">/&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;/</span>React<span class="op">.</span><span class="at">Fragment</span><span class="op">&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> Content <span class="op">=</span> () <span class="kw">=&gt;</span> (</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    items<span class="op">.</span><span class="fu">map</span>(({ content<span class="op">,</span> label }<span class="op">,</span> i) <span class="kw">=&gt;</span> (</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>Item</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        content<span class="op">=</span>{content}</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        label<span class="op">=</span>{label}</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        index<span class="op">=</span>{i}</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        key<span class="op">=</span>{<span class="vs">`</span><span class="sc">${</span>sectionId<span class="sc">}${</span>label<span class="sc">}</span><span class="vs">`</span>}</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>      <span class="op">/&gt;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    ))<span class="op">;</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>Card<span class="op">&gt;</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>Header<span class="op">&gt;</span>{header}<span class="op">&lt;/</span>Header<span class="op">&gt;</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>Content <span class="op">/&gt;</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>Footer<span class="op">&gt;</span>{footer}<span class="op">&lt;/</span>Footer<span class="op">&gt;</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;/</span>Card<span class="op">&gt;</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+      <p>Here you can see a section component which, within it, defines
+      an Item component and a Content component. Defining an internal
+      Content component here is only a coupling issue. However, defining
+      Item within this component is going to cause some pain. Item is
+      defined within this component because it’s only used by Section
+      and it needs sectionId and onChange from Section.</p>
+      <p>However, defining the component within Section causes Item to
+      be redefined and rerendered every time any Section prop changes.
+      Any Inputs on the page will be destroyed and mounted again within
+      the DOM. If you were typing into an Input component and a Section
+      prop changed, your focus would be lost. I’ve ran into this
+      scenario quite a few times— onChange updates Section’s items which
+      causes a rerender.</p>
+      <p>If Item were moved outside of Section, React would behave
+      differently.</p>
+      <h3 id="good">Good</h3>
+      <div class="sourceCode" id="cb2"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> Item <span class="op">=</span> ({ content<span class="op">,</span> label<span class="op">,</span> index<span class="op">,</span> onChange<span class="op">,</span> sectionId }) <span class="kw">=&gt;</span> (</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">&lt;</span>React<span class="op">.</span><span class="at">Fragment</span><span class="op">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>Header size<span class="op">=</span><span class="st">&quot;small&quot;</span><span class="op">&gt;</span>{label}<span class="op">&lt;/</span>Header<span class="op">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    {content}</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>Input onChange<span class="op">=</span>{(e) <span class="kw">=&gt;</span> <span class="fu">onChange</span>(sectionId<span class="op">,</span> index<span class="op">,</span> e<span class="op">.</span><span class="at">target</span><span class="op">.</span><span class="at">value</span>)} <span class="op">/&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>Spacer size<span class="op">=</span><span class="st">&quot;small&quot;</span> <span class="op">/&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">&lt;/</span>React<span class="op">.</span><span class="at">Fragment</span><span class="op">&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> Section <span class="op">=</span> ({ description<span class="op">,</span> footer<span class="op">,</span> header<span class="op">,</span> items<span class="op">,</span> sectionId<span class="op">,</span> onChange }) <span class="kw">=&gt;</span> {</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> content <span class="op">=</span> items<span class="op">.</span><span class="fu">map</span>(({ content<span class="op">,</span> label }<span class="op">,</span> i) <span class="kw">=&gt;</span> (</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>Item</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>      content<span class="op">=</span>{content}</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>      label<span class="op">=</span>{label}</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>      index<span class="op">=</span>{i}</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>      sectionId<span class="op">=</span>{sectionId}</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>      onChange<span class="op">=</span>{onChange}</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>      key<span class="op">=</span>{<span class="vs">`</span><span class="sc">${</span>sectionId<span class="sc">}${</span>label<span class="sc">}</span><span class="vs">`</span>}</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">/&gt;</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  ))<span class="op">;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>Card<span class="op">&gt;</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>Header<span class="op">&gt;</span>{header}<span class="op">&lt;/</span>Header<span class="op">&gt;</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>      {content}</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>Footer<span class="op">&gt;</span>{footer}<span class="op">&lt;/</span>Footer<span class="op">&gt;</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;/</span>Card<span class="op">&gt;</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+      <p>As mentioned above, with Item defined outside of section any
+      changes to Section’s props which don’t affect Item’s props will
+      not cause a rerender. <a
+      href="https://reactjs.org/docs/rendering-elements.html#react-only-updates-whats-necessary">Only
+      components with modified props will be updated</a>. Input’s focus
+      will not be lost as long as its props aren’t changed. We save
+      unnecessary renders here and remove future coupling issues.</p>
+      <h2 id="abusing-keys">Abusing Keys</h2>
+      <p>Keys in React are used when returning procedurally generated
+      components. One of the most common uses is an array of values
+      which will be individually passed into equally many components, as
+      can be seen below. React’s <a
+      href="https://reactjs.org/docs/lists-and-keys.html#keys">documentation
+      describes this well</a>:</p>
+      <blockquote>
+      <p>Keys help React identify which items have changed, are added,
+      or are removed. Keys should be given to the elements inside the
+      array to give the elements a stable identity.</p>
+      </blockquote>
+      <p>Unfortunately, keys aren’t always available inside a data
+      source. When not available, keys can be chosen that aren’t stable
+      between renders or not unique among sibling components. React’s
+      documentation <a
+      href="https://reactjs.org/docs/reconciliation.html#tradeoffs">mentions
+      this</a>:</p>
+      <blockquote>
+      <p>Keys should be stable, predictable, and unique. Unstable keys
+      (like those produced by Math.random()) will cause many component
+      instances and DOM nodes to be unnecessarily recreated, which can
+      cause performance degradation and lost state in child
+      components.</p>
+      </blockquote>
+      <p>In a pinch, using the array index may suffice. However, I’m in
+      the camp that index as a key is an antipattern; you only do this
+      until you encounter a bug from it. Bugs resulting from index as a
+      key are incredibly difficulty to diagnose; they usually arise from
+      where components that have state are change keys. The bug’s
+      symptoms will be varied: maybe state tranfers when an element is
+      deleted from an index, or maybe it gets a random state from an
+      older component. You don’t want to learn the symptoms.</p>
+      <h3 id="recommended-reading-1">Recommended Reading</h3>
+      <ul>
+      <li><a
+      href="https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318">Index
+      as a key is an antipattern</a></li>
+      <li><a href="https://reactjs.org/docs/lists-and-keys.html">React
+      documentation: Keys</a></li>
+      <li><a
+      href="https://reactjs.org/docs/reconciliation.html#recursing-on-children">React
+      documentation: Recursing on Children</a></li>
+      </ul>
+      <h3 id="bad-1">Bad</h3>
+      <div class="sourceCode" id="cb3"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> shortid <span class="op">=</span> <span class="pp">require</span>(<span class="st">&#39;shortid&#39;</span>)<span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> Quiz <span class="op">=</span> ({ sections }) <span class="kw">=&gt;</span> {</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>div<span class="op">&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>      {</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        sections<span class="op">.</span><span class="fu">map</span>((section) <span class="kw">=&gt;</span> (</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>          <span class="op">&lt;</span>Section</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>            {<span class="op">...</span>section}</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>            key<span class="op">=</span>{shortid<span class="op">.</span><span class="fu">generate</span>()}</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>          <span class="op">/&gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        ))</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;/</span>div<span class="op">&gt;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+      <p>We’re using <a
+      href="https://github.com/dylang/shortid#usage">shortid</a> to
+      generate a unique, per render random key for our sections. This
+      would be a nonissue if sections never change position or the list
+      never changes size. However, if sections does change, it’s
+      possible that there could be <a
+      href="https://reactjs.org/docs/reconciliation.html#recursing-on-children">performance
+      issues</a> or <a href="https://codepen.io/anon/pen/ParyQq">state
+      bugs</a>. This can sometimes be easy to solve… sometimes it’s
+      not.</p>
+      <h3 id="good-1">Good</h3>
+      <div class="sourceCode" id="cb4"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> Quiz <span class="op">=</span> ({ sections }) <span class="kw">=&gt;</span> {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>div<span class="op">&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>      {</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        sections<span class="op">.</span><span class="fu">map</span>((section) <span class="kw">=&gt;</span> (</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>          <span class="op">&lt;</span>Section</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            {<span class="op">...</span>section}</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>            key<span class="op">=</span>{section<span class="op">.</span><span class="at">label</span>}</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>          <span class="op">/&gt;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        ))</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;/</span>div<span class="op">&gt;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+      <p>The shortid is now swapped for label, which in this case is
+      both unique among all sections and consistent. If you can’t find a
+      key that’s unique, you may find yourself resorting to using an
+      index, but that should be <a
+      href="https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318">a
+      last resort</a>.</p>
+      <h2 id="redux-overloading-mapstatetoprops">Redux: Overloading
+      mapStateToProps</h2>
+      <p>With Redux, <a
+      href="https://github.com/reduxjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options">mapStateToProps</a>
+      is used to subscribe to updates from the store. Any time the store
+      is updated, every component decorated with connect will have its
+      mapStateToProps called. The output of mapStateToProps is then
+      passed to the component via props.</p>
+      <p>Since mapStateToProps is called on every update, React
+      applications which heavily utilize the store could see a
+      performance impact. For example, if you are storing <a
+      href="https://redux-form.com/7.3.0/">the contents of a form</a> in
+      Redux, every letter typed into a form by a user may trigger a
+      store update. Depending on how your application is laid out, this
+      would trigger every mapStateToProps on every keypress, and
+      possibly trigger rerenders if those result in prop changes.</p>
+      <p>If there are any mapStateToProps functions that do expensive
+      calculation, such as computing the initial values for the form
+      which a user is inputting into, those will be recalculated
+      <em>every time a change occurs</em>. Since the initial state of a
+      form likely wouldn’t change from user input, it wouldn’t affect
+      the output for mapStateToProps here. However, the calculation
+      would still happen under the hood.</p>
+      <p>One workaround here is to use <a
+      href="https://github.com/reduxjs/reselect">Reselect</a> in any
+      place where you are performing complex logic within
+      mapStateToProps. Reselect, which behaves very similarly to
+      mapStateToProps, creates a selector. When defining a selector, it
+      needs a list of input functions which will be used to get a list
+      of outputs. The list of outputs are then passed to a result
+      function, which should have any expensive computation in it. From
+      Reselect’s documentation:</p>
+      <div class="sourceCode" id="cb5"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// createSelector(...inputSelectors | [inputSelectors], resultFunc)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> totalSelector <span class="op">=</span> <span class="fu">createSelector</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  [</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    state <span class="kw">=&gt;</span> state<span class="op">.</span><span class="at">values</span><span class="op">.</span><span class="at">value1</span><span class="op">,</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    state <span class="kw">=&gt;</span> state<span class="op">.</span><span class="at">values</span><span class="op">.</span><span class="at">value2</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">,</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  (value1<span class="op">,</span> value2) <span class="kw">=&gt;</span> value1 <span class="op">+</span> value2</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+      <p>This example is very simple, but it demonstrates basic usage
+      well. Here we created a selector with two input selectors that
+      grab values from the store. These values are passed through to the
+      result function passed as a second argument to
+      <code>createSelector</code>. <code>totalSelector</code> would be
+      used in your mapStateToProps:</p>
+      <div class="sourceCode" id="cb6"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mapStateToProps <span class="op">=</span> (state) <span class="kw">=&gt;</span> ({</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">totalOutput</span><span class="op">:</span> <span class="fu">totalSelector</span>(state)<span class="op">,</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+      <p><code>totalSelector</code> is memoized; it is only called when
+      one of its input selectors return a different value. So if
+      <code>value1 + value2</code> were an expensive operation that
+      rarely occurred, it would only be called if the two input
+      selectors had changed. This stops expensive computations from
+      occurring when they will provide the same output.</p>
+      <h2 id="resources">Resources</h2>
+      <ul>
+      <li><a
+      href="https://reactjs.org/docs/optimizing-performance.html">Optimizing
+      React Performance</a></li>
+      <li><a
+      href="https://github.com/markerikson/react-redux-links/blob/master/react-architecture.md">Comprehensive
+      React article list for architecting applications</a></li>
+      </ul>
+    </main>
+
+  </body>
+</html>

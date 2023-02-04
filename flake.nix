@@ -14,11 +14,15 @@
         buildInputs = [
           nodejs_latest
           pandoc
-          inotify-tools
         ] ++ (with nodePackages; [
           yarn
           sass
-        ]);
+        ]) ++ (if system == "x86_64-linux" then [
+
+          inotify-tools
+        ] else if system == "aarch64-darwin" then [
+          fswatch 
+        ] else []);
       };
     }));
 }

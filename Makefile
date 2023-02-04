@@ -1,6 +1,6 @@
 default: build
 
-SOURCES := $(wildcard src/*.md)
+SOURCES := $(wildcard src/*.md _posts/*.md)
 PAGES := $(SOURCES:%.md=%.html)
 
 build: $(PAGES)

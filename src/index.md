@@ -1,13 +1,7 @@
 ---
-protagonist:
-- first: Ishmael
-antagonist:
-- first: Moby-Dick
-- classification: whale
-- colour: white
-- possessive: #{protagonist.first}'s
+title: Blog
 
 ---
 
-# Hello
-This my blog base
+# Blogs
+[2019/07/29: One-on-Ones Are Mandatory](_posts/2019-07-29-one-on-ones.html)
