@@ -1,5 +1,5 @@
 # Blag
-My humble blag sorce code.
+My blag source code.
 
 ## Setup
 Dependencies:
@@ -7,9 +7,9 @@ Dependencies:
  * direnv
 
 Setup steps:
-  1. `direnv allow` in the repository
-  2. `bundle update --bundler`
-  3. `yarn install`
+  1. Clone repo and enter directory.
+  1. `direnv allow`
+  2. `yarn install`
 
 ## Development
 `make serve` and then access the URL provided.

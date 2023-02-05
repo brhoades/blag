@@ -1,12 +1,10 @@
 default: build
 
-build: _posts src
-	node_modules/.bin/webpack
-	bundle exec jekyll build
+build: content _data _includes public 
+	eleventy
 
 serve: _posts _drafts
-	node_modules/.bin/webpack --mode development
-	bundle exec jekyll serve --drafts
+	eleventy --serve
 
 publish: _posts _drafts
 	node_modules/.bin/webpack
