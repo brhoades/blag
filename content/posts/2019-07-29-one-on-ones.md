@@ -1,6 +1,6 @@
 ---
-title:  "One-on-Ones Are Mandatory"
-date:  2019-07-29
+title: "One-on-Ones Are Mandatory"
+date: 2019-07-29
 categories:
   - management
   - one-on-ones
@@ -8,7 +8,7 @@ categories:
 
 One on ones are one of the most important tools that a manager has. You either have effective, regular, clear 1-on-1s or you pay in employee retention, satisfaction, and development.
 
-# Why I am Writing This
+# Why are you writing this?
 As an engineer, 1-on-1s were important to me. They gave an opportunity to bring topics to my manager that otherwise didn't have an outlet, receive and provide feedback, and track successes and failures throughout the year. Unfortunately, 1-on-1s aren't mandatory at Cerner; yet for me, they were the reason that I hit 2 years and became a team lead.
 
 Today, I manage a team that handles high priority client requests while simultaneously on-boarding new engineers (365 days/yr support). I could not have survived the last year and on-boarded 5 engineers without regular, effective 1-on-1s. Now that I'm on the opposite side of 1-on-1s, I can see the traps managers fall into that lead 1-on-1s to doom:
@@ -22,41 +22,34 @@ Today, I manage a team that handles high priority client requests while simultan
 Misleading my reports into believing that 1-on-1s are their meetings communicates what I want out of the meeting. Overall, the meetings are mine and mandatory; but it is for my report's growth to our team's benefit. My intention in "giving" them the meeting is to set the stage that this meeting doesn't exist without them and that they set the agenda.
 
 ### One-on-Ones Need Structure and Regularity
-I meet twice a month for one hour each with each of my reports in a private, quiet room with our laptops. We have a meeting document for minutes, with a template that my report fills out in advance:
+I meet weekly for about an hour each with each of my reports in a private space. We have a meeting document for minutes, with a template that my report fills out in advance:
 
-> # Date: MM/DD/YYYY
->
-> *What's going on? What have you completed?*
->
->   * 
->
-> *What have you learned?*
->
->   * 
->
-> *What's going well? Anything to brag about?*
->
->   * 
->
-> *What's blocking / challenging you? Anything we can improve?*
->
->   * 
->
-> *Feedback from \<manager\>:*
->
->   * 
->
-> *Feedback from \<report\>:*
->
->   * 
->   * Flip:
->     * First meeting of the month: revisit goals, achievements, and areas of opportunity.
->     * Second meeting of the month: manager reflection.
->
-> *Other topics / action items:*
->
->   * Review feedback and TODOs from last meeting.
->   * 
+```markdown
+## Date: YYYY/MM/DD
+### What's going on? What have you completed?
+  * 
+
+### What have you learned?
+  * 
+
+### What's going well? Anything to brag about?
+  * 
+
+### What's blocking / challenging you? What can we improve?
+  * 
+
+### Feedback from [[manager]]:
+  * 
+
+### Feedback from [[report]]:
+  * Flip:
+    * First meeting of the month: revisit goals, achievements,
+      and areas of opportunity.
+    * Second meeting of the month: manager reflection.
+
+### Other topics / action items:
+  * Review feedback and TODOs from last meeting.
+```
 
 This template provides a clear agenda and reduces the amount of time spent digging. If the agenda isn't filled out in advance, you must pressure them to recollect for each section. Honestly, it usually isn't filled out ahead of time and they fill it out as I walk to the meeting room. This template also varies for each report; the question "What have you learned?" provides little value to more senior engineers versus a college apprentice.
 
@@ -76,7 +69,7 @@ The most important two sections of the 1-on-1 template cover feedback. I can't t
  * You still aren't giving enough of it.
 
 #### Positive Feedback, Morale, and Timing
-![feedback comic](/assets/images/oneonones-feedback.png)
+[![feedback comic](/assets/images/oneonones-feedback.png)](/assets/images/oneonones-feedback.png)
 *Julie Zhuo, **The Making of a Manager***
 
 This comic summarizes an important point Julie Zhuo makes about feedback in [_The Making of a Manager_](https://www.amazon.com/Making-Manager-What-Everyone-Looks/dp/0735219567). People want to succeed, but it's hard to without knowing where they stand. Positive feedback should come easy to a manager and you should have a lot of it. It can go from "I couldn't run this team without you" to "I can tell you are struggling but really trying hard: keep at it." Positive feedback doesn't need to mention specific events or even be given at 1-on-1s.
