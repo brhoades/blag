@@ -1,7 +1,9 @@
 ---
 title:  "Markov Chain Speech Generation Part 1: Background"
-#date:   2017-02-20
+date:   2017-02-20
+layout: "layouts/post.njk"
 tags:
+  - posts
   - markov
   - chain
   - marko
@@ -10,13 +12,10 @@ tags:
   - irc
 ---
 
-{% raw %}
-  <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
-  <script src="http://underscorejs.org/underscore-min.js"></script>
-  <script src="/assets/javascripts/dist/cytoscape.js"></script>
-  <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-spread/1.2.0/cytoscape-spread.js"></script>
-  <script src="/assets/javascripts/markov.js"></script>
-{% endraw %}
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+<script src="http://underscorejs.org/underscore-min.js"></script>
+<script src="{{ "/js/cytoscape.js" | url }}"></script>
+<script src="/assets/js/markov.js"></script>
 
 History
 ----------
@@ -34,7 +33,7 @@ Markov chains, for the purposes of an IRC bot, are best represented by direction
 <div id="markov-chain" class="markov-graph" style="width: 768px; height: 175px;"></div>
 
 <script>
-  markov.graphs.renderFirstExample("#markov-chain");
+    markov.graphs.renderFirstExample("#markov-chain");
 </script>
 {% endraw %}
 

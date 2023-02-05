@@ -11,8 +11,10 @@ module.exports = function(eleventyConfig) {
 	// Copy the contents of the `public` folder to the output folder
 	// For example, `./public/css/` ends up in `_site/css/`
 	eleventyConfig.addPassthroughCopy({
-		"./public/": "/",
-		"./node_modules/prismjs/themes/prism-okaidia.css": "/css/prism-okaidia.css"
+		"./public/css": "/css",
+		"./public/assets": "/assets",
+		"./node_modules/prismjs/themes/prism-okaidia.css": "/css/prism-okaidia.css",
+		"./node_modules/cytoscape/dist/cytoscape.min.js": "/js/cytoscape.js",
 	});
 
 	// Run Eleventy when these files change:
@@ -24,6 +26,7 @@ module.exports = function(eleventyConfig) {
 	// App plugins
 	eleventyConfig.addPlugin(require("./eleventy.config.drafts.js"));
 	eleventyConfig.addPlugin(require("./eleventy.config.images.js"));
+	eleventyConfig.addPlugin(require("./eleventy.config.esbuild.js"));
 
 	// Official plugins
 	eleventyConfig.addPlugin(pluginRss);

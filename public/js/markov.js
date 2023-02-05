@@ -1,2 +1,4 @@
-module.exports.graphs = require('./markov/graphs.js');
-module.exports.graphing = require('./markov/graphing.js');
+window.markov = {
+  graphs: require('./markov/graphs.js'),
+  graphing: require('./markov/graphing.js'),
+};

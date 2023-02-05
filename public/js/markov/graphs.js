@@ -1,3 +1,8 @@
+const cy = require('cytoscape');
+const spread = require('cytoscape-spread');
+cy(spread);
+
+
 module.exports = {
   generateWord: generateWord,
   renderFirstExample: function(ele) {
@@ -424,7 +429,6 @@ function getNextLetter(cy, currentnode, output_div) {
   nextnode.select();
 
   setTimeout(function() {
-    debugger;
     currentnode.deselect();
     edge.deselect();
     if (nextnode.data('name') !== "$") {

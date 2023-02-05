@@ -11,17 +11,20 @@
     "deploy": "make publish"
   },
   "dependencies": {
-		"@11ty/eleventy": "2.0.0-beta.2",
-		"@11ty/eleventy-img": "^3.0.0",
-		"@11ty/eleventy-navigation": "^0.3.5",
-		"@11ty/eleventy-plugin-bundle": "^1.0.1",
-		"@11ty/eleventy-plugin-rss": "^1.2.0",
-		"@11ty/eleventy-plugin-syntaxhighlight": "^4.2.0",
-    "cytoscape": "^2.7.15",
+    "@11ty/eleventy": "2.0.0-beta.2",
+    "@11ty/eleventy-img": "^3.0.0",
+    "@11ty/eleventy-navigation": "^0.3.5",
+    "@11ty/eleventy-plugin-bundle": "^1.0.1",
+    "@11ty/eleventy-plugin-rss": "^1.2.0",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^4.2.0",
+    "cytoscape": "^3.23.0",
     "cytoscape-cola": "^1.5.0",
+    "cytoscape-spread": "^3.0.0",
+    "esbuild": "^0.17.5",
     "jquery": "^3.1.1",
-    "underscore": "^1.8.3",
-		"markdown-it-anchor": "^8.6.6"
+    "jsdom": "^21.1.0",
+    "markdown-it-anchor": "^8.6.6",
+    "underscore": "^1.8.3"
   },
   "license": "CC-BY-NC-SA-4.0",
   "browserslist": "> 0.25%, not dead"

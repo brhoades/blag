@@ -1,4 +1,4 @@
-    //Draw the Rectangle
+//Draw the Rectangle
 
 var addChain = function(g, x, y, text) {
   var height = 50,
