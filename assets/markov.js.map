@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../public/js/markov.js"],
-  "sourcesContent": ["module.exports ={\n  graphs: require('./js/graphs.js'),\n  graphing: require('./js/graphing.js'),\n};\n"],
-  "mappings": "AAAA,OAAO,UAAS;AAAA,EACd,QAAQ,QAAQ,gBAAgB;AAAA,EAChC,UAAU,QAAQ,kBAAkB;AACtC;",
-  "names": []
-}
