@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>React Pitfalls</title>
+		<meta name="description" content="Safe space for semicoherent ramblings.">
+		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Billy Rhoades&#39; Blog">
+		<link rel="alternate" href="/feed/feed.json" type="application/json" title="Billy Rhoades&#39; Blog">
+		
+		<style>/* Only include the syntax highlighter CSS on blog posts */
+/**
+ * okaidia theme for JavaScript, CSS and HTML
+ * Loosely based on Monokai textmate theme by http://www.monokai.nl/
+ * @author ocodia
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #f8f8f2;
+	background: none;
+	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+	border-radius: 0.3em;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #272822;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #8292a2;
+}
+
+.token.punctuation {
+	color: #f8f8f2;
+}
+
+.token.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #f92672;
+}
+
+.token.boolean,
+.token.number {
+	color: #ae81ff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #a6e22e;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+	color: #f8f8f2;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+	color: #e6db74;
+}
+
+.token.keyword {
+	color: #66d9ef;
+}
+
+.token.regex,
+.token.important {
+	color: #fd971f;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+
+/*
+ * New diff- syntax
+ */
+
+pre[class*="language-diff-"] {
+	--eleventy-code-padding: 1.25em;
+	padding-left: var(--eleventy-code-padding);
+	padding-right: var(--eleventy-code-padding);
+}
+.token.deleted {
+	background-color: hsl(0, 51%, 37%);
+	color: inherit;
+}
+.token.inserted {
+	background-color: hsl(126, 31%, 39%);
+	color: inherit;
+}
+
+/* Make the + and - characters unselectable for copy/paste */
+.token.prefix.unchanged,
+.token.prefix.inserted,
+.token.prefix.deleted {
+	-webkit-user-select: none;
+	user-select: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.token.prefix.inserted,
+.token.prefix.deleted {
+	width: var(--eleventy-code-padding);
+	background-color: rgba(0,0,0,.2);
+}
+
+/* Optional: full-width background color */
+.token.inserted:not(.prefix),
+.token.deleted:not(.prefix) {
+	display: block;
+	margin-left: calc(-1 * var(--eleventy-code-padding));
+	margin-right: calc(-1 * var(--eleventy-code-padding));
+	text-decoration: none; /* override del, ins, mark defaults */
+	color: inherit; /* override del, ins, mark defaults */
+}
+/* Defaults */
+:root {
+  --font-family: Menlo, monaco, Consolas, monospace;
+	--font-family-monospace: Menlo, Monaco, Consolas, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
+
+  --base-color: #FFEAB4; /* orange yellow crayola: #FFD25A but desat 50% */
+  
+  --background-color: #191919; /* eerie black */
+
+  --accent-color-1: #FFAA5A; /* Rajah */
+  --accent-color-2: #FFF05A; /* corn */
+  --accent-color-3: #FF785A; /* outrageous orange */
+
+	--text-color: var(--base-color);
+	--text-color-link: var(--accent-color-1);
+	--text-color-link-active: var(--accent-color-1);
+	--text-color-link-visited: var(--accent-color-1);
+
+	--syntax-tab-size: 2;
+}
+
+/* Global stylesheet */
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	padding: 0;
+	margin: 0 auto;
+	font-family: var(--font-family);
+	color: var(--text-color);
+	background-color: var(--background-color);
+}
+html {
+	overflow-y: scroll;
+}
+body {
+	max-width: 40em;
+}
+
+/* https://www.a11yproject.com/posts/how-to-hide-content/ */
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+p {
+	line-height: 1.5;
+}
+
+li {
+	line-height: 1.5;
+}
+
+a[href] {
+	color: var(--text-color-link);
+}
+a[href]:visited {
+	color: var(--text-color-link-visited);
+}
+a[href]:hover,
+a[href]:active {
+	color: var(--text-color-link-active);
+}
+
+main {
+	padding: 1rem;
+}
+main :first-child {
+	margin-top: 0;
+}
+
+header {
+	border-bottom: 1px dashed var(--color-gray-20);
+}
+header:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.links-nextprev {
+	list-style: none;
+	border-top: 1px dashed var(--color-gray-20);
+	padding: 1em 0;
+}
+
+table {
+	margin: 1em 0;
+}
+table td,
+table th {
+	padding-right: 1em;
+}
+
+pre,
+code {
+	font-family: var(--font-family-monospace);
+}
+pre:not([class*="language-"]) {
+	margin: .5em 0;
+	line-height: 1.375; /* 22px /16 */
+	-moz-tab-size: var(--syntax-tab-size);
+	-o-tab-size: var(--syntax-tab-size);
+	tab-size: var(--syntax-tab-size);
+	-webkit-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+}
+code {
+	word-break: break-all;
+}
+
+/* Header */
+header {
+	display: flex;
+	gap: 1em .5em;
+	flex-wrap: wrap;
+	align-items: center;
+	padding: 1em;
+}
+.home-link {
+	font-size: 1em; /* 16px /16 */
+	font-weight: 700;
+	margin-right: 2em;
+}
+.home-link:link:not(:hover) {
+	text-decoration: none;
+}
+
+/* Nav */
+.nav {
+	display: flex;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+.nav-item {
+	display: inline-block;
+	margin-right: 1em;
+}
+.nav-item a[href]:not(:hover) {
+	text-decoration: none;
+}
+.nav a[href][aria-current="page"] {
+	text-decoration: underline;
+}
+
+/* Posts list */
+.postlist {
+	list-style: none;
+	padding: 0;
+	padding-left: 1.5rem;
+}
+.postlist-item {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	counter-increment: start-from -1;
+	margin-bottom: 1em;
+}
+.postlist-item:before {
+	display: inline-block;
+	pointer-events: none;
+	content: "" counter(start-from, decimal-leading-zero) ". ";
+	line-height: 100%;
+	text-align: right;
+	margin-left: -1.5rem;
+}
+.postlist-date,
+.postlist-item:before {
+	font-size: 0.8125em; /* 13px /16 */
+	color: var(--color-gray-90);
+}
+.postlist-date {
+	word-spacing: -0.5px;
+}
+.postlist-link {
+	font-size: 1.1875em; /* 19px /16 */
+	font-weight: 700;
+	flex-basis: calc(100% - 1.5rem);
+	padding-left: .25em;
+	padding-right: .5em;
+	text-underline-position: from-font;
+	text-underline-offset: 0;
+	text-decoration-thickness: 1px;
+}
+.postlist-item-active .postlist-link {
+	font-weight: bold;
+}
+
+/* Tags */
+.post-tag {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	text-transform: capitalize;
+	font-style: italic;
+}
+.postlist-item > .post-tag {
+	align-self: center;
+}
+
+/* Tags list */
+.post-metadata {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: .5em;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.post-metadata time {
+	margin-right: 1em;
+}
+
+/* Direct Links / Markdown Headers */
+.header-anchor {
+	text-decoration: none;
+	font-style: normal;
+	font-size: 1em;
+	margin-left: .1em;
+}
+a[href].header-anchor,
+a[href].header-anchor:visited {
+	color: transparent;
+}
+a[href].header-anchor:focus,
+a[href].header-anchor:hover {
+	text-decoration: underline;
+}
+a[href].header-anchor:focus,
+:hover > a[href].header-anchor {
+	color: #aaa;
+}
+
+h2 + .header-anchor {
+	font-size: 1.5em;
+}
+
+img {
+  max-width: 100%;
+}</style>
+	</head>
+	<body>
+		<a href="#skip" class="visually-hidden">Skip to main content</a>
+
+		<header>
+			<a href="/" class="home-link">Billy Rhoades&#39; Blog</a>
+			<nav>
+				<h2 class="visually-hidden">Top level navigation menu</h2>
+				<ul class="nav">
+					<li class="nav-item"><a href="/">Home</a></li>
+					<li class="nav-item"><a href="/blog/">Archive</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main id="skip">
+			
+<h1>React Pitfalls</h1>
+
+<ul class="post-metadata">
+	<li><time datetime="2018-07-06">06 July 2018</time></li>
+</ul>
+
+<h2 id="introduction" tabindex="-1">Introduction <a class="header-anchor" href="#introduction">#</a></h2>
+<p>React has some common pitfalls that I've seen developers fall into when designing components. The most common center around readability and performance. Now, there's easily a dozen <a href="http://americanexpress.io/clean-code-dirty-code/">articles</a> <a href="https://engineering.musefind.com/our-best-practices-for-writing-react-components-dec3eb5c3fc8">about</a> <a href="https://reactjs.org/docs/thinking-in-react.html">React</a> <a href="https://preact.gitbooks.io/react-book/content/jsx/index.html">best</a> <a href="https://blog.andrewray.me/youre-missing-the-point-of-jsx/">practices</a> but these lean abstract with contrived examples. Personally, I find it much easier to see where people made mistakes, see how we fixed them, and then break those examples down.</p>
+<h2 id="nested-component-definitions" tabindex="-1">Nested Component Definitions <a class="header-anchor" href="#nested-component-definitions">#</a></h2>
+<p>Defining components within components breaks reusability, causes unnecessary rendering, and crowds files. It's particularly tempting to nest components when one component needs variables from the other, but it leads to coupling. Nesting components will always lead to rerenders of child compoents when any prop in the parent component is changed. Fortunately, it's easy to fix and fairly easy to diagnose.</p>
+<h3 id="recommended-reading" tabindex="-1">Recommended Reading <a class="header-anchor" href="#recommended-reading">#</a></h3>
+<ul>
+<li><a href="https://reactjs.org/docs/rendering-elements.html">React Documentation: rendering elements</a></li>
+<li><a href="https://medium.com/@ryanbas21/react-reconciliation-7075e3f07437">React Reconciliation</a></li>
+</ul>
+<h3 id="bad" tabindex="-1">Bad <a class="header-anchor" href="#bad">#</a></h3>
+<pre class="language-javascript" tabindex="0"><code class="language-javascript"><span class="token keyword">const</span> <span class="token function-variable function">Section</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> description<span class="token punctuation">,</span> footer<span class="token punctuation">,</span> header<span class="token punctuation">,</span> items<span class="token punctuation">,</span> sectionId<span class="token punctuation">,</span> onChange <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span><br>  <span class="token keyword">const</span> <span class="token function-variable function">Item</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> content<span class="token punctuation">,</span> label<span class="token punctuation">,</span> index<span class="token punctuation">,</span> value <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><br>    <span class="token operator">&lt;</span>React<span class="token punctuation">.</span>Fragment<span class="token operator">></span><br>      <span class="token operator">&lt;</span>Header size<span class="token operator">=</span><span class="token string">"small"</span><span class="token operator">></span><span class="token punctuation">{</span>label<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>Header<span class="token operator">></span><br>      <span class="token punctuation">{</span>content<span class="token punctuation">}</span><br>      <span class="token operator">&lt;</span>Input onChange<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">onChange</span><span class="token punctuation">(</span>sectionId<span class="token punctuation">,</span> index<span class="token punctuation">,</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">}</span> value<span class="token operator">=</span><span class="token punctuation">{</span>value<span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">></span><br>      <span class="token operator">&lt;</span>Spacer size<span class="token operator">=</span><span class="token string">"small"</span> <span class="token operator">/</span><span class="token operator">></span><br>    <span class="token operator">&lt;</span><span class="token operator">/</span>React<span class="token punctuation">.</span>Fragment<span class="token operator">></span><br>  <span class="token punctuation">)</span><span class="token punctuation">;</span><br>  <br>  <span class="token keyword">const</span> <span class="token function-variable function">Content</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><br>    items<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> content<span class="token punctuation">,</span> label <span class="token punctuation">}</span><span class="token punctuation">,</span> i</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><br>      <span class="token operator">&lt;</span>Item<br>        content<span class="token operator">=</span><span class="token punctuation">{</span>content<span class="token punctuation">}</span><br>        label<span class="token operator">=</span><span class="token punctuation">{</span>label<span class="token punctuation">}</span><br>        index<span class="token operator">=</span><span class="token punctuation">{</span>i<span class="token punctuation">}</span><br>        key<span class="token operator">=</span><span class="token punctuation">{</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>sectionId<span class="token interpolation-punctuation punctuation">}</span></span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>label<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">}</span><br>      <span class="token operator">/</span><span class="token operator">></span><br>    <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>  <span class="token punctuation">)</span><span class="token punctuation">;</span><br>  <br>  <span class="token keyword">return</span> <span class="token punctuation">(</span><br>    <span class="token operator">&lt;</span>Card<span class="token operator">></span><br>      <span class="token operator">&lt;</span>Header<span class="token operator">></span><span class="token punctuation">{</span>header<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>Header<span class="token operator">></span><br>      <span class="token operator">&lt;</span>Content <span class="token operator">/</span><span class="token operator">></span><br>      <span class="token operator">&lt;</span>Footer<span class="token operator">></span><span class="token punctuation">{</span>footer<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>Footer<span class="token operator">></span><br>    <span class="token operator">&lt;</span><span class="token operator">/</span>Card<span class="token operator">></span><br>  <span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Here you can see a section component which, within it, defines an Item component and a Content component. Defining an internal Content component here is only a coupling issue. However, defining Item within this component is going to cause some pain. Item is defined within this component because it's only used by Section and it needs sectionId and onChange from Section.</p>
+<p>However, defining the component within Section causes Item to be redefined and rerendered every time any Section prop changes. Any Inputs on the page will be destroyed and mounted again within the DOM. If you were typing into an Input component and a Section prop changed, your focus would be lost. I've ran into this scenario quite a few times--- onChange updates Section's items which causes a rerender.</p>
+<p>If Item were moved outside of Section, React would behave differently.</p>
+<h3 id="good" tabindex="-1">Good <a class="header-anchor" href="#good">#</a></h3>
+<pre class="language-javascript" tabindex="0"><code class="language-javascript"><span class="token keyword">const</span> <span class="token function-variable function">Item</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> content<span class="token punctuation">,</span> label<span class="token punctuation">,</span> index<span class="token punctuation">,</span> onChange<span class="token punctuation">,</span> sectionId <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><br>  <span class="token operator">&lt;</span>React<span class="token punctuation">.</span>Fragment<span class="token operator">></span><br>    <span class="token operator">&lt;</span>Header size<span class="token operator">=</span><span class="token string">"small"</span><span class="token operator">></span><span class="token punctuation">{</span>label<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>Header<span class="token operator">></span><br>    <span class="token punctuation">{</span>content<span class="token punctuation">}</span><br>    <span class="token operator">&lt;</span>Input onChange<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">onChange</span><span class="token punctuation">(</span>sectionId<span class="token punctuation">,</span> index<span class="token punctuation">,</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">></span><br>    <span class="token operator">&lt;</span>Spacer size<span class="token operator">=</span><span class="token string">"small"</span> <span class="token operator">/</span><span class="token operator">></span><br>  <span class="token operator">&lt;</span><span class="token operator">/</span>React<span class="token punctuation">.</span>Fragment<span class="token operator">></span><br><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br><span class="token keyword">const</span> <span class="token function-variable function">Section</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> description<span class="token punctuation">,</span> footer<span class="token punctuation">,</span> header<span class="token punctuation">,</span> items<span class="token punctuation">,</span> sectionId<span class="token punctuation">,</span> onChange <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span><br>  <span class="token keyword">const</span> content <span class="token operator">=</span> items<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> content<span class="token punctuation">,</span> label <span class="token punctuation">}</span><span class="token punctuation">,</span> i</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><br>    <span class="token operator">&lt;</span>Item<br>      content<span class="token operator">=</span><span class="token punctuation">{</span>content<span class="token punctuation">}</span><br>      label<span class="token operator">=</span><span class="token punctuation">{</span>label<span class="token punctuation">}</span><br>      index<span class="token operator">=</span><span class="token punctuation">{</span>i<span class="token punctuation">}</span><br>      sectionId<span class="token operator">=</span><span class="token punctuation">{</span>sectionId<span class="token punctuation">}</span><br>      onChange<span class="token operator">=</span><span class="token punctuation">{</span>onChange<span class="token punctuation">}</span><br>      key<span class="token operator">=</span><span class="token punctuation">{</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>sectionId<span class="token interpolation-punctuation punctuation">}</span></span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>label<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">}</span><br>    <span class="token operator">/</span><span class="token operator">></span><br>  <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>  <span class="token keyword">return</span> <span class="token punctuation">(</span><br>    <span class="token operator">&lt;</span>Card<span class="token operator">></span><br>      <span class="token operator">&lt;</span>Header<span class="token operator">></span><span class="token punctuation">{</span>header<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>Header<span class="token operator">></span><br>      <span class="token punctuation">{</span>content<span class="token punctuation">}</span><br>      <span class="token operator">&lt;</span>Footer<span class="token operator">></span><span class="token punctuation">{</span>footer<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>Footer<span class="token operator">></span><br>    <span class="token operator">&lt;</span><span class="token operator">/</span>Card<span class="token operator">></span><br>  <span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>As mentioned above, with Item defined outside of section any changes to Section's props which don't affect Item's props will not cause a rerender. <a href="https://reactjs.org/docs/rendering-elements.html#react-only-updates-whats-necessary">Only components with modified props will be updated</a>. Input's focus will not be lost as long as its props aren't changed. We save unnecessary renders here and remove future coupling issues.</p>
+<h2 id="abusing-keys" tabindex="-1">Abusing Keys <a class="header-anchor" href="#abusing-keys">#</a></h2>
+<p>Keys in React are used when returning procedurally generated components. One of the most common uses is an array of values which will be individually passed into equally many components, as can be seen below. React's <a href="https://reactjs.org/docs/lists-and-keys.html#keys">documentation describes this well</a>:</p>
+<blockquote>
+<p>Keys help React identify which items have changed, are added, or are removed. Keys should be given to the elements inside the array to give the elements a stable identity.</p>
+</blockquote>
+<p>Unfortunately, keys aren't always available inside a data source. When not available, keys can be chosen that aren't stable between renders or not unique among sibling components. React's documentation <a href="https://reactjs.org/docs/reconciliation.html#tradeoffs">mentions this</a>:</p>
+<blockquote>
+<p>Keys should be stable, predictable, and unique. Unstable keys (like those produced by Math.random()) will cause many component instances and DOM nodes to be unnecessarily recreated, which can cause performance degradation and lost state in child components.</p>
+</blockquote>
+<p>In a pinch, using the array index may suffice. However, I'm in the camp that index as a key is an antipattern; you only do this until you encounter a bug from it. Bugs resulting from index as a key are incredibly difficulty to diagnose; they usually arise from where components that have state are change keys. The bug's symptoms will be varied: maybe state tranfers when an element is deleted from an index, or maybe it gets a random state from an older component. You don't want to learn the symptoms.</p>
+<h3 id="recommended-reading-1" tabindex="-1">Recommended Reading <a class="header-anchor" href="#recommended-reading-1">#</a></h3>
+<ul>
+<li><a href="https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318">Index as a key is an antipattern</a></li>
+<li><a href="https://reactjs.org/docs/lists-and-keys.html">React documentation: Keys</a></li>
+<li><a href="https://reactjs.org/docs/reconciliation.html#recursing-on-children">React documentation: Recursing on Children</a></li>
+</ul>
+<h3 id="bad-1" tabindex="-1">Bad <a class="header-anchor" href="#bad-1">#</a></h3>
+<pre class="language-javascript" tabindex="0"><code class="language-javascript"><span class="token keyword">const</span> shortid <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'shortid'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br><span class="token keyword">const</span> <span class="token function-variable function">Quiz</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> sections <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span><br>  <span class="token keyword">return</span> <span class="token punctuation">(</span><br>    <span class="token operator">&lt;</span>div<span class="token operator">></span><br>      <span class="token punctuation">{</span><br>        sections<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">section</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><br>          <span class="token operator">&lt;</span>Section<br>            <span class="token punctuation">{</span><span class="token operator">...</span>section<span class="token punctuation">}</span><br>            key<span class="token operator">=</span><span class="token punctuation">{</span>shortid<span class="token punctuation">.</span><span class="token function">generate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><br>          <span class="token operator">/</span><span class="token operator">></span><br>        <span class="token punctuation">)</span><span class="token punctuation">)</span><br>      <span class="token punctuation">}</span><br>    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span><br>  <span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>We're using <a href="https://github.com/dylang/shortid#usage">shortid</a> to generate a unique, per render random key for our sections. This would be a nonissue if sections never change position or the list never changes size. However, if sections does change, it's possible that there could be <a href="https://reactjs.org/docs/reconciliation.html#recursing-on-children">performance issues</a> or <a href="https://codepen.io/anon/pen/ParyQq">state bugs</a>. This can sometimes be easy to solve... sometimes it's not.</p>
+<h3 id="good-1" tabindex="-1">Good <a class="header-anchor" href="#good-1">#</a></h3>
+<pre class="language-javascript" tabindex="0"><code class="language-javascript"><span class="token keyword">const</span> <span class="token function-variable function">Quiz</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> sections <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span><br>  <span class="token keyword">return</span> <span class="token punctuation">(</span><br>    <span class="token operator">&lt;</span>div<span class="token operator">></span><br>      <span class="token punctuation">{</span><br>        sections<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">section</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><br>          <span class="token operator">&lt;</span>Section<br>            <span class="token punctuation">{</span><span class="token operator">...</span>section<span class="token punctuation">}</span><br>            key<span class="token operator">=</span><span class="token punctuation">{</span>section<span class="token punctuation">.</span>label<span class="token punctuation">}</span><br>          <span class="token operator">/</span><span class="token operator">></span><br>        <span class="token punctuation">)</span><span class="token punctuation">)</span><br>      <span class="token punctuation">}</span><br>    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span><br>  <span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>The shortid is now swapped for label, which in this case is both unique among all sections and consistent. If you can't find a key that's unique, you may find yourself resorting to using an index, but that should be <a href="https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318">a last resort</a>.</p>
+<h2 id="redux-overloading-mapstatetoprops" tabindex="-1">Redux: Overloading mapStateToProps <a class="header-anchor" href="#redux-overloading-mapstatetoprops">#</a></h2>
+<p>With Redux, <a href="https://github.com/reduxjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options">mapStateToProps</a> is used to subscribe to updates from the store. Any time the store is updated, every component decorated with connect will have its mapStateToProps called. The output of mapStateToProps is then passed to the component via props.</p>
+<p>Since mapStateToProps is called on every update, React applications which heavily utilize the store could see a performance impact. For example, if you are storing <a href="https://redux-form.com/7.3.0/">the contents of a form</a> in Redux, every letter typed into a form by a user may trigger a store update. Depending on how your application is laid out, this would trigger every mapStateToProps on every keypress, and possibly trigger rerenders if those result in prop changes.</p>
+<p>If there are any mapStateToProps functions that do expensive calculation, such as computing the initial values for the form which a user is inputting into, those will be recalculated <em>every time a change occurs</em>. Since the initial state of a form likely wouldn't change from user input, it wouldn't affect the output for mapStateToProps here. However, the calculation would still happen under the hood.</p>
+<p>One workaround here is to use <a href="https://github.com/reduxjs/reselect">Reselect</a> in any place where you are performing complex logic within mapStateToProps. Reselect, which behaves very similarly to mapStateToProps, creates a selector. When defining a selector, it needs a list of input functions which will be used to get a list of outputs. The list of outputs are then passed to a result function, which should have any expensive computation in it. From Reselect's documentation:</p>
+<pre class="language-javascript" tabindex="0"><code class="language-javascript"><span class="token comment">// createSelector(...inputSelectors | [inputSelectors], resultFunc)</span><br><br><span class="token keyword">const</span> totalSelector <span class="token operator">=</span> <span class="token function">createSelector</span><span class="token punctuation">(</span><br>  <span class="token punctuation">[</span><br>    <span class="token parameter">state</span> <span class="token operator">=></span> state<span class="token punctuation">.</span>values<span class="token punctuation">.</span>value1<span class="token punctuation">,</span><br>    <span class="token parameter">state</span> <span class="token operator">=></span> state<span class="token punctuation">.</span>values<span class="token punctuation">.</span>value2<br>  <span class="token punctuation">]</span><span class="token punctuation">,</span><br>  <span class="token punctuation">(</span><span class="token parameter">value1<span class="token punctuation">,</span> value2</span><span class="token punctuation">)</span> <span class="token operator">=></span> value1 <span class="token operator">+</span> value2<br><span class="token punctuation">)</span></code></pre>
+<p>This example is very simple, but it demonstrates basic usage well. Here we created a selector with two input selectors that grab values from the store. These values are passed through to the result function passed as a second argument to <code>createSelector</code>. <code>totalSelector</code> would be used in your mapStateToProps:</p>
+<pre class="language-javascript" tabindex="0"><code class="language-javascript"><span class="token function-variable function">mapStateToProps</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">state</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">{</span><br>  <span class="token literal-property property">totalOutput</span><span class="token operator">:</span> <span class="token function">totalSelector</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span><span class="token punctuation">,</span><br><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p><code>totalSelector</code> is memoized; it is only called when one of its input selectors return a different value. So if <code>value1 + value2</code> were an expensive operation that rarely occurred, it would only be called if the two input selectors had changed. This stops expensive computations from occurring when they will provide the same output.</p>
+<h2 id="resources" tabindex="-1">Resources <a class="header-anchor" href="#resources">#</a></h2>
+<ul>
+<li><a href="https://reactjs.org/docs/optimizing-performance.html">Optimizing React Performance</a></li>
+<li><a href="https://github.com/markerikson/react-redux-links/blob/master/react-architecture.md">Comprehensive React article list for architecting applications</a></li>
+</ul>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2017-03-21-creating-a-simple-gatling-simulation/">Creating a Gatling Simulation</a></li><li>Next: <a href="/posts/2019-07-29-one-on-ones/">One-on-Ones Are Mandatory</a></li>
+</ul>
+
+		</main>
+
+		<footer></footer>
+
+		<!-- Current page: /posts/2018-07-06-react-pitfalls/ -->
+	</body>
+</html>
