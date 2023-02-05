@@ -12,6 +12,7 @@
         buildInputs = [
           nodejs_latest
           yarn
+          gnumake
         ];
       };
     }));

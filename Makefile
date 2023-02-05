@@ -3,7 +3,7 @@ default: build
 build: content _data _includes public 
 	eleventy
 
-serve: _posts _drafts
+serve: 
 	eleventy --serve
 
 publish: _posts _drafts

@@ -374,7 +374,6 @@ function renderCircularGraph(json, container, cb, layout={}) {
                   'target-arrow-shape': 'triangle',
                   'line-color': 'red',
                   'target-arrow-color': 'red',
-                  'text-outline-width': 1,
                   'curve-style': 'bezier',
                   'z-index': 100000,
                   'opacity': 1,
@@ -393,7 +392,6 @@ function renderCircularGraph(json, container, cb, layout={}) {
                   'line-color': 'black',
                   'target-arrow-color': 'black',
                   'source-arrow-color': 'black',
-                  'text-outline-color': 'black',
                 }
               }
             ],
