@@ -1,40 +1,23 @@
 /* Defaults */
 :root {
-	--font-family: -apple-system, system-ui, sans-serif;
-	--font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
-}
+  --font-family: Menlo, monaco, Consolas, monospace;
+	--font-family-monospace: Menlo, Monaco, Consolas, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
 
-/* Theme colors */
-:root {
-	--color-gray-20: #e0e0e0;
-	--color-gray-50: #C0C0C0;
-	--color-gray-90: #333;
+  --base-color: #FFEAB4; /* orange yellow crayola: #FFD25A but desat 50% */
+  
+  --background-color: #191919; /* eerie black */
 
-	--background-color: #fff;
+  --accent-color-1: #FFAA5A; /* Rajah */
+  --accent-color-2: #FFF05A; /* corn */
+  --accent-color-3: #FF785A; /* outrageous orange */
 
-	--text-color: var(--color-gray-90);
-	--text-color-link: #082840;
-	--text-color-link-active: #5f2b48;
-	--text-color-link-visited: #17050F;
+	--text-color: var(--base-color);
+	--text-color-link: var(--accent-color-1);
+	--text-color-link-active: var(--accent-color-1);
+	--text-color-link-visited: var(--accent-color-1);
 
 	--syntax-tab-size: 2;
 }
-
-@media (prefers-color-scheme: dark) {
-	:root {
-		--color-gray-20: #e0e0e0;
-		--color-gray-50: #C0C0C0;
-		--color-gray-90: #dad8d8;
-
-		/* --text-color is assigned to --color-gray-_ above */
-		--text-color-link: #1493fb;
-		--text-color-link-active: #6969f7;
-		--text-color-link-visited: #a6a6f8;
-
-		--background-color: #15202b;
-	}
-}
-
 
 /* Global stylesheet */
 * {
