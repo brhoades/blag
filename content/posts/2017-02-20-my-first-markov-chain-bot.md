@@ -1,8 +1,13 @@
 ---
-layout: post
 title:  "Markov Chain Speech Generation Part 1: Background"
-#date:   2017-02-20 12:00:00 -0600
-categories: markov chain marko ruby bot irc
+#date:   2017-02-20
+tags:
+  - markov
+  - chain
+  - marko
+  - ruby 
+  - bot
+  - irc
 ---
 
 {% raw %}

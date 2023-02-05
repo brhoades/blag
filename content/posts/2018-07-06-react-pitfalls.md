@@ -1,8 +1,13 @@
 ---
-layout: post
 title:  "React Pitfalls"
-date:   2018-07-06 12:00:00 -0600
-categories: react design component mistakes best practices
+date:   2018-07-06
+categories:
+  - react
+  - design
+  - component
+  - mistakes
+  - best
+  - practices
 ---
 
 ## Introduction

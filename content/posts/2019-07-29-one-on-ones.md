@@ -1,8 +1,9 @@
 ---
-layout: post
 title:  "One-on-Ones Are Mandatory"
-#date:  2019-07-29 12:16:00 -0600
-categories: management
+date:  2019-07-29
+categories:
+  - management
+  - one-on-ones
 ---
 
 One on ones are one of the most important tools that a manager has. You either have effective, regular, clear 1-on-1s or you pay in employee retention, satisfaction, and development.

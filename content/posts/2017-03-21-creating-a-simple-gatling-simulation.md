@@ -1,8 +1,11 @@
 ---
-layout: post
 title:  "Creating a Gatling Simulation"
-date:   2017-03-21 07:41:00 -0600
-categories: gatling simulation getting started
+date:   2017-03-21
+categories:
+  - gatling
+  - simulation
+  - getting
+  - started
 ---
 
 Background

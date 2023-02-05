@@ -11,19 +11,17 @@
     "deploy": "make publish"
   },
   "dependencies": {
+		"@11ty/eleventy": "2.0.0-beta.2",
+		"@11ty/eleventy-img": "^3.0.0",
+		"@11ty/eleventy-navigation": "^0.3.5",
+		"@11ty/eleventy-plugin-bundle": "^1.0.1",
+		"@11ty/eleventy-plugin-rss": "^1.2.0",
+		"@11ty/eleventy-plugin-syntaxhighlight": "^4.2.0",
     "cytoscape": "^2.7.15",
     "cytoscape-cola": "^1.5.0",
     "jquery": "^3.1.1",
-    "underscore": "^1.8.3"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "babel-loader": "^8.0.6",
-    "copy-webpack-plugin": "^5.0.4",
-    "eslint": "^4.18.2",
-    "webpack": "^4.39.1",
-    "webpack-cli": "^3.3.6"
+    "underscore": "^1.8.3",
+		"markdown-it-anchor": "^8.6.6"
   },
   "license": "CC-BY-NC-SA-4.0",
   "browserslist": "> 0.25%, not dead"
