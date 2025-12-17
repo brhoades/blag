@@ -76,88 +76,66 @@ var example2data = {
     {
       data: {
         id: 1,
-        row: 0,
-        col: 0,
         name: 'A'
       }
     },
     {
       data: {
         id: 2,
-        row: 0,
-        col: 1,
         name: 'dog'
       }
     },
     {
       data: {
         id: 4,
-        row: 0,
-        col: 3,
         name: 'over'
       }
     },
     {
       data: {
         id: 5,
-        row: 0,
-        col: 4,
         name: 'the'
       }
     },
     {
       data: {
         id: 6,
-        row: 0,
-        col: 5,
         name: 'log'
       }
     },
     {
       data: {
         id: 3,
-        row: 1,
-        col: 2,
         name: 'jumps'
       }
     },
     {
       data: {
         id: 7,
-        row: 2,
-        col: 0,
         name: 'The'
       }
     },
     {
       data: {
         id: 8,
-        row: 2,
-        col: 1,
         name: 'bear'
       }
     },
     {
       data: {
         id: 9,
-        row: 2,
-        col: 3,
         name: 'clear'
       }
     },
     {
       data: {
         id: 10,
-        row: 2,
-        col: 4,
         name: 'of'
       }
     },
     {
       data: {
         id: 11,
-        row: 2,
-        col: 5,
         name: 'harm'
       }
     },
@@ -237,8 +215,6 @@ var example2data = {
   layout: {
     name: 'grid',
     padding: 10,
-    rows: 3,
-    cols: 6,
     position: function(d) {
       return {row: d.data('row'), col: d.data('col')};
     }
@@ -276,12 +252,12 @@ function renderSimpleMarkovChain(container, nodes, links, layout={}) {
       {
         selector: 'node',
         style: {
-          'width': 75,
-          'height': 75,
+          'width': 50,
+          'height': 50,
           'content': 'data(name)',
           'text-valign': 'center',
           'color': 'white',
-          'font-size': 18
+          'font-size': 14
         }
       },
       {
@@ -290,14 +266,15 @@ function renderSimpleMarkovChain(container, nodes, links, layout={}) {
           'content': function(d) {
             return Math.round(d.data('value') * 1000) / 10 + "%";
           },
-          'width': 5,
+          'width': 3,
           'color': 'white',
           'target-arrow-shape': 'triangle',
           'line-color': 'white',
           'target-arrow-color': 'white',
           'curve-style': 'bezier',
           'text-margin-y': -15,
-          'edge-text-rotation': 'autorotate'
+          'edge-text-rotation': 'autorotate',
+
         }
       }
     ],
@@ -362,7 +339,8 @@ function renderCircularGraph(json, container, cb, layout={}) {
 
                     return opacity;
                   },
-                  'curve-style': 'bezier'
+                  'curve-style': 'bezier',
+                  'z-index': 100000,
                 }
               },
               {
@@ -397,6 +375,8 @@ function renderCircularGraph(json, container, cb, layout={}) {
                   'line-color': 'black',
                   'target-arrow-color': 'black',
                   'source-arrow-color': 'black',
+                  'z-index': 100000,
+                  'opacity': 1,
                 }
               }
             ],
@@ -431,18 +411,23 @@ function getNextLetter(cy, currentnode, output_div) {
   edge.select();
   nextnode.select();
 
-  setTimeout(function() {
-    currentnode.deselect();
-    edge.deselect();
-    if (nextnode.data('name') !== "$") {
-      const output_text = $(output_div).text();
+  // promise hastily added a decade later to prevent running
+  // generation more than once
+  return new Promise((resolve) => {
+    setTimeout(function() {
+      currentnode.deselect();
+      edge.deselect();
+      if (nextnode.data('name') !== "$") {
+        const output_text = $(output_div).text();
 
-      getNextLetter(cy, nextnode, output_div);
-      $(output_div).text(output_text + nextnode.data('name'));
-    } else {
-      nextnode.deselect();
-    }
-  }, 1000);
+        getNextLetter(cy, nextnode, output_div).then(() => resolve());
+        $(output_div).text(output_text + nextnode.data('name'));
+      } else {
+        nextnode.deselect();
+        resolve();
+      }
+    }, 1000);
+  });
 }
 
 function generateWord(example=3, output_div="") {
@@ -457,5 +442,5 @@ function generateWord(example=3, output_div="") {
 
   var node = cy.nodes('[name="^"]')[0];
 
-  getNextLetter(cy, node, output_div);
+  return getNextLetter(cy, node, output_div);
 }

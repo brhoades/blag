@@ -15,6 +15,11 @@ tags:
 <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 <script src="{{ "/js/cytoscape.js" | url }}"></script>
 <script src="/assets/js/markov.js"></script>
+<style>
+.markov-graph {
+  width: 100%; min-height: 500px;
+}
+</style>
 
 History
 ----------
@@ -29,7 +34,7 @@ Seeborg came up in a discussion with [Nathasha Jarus](https://adjoint.space/) in
 Markov chains, for the purposes of an IRC bot, are best represented by directional graphs. Each node in this graph will hold data (a "word") and each edge will have a number, (0, 1], representing the probability of traversing this edge. Below is a visualization of a Markov chain with 3 nodes:
 
 {% raw %}
-<div id="markov-chain" class="markov-graph" style="width: 768px; height: 175px;"></div>
+<div id="markov-chain" class="markov-graph"></div>
 
 <script>
     markov.graphs.renderFirstExample("#markov-chain");
@@ -49,7 +54,7 @@ When "data" is swapped out for words in a couple of sentences (which I'll refer 
 Note that with capitalization, there is only one word, "jumps", which is common to both sentences. A Markov chain would combine those words into a single node with two input edges and one output. This can be seen below.
 
 {% raw %}
-<div id="markov-chain-sentence" class="markov-graph" style="width: 768px; height: 300px;"></div>
+<div id="markov-chain-sentence" class="markov-graph"></div>
 
 <script>
   markov.graphs.renderSecondExample("#markov-chain-sentence");
@@ -78,7 +83,7 @@ Now, if instead the source text had instead been:
 > The bear jumps clear of harm
 
 {% raw %}
-<div id="markov-chain-sentence-two" class="markov-graph" style="width: 768px; height: 300px;"></div>
+<div id="markov-chain-sentence-two" class="markov-graph"></div>
 
 <script>
   markov.graphs.renderThirdExample("#markov-chain-sentence-two");
@@ -114,12 +119,16 @@ It's easy to demonstrate how this method fails at scale by choosing a node value
 [Here's the list of 100 words](/assets/scripts/markov/100words.json) we will use as a source to make a Markov chain from. Click "Create a word" below to start.
 
 {% raw %}
-<div id="markov-chain-letter-graph" class="markov-graph" style="height: 600px; width: 768px;"></div>
+<div id="markov-chain-letter-graph" class="markov-graph"></div>
 <br />
 <div id="built-word" style="height: 25px;"></div>
-<a id="build-word" href="#">Create a word</a>
+<a
+  onclick="javascript:$('#built-word').text(''); toggle(this); var el = this; markov.graphs.generateWord(3, '#built-word').then(function() { toggle(el); })"
+  href="javascript:">
+  Create a word
+</a>
+
 <script>
-  $('#build-word').on('click', function(e) { e.preventDefault(); $('#built-word').text(''); markov.graphs.generateWord(3, "#built-word"); });
   markov.graphs.renderFourthExample();
 </script>
 {% endraw %}
@@ -130,15 +139,28 @@ For the simplicity of the generation, the generated words do a lot right: "u" al
 
 These drawbacks are all caused by a loss in context by the Markov chain. While it's traversing the graph, there's no way for it to represent the relationship between "pl" and "a", all it has is that "l" is preceded by "p" and followed by "l". One method for storing this relationship is by using n-grams. Our current representation could be considered a 1-gram; if we instead used a bigram, we could represent the relationship between "pl" and "a-" where "a- is followed by another letter."
 
-Below is yet another example of a Markov chain which does just that. You can also click "Create a word" to see how the output is.
+Another example of a Markov chain which does just that follows. You can also click "Create a word" to see how the output is.
 
 {% raw %}
-<div id="markov-chain-digram-graph" class="markov-graph" style="height: 800px; width: 800px;"></div>
+<div id="markov-chain-digram-graph" class="markov-graph"></div>
 <br />
-<div id="built-word-2" style="height: 25px;"></div>
-<a href="javascript:$('#built-word-2').text(''); markov.graphs.generateWord(4, '#built-word-2');">Create a word</a>
+<div id="built-word-2" style="min-height: 2em;"></div>
+
+<!-- this is cursed but this blog post is too -->
+<a
+  onclick="javascript:$('#built-word-2').text(''); toggle(this); var el = this; markov.graphs.generateWord(4, '#built-word-2').then(function() { toggle(el); })"
+  href="javascript:">
+  Create a word
+</a>
 
 <script>
+  function toggle(el) {
+    if (el && el.style && el.style['pointer-events'] !== 'none') {
+      $(el).css('pointer-events', 'none');
+    } else {
+      $(el).css('pointer-events', 'auto');
+    }
+  }
   markov.graphs.renderFifthExample();
 </script>
 {% endraw %}
