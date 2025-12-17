@@ -1,4 +1,5 @@
+import graphs from './markov/graphs.js';
+
 window.markov = {
-  graphs: require('./markov/graphs.js'),
-  graphing: require('./markov/graphing.js'),
+  graphs,
 };

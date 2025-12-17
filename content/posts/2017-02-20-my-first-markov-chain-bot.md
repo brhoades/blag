@@ -7,7 +7,7 @@ tags:
   - markov
   - chain
   - marko
-  - ruby 
+  - ruby
   - bot
   - irc
 ---
@@ -21,7 +21,7 @@ History
 ----------
 Back around 2006, some friends and I had an IRC bot that we lovingly named superborg. Superborg would join channels and log any text it saw into a flatfile. After a while, it would randomly respond to a message with a cobbled together phrase from those stored messages. Typically, those phrases sounded incoherent, but every once in a while it would randomly create a real gem. In our excitement with superborg's learning, we loaded it up hundreds of megabytes of Shakespeare, Wikipedia, and old speech transcripts.
 
-Superborg got really bogged down; its responses slowed and they became increasingly schizophrenic. Although I knew superborg was open source and even had experience in C, I was quite green. Objects and algorithms were words to me, so when I delved into [seeborg](https://github.com/hmage/seeborg)'s source code, I ran the other way. However, the bot's idea stuck with me for many years.
+Superborg got really bogged down; its responses slowed and they became increasingly incoherent. Although I knew superborg was open source and even had experience in C, I was green. Objects and algorithms were words to me, so when I delved into [hmage/seeborg](https://github.com/brhoades/seeborg)'s source code, I ran the other way. However, the bot's idea stuck with me for y years.
 
 Markov Chains
 -------------
@@ -127,7 +127,7 @@ It's easy to demonstrate how this method fails at scale by choosing a node value
 
 A few notes regarding some non-letter symbols. "^" represents an arbitrary start of a word. This entry node in our graph ensures that the first letter on each word is in proportion with our source. "$", similarly, represents the end of a word, and ensures that letters which typically end words have that probability represented.
 
-For the simplicity of the generation, the generated words do a lot right: "u" always follows "q", letters such as "y" usually end words, and most [consonant clusters](https://en.wikipedia.org/wiki/Consonant_cluster) and syllables in the words all appear in English. But there are also some drawbacks; the generated words can sometimes loop due to the cycles in this graph (much more on that later) and become incredibly long. There are also consonant clusters which never begin or never end a syllable that do--- for example, "nt" in English does not begin syllables nor does "pl" end syllables.
+For the simplicity of the generation, the generated words do a lot right: "u" always follows "q", letters such as "y" usually end words, and most [consonant clusters](https://en.wikipedia.org/wiki/Consonant_cluster) and syllables in the words all appear in English. But there are also some drawbacks: the generated words can sometimes loop due to the cycles in this graph and become incredibly long. There are also consonant clusters which never begin or never end a syllable that do. For example, "nt" in English does not begin syllables nor does "pl" end syllables.
 
 These drawbacks are all caused by a loss in context by the Markov chain. While it's traversing the graph, there's no way for it to represent the relationship between "pl" and "a", all it has is that "l" is preceded by "p" and followed by "l". One method for storing this relationship is by using n-grams. Our current representation could be considered a 1-gram; if we instead used a bigram, we could represent the relationship between "pl" and "a-" where "a- is followed by another letter."
 

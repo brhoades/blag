@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	"title": "Billy Rhoades' Blog",
 	"url": "https://blog.brod.es/",
 	"language": "en",

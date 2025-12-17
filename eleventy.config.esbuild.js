@@ -1,6 +1,6 @@
-const esbuild = require("esbuild");
+import esbuild from "esbuild";
 
-module.exports = config => {
+export default config => {
   config.on("afterBuild", () => {
     return esbuild.build({
       entryPoints: ["public/js/markov.js"],

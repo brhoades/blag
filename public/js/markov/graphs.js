@@ -1,9 +1,9 @@
-const cy = require('cytoscape');
-const spread = require('cytoscape-spread');
+import cy from 'cytoscape';
+import spread from 'cytoscape-spread';
 cy(spread);
 
 
-module.exports = {
+export default {
   generateWord: generateWord,
   renderFirstExample: function(ele) {
     renderSimpleMarkovChain(ele, example1data.nodes, example1data.links);
@@ -291,9 +291,10 @@ function renderSimpleMarkovChain(container, nodes, links, layout={}) {
             return Math.round(d.data('value') * 1000) / 10 + "%";
           },
           'width': 5,
+          'color': 'white',
           'target-arrow-shape': 'triangle',
-          'line-color': 'black',
-          'target-arrow-color': 'black',
+          'line-color': 'white',
+          'target-arrow-color': 'white',
           'curve-style': 'bezier',
           'text-margin-y': -15,
           'edge-text-rotation': 'autorotate'
@@ -341,16 +342,19 @@ function renderCircularGraph(json, container, cb, layout={}) {
                   'text-valign': 'center',
                   'color': 'white',
                   'text-outline-width': 1,
-                  'text-outline-color': '#888'
+                  'text-outline-color': '#111'
                 }
               },
               {
                 selector: 'edge',
                 style: {
                   'width': 1,
+                  'color': 'white',
+                  'text-outline-width': 1,
+                  'text-outline-color': '#111',
                   'target-arrow-shape': 'triangle',
-                  'line-color': 'blue',
-                  'target-arrow-color': 'blue',
+                  'line-color': 'grey',
+                  'target-arrow-color': 'grey',
                   'opacity': function(d) {
                     var opacity = parseFloat(d.data("value"));
                     if(opacity < 0.2)
@@ -368,9 +372,10 @@ function renderCircularGraph(json, container, cb, layout={}) {
                     return Math.round(d.data('value') * 1000) / 1000;
                   },
                   'width': 1,
+                  'color': 'white',
                   'text-outline-width': 1,
-                  'text-outline-color': '#888',
-                  'background-color': 'black',
+                  'text-outline-color': '#111',
+                  'background-color': 'blue',
                   'target-arrow-shape': 'triangle',
                   'line-color': 'red',
                   'target-arrow-color': 'red',
@@ -385,10 +390,10 @@ function renderCircularGraph(json, container, cb, layout={}) {
                   'content': function(d) {
                     return d.data('source') + " -> " + d.data('target') + "    " + Math.round(d.data('value') * 1000) / 1000;
                   },
-                  'color': 'black',
+                  'color': 'white',
                   'text-outline-width': 1,
                   'text-outline-color': '#888',
-                  'background-color': 'black',
+                  'background-color': 'white',
                   'line-color': 'black',
                   'target-arrow-color': 'black',
                   'source-arrow-color': 'black',
