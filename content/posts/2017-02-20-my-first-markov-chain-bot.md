@@ -13,7 +13,6 @@ tags:
 ---
 
 <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
-<script src="http://underscorejs.org/underscore-min.js"></script>
 <script src="{{ "/js/cytoscape.js" | url }}"></script>
 <script src="/assets/js/markov.js"></script>
 
@@ -21,11 +20,11 @@ History
 ----------
 Back around 2006, some friends and I had an IRC bot that we lovingly named superborg. Superborg would join channels and log any text it saw into a flatfile. After a while, it would randomly respond to a message with a cobbled together phrase from those stored messages. Typically, those phrases sounded incoherent, but every once in a while it would randomly create a real gem. In our excitement with superborg's learning, we loaded it up hundreds of megabytes of Shakespeare, Wikipedia, and old speech transcripts.
 
-Superborg got really bogged down; its responses slowed and they became increasingly incoherent. Although I knew superborg was open source and even had experience in C, I was green. Objects and algorithms were words to me, so when I delved into [hmage/seeborg](https://github.com/brhoades/seeborg)'s source code, I ran the other way. However, the bot's idea stuck with me for y years.
+Superborg got really bogged down; its responses slowed and they became increasingly incoherent. Although I knew superborg was open source and even had experience in C, I was green. Objects and algorithms were words to me, so when I delved into [hmage/seeborg](https://github.com/brhoades/seeborg)'s source code, I ran the other way. However, the bot's idea stuck with me for years.
 
 Markov Chains
 -------------
-Seeborg came up in a discussion with [Nathasha Jarus](https://web.mst.edu/~nmjxv3/) in November 2013. Nat had started a project a while before this conversation which aimed to make an IRC bot using the same underlying algorithm as seeborg, [Markov chains](https://en.wikipedia.org/wiki/Markov_chain). Markov chains have many, many applications which I won't even reference. I will instead explore a very specific niche where they can be used to generate speech.
+Seeborg came up in a discussion with [Nathasha Jarus](https://adjoint.space/) in November 2013. Nat had started a project a while before this conversation which aimed to make an IRC bot using the same underlying algorithm as seeborg, [Markov chains](https://en.wikipedia.org/wiki/Markov_chain). Markov chains have many, many applications which I won't even reference. I will instead explore a very specific niche where they can be used to generate speech.
 
 Markov chains, for the purposes of an IRC bot, are best represented by directional graphs. Each node in this graph will hold data (a "word") and each edge will have a number, (0, 1], representing the probability of traversing this edge. Below is a visualization of a Markov chain with 3 nodes:
 
