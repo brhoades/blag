@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Principled Executives are Tech Cryptids</title>
+		<meta name="description" content="Safe space for semicoherent ramblings.">
+		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Billy Rhoades&#39; Blog">
+		<link rel="alternate" href="/feed/feed.json" type="application/json" title="Billy Rhoades&#39; Blog">
+		
+		<style>/* Only include the syntax highlighter CSS on blog posts */
+/**
+ * okaidia theme for JavaScript, CSS and HTML
+ * Loosely based on Monokai textmate theme by http://www.monokai.nl/
+ * @author ocodia
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #f8f8f2;
+	background: none;
+	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+	border-radius: 0.3em;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #272822;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #8292a2;
+}
+
+.token.punctuation {
+	color: #f8f8f2;
+}
+
+.token.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #f92672;
+}
+
+.token.boolean,
+.token.number {
+	color: #ae81ff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #a6e22e;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+	color: #f8f8f2;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+	color: #e6db74;
+}
+
+.token.keyword {
+	color: #66d9ef;
+}
+
+.token.regex,
+.token.important {
+	color: #fd971f;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+
+/*
+ * New diff- syntax
+ */
+
+pre[class*="language-diff-"] {
+	--eleventy-code-padding: 1.25em;
+	padding-left: var(--eleventy-code-padding);
+	padding-right: var(--eleventy-code-padding);
+}
+.token.deleted {
+	background-color: hsl(0, 51%, 37%);
+	color: inherit;
+}
+.token.inserted {
+	background-color: hsl(126, 31%, 39%);
+	color: inherit;
+}
+
+/* Make the + and - characters unselectable for copy/paste */
+.token.prefix.unchanged,
+.token.prefix.inserted,
+.token.prefix.deleted {
+	-webkit-user-select: none;
+	user-select: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.token.prefix.inserted,
+.token.prefix.deleted {
+	width: var(--eleventy-code-padding);
+	background-color: rgba(0,0,0,.2);
+}
+
+/* Optional: full-width background color */
+.token.inserted:not(.prefix),
+.token.deleted:not(.prefix) {
+	display: block;
+	margin-left: calc(-1 * var(--eleventy-code-padding));
+	margin-right: calc(-1 * var(--eleventy-code-padding));
+	text-decoration: none; /* override del, ins, mark defaults */
+	color: inherit; /* override del, ins, mark defaults */
+}
+/* Defaults */
+:root {
+  --font-family: Menlo, monaco, Consolas, monospace;
+	--font-family-monospace: Menlo, Monaco, Consolas, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
+
+  --base-color: #FFEAB4; /* orange yellow crayola: #FFD25A but desat 50% */
+  
+  --background-color: #191919; /* eerie black */
+
+  --accent-color-1: #FFAA5A; /* Rajah */
+  --accent-color-2: #FFF05A; /* corn */
+  --accent-color-3: #FF785A; /* outrageous orange */
+
+	--text-color: var(--base-color);
+	--text-color-link: var(--accent-color-1);
+	--text-color-link-active: var(--accent-color-1);
+	--text-color-link-visited: var(--accent-color-1);
+
+	--syntax-tab-size: 2;
+}
+
+/* Global stylesheet */
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	padding: 0;
+	margin: 0 auto;
+	font-family: var(--font-family);
+	color: var(--text-color);
+	background-color: var(--background-color);
+}
+html {
+	overflow-y: scroll;
+}
+body {
+	max-width: 40em;
+}
+
+/* https://www.a11yproject.com/posts/how-to-hide-content/ */
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+p {
+	line-height: 1.5;
+}
+
+li {
+	line-height: 1.5;
+}
+
+a[href] {
+	color: var(--text-color-link);
+}
+a[href]:visited {
+	color: var(--text-color-link-visited);
+}
+a[href]:hover,
+a[href]:active {
+	color: var(--text-color-link-active);
+}
+
+main {
+	padding: 1rem;
+}
+main :first-child {
+	margin-top: 0;
+}
+
+header {
+	border-bottom: 1px dashed var(--color-gray-20);
+}
+header:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.links-nextprev {
+	list-style: none;
+	border-top: 1px dashed var(--color-gray-20);
+	padding: 1em 0;
+}
+
+table {
+	margin: 1em 0;
+}
+table td,
+table th {
+	padding-right: 1em;
+}
+
+pre,
+code {
+	font-family: var(--font-family-monospace);
+}
+pre:not([class*="language-"]) {
+	margin: .5em 0;
+	line-height: 1.375; /* 22px /16 */
+	-moz-tab-size: var(--syntax-tab-size);
+	-o-tab-size: var(--syntax-tab-size);
+	tab-size: var(--syntax-tab-size);
+	-webkit-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+}
+code {
+	word-break: break-all;
+}
+
+/* Header */
+header {
+	display: flex;
+	gap: 1em .5em;
+	flex-wrap: wrap;
+	align-items: center;
+	padding: 1em;
+}
+.home-link {
+	font-size: 1em; /* 16px /16 */
+	font-weight: 700;
+	margin-right: 2em;
+}
+.home-link:link:not(:hover) {
+	text-decoration: none;
+}
+
+/* Nav */
+.nav {
+	display: flex;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+.nav-item {
+	display: inline-block;
+	margin-right: 1em;
+}
+.nav-item a[href]:not(:hover) {
+	text-decoration: none;
+}
+.nav a[href][aria-current="page"] {
+	text-decoration: underline;
+}
+
+/* Posts list */
+.postlist {
+	list-style: none;
+	padding: 0;
+	padding-left: 1.5rem;
+}
+.postlist-item {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	counter-increment: start-from -1;
+	margin-bottom: 1em;
+}
+.postlist-item:before {
+	display: inline-block;
+	pointer-events: none;
+	content: "" counter(start-from, decimal-leading-zero) ". ";
+	line-height: 100%;
+	text-align: right;
+	margin-left: -1.5rem;
+}
+.postlist-date,
+.postlist-item:before {
+	font-size: 0.8125em; /* 13px /16 */
+	color: var(--color-gray-90);
+}
+.postlist-date {
+	word-spacing: -0.5px;
+}
+.postlist-link {
+	font-size: 1.1875em; /* 19px /16 */
+	font-weight: 700;
+	flex-basis: calc(100% - 1.5rem);
+	padding-left: .25em;
+	padding-right: .5em;
+	text-underline-position: from-font;
+	text-underline-offset: 0;
+	text-decoration-thickness: 1px;
+}
+.postlist-item-active .postlist-link {
+	font-weight: bold;
+}
+
+/* Tags */
+.post-tag {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	text-transform: capitalize;
+	font-style: italic;
+}
+.postlist-item > .post-tag {
+	align-self: center;
+}
+
+/* Tags list */
+.post-metadata {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: .5em;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.post-metadata time {
+	margin-right: 1em;
+}
+
+/* Direct Links / Markdown Headers */
+.header-anchor {
+	text-decoration: none;
+	font-style: normal;
+	font-size: 1em;
+	margin-left: .1em;
+}
+a[href].header-anchor,
+a[href].header-anchor:visited {
+	color: transparent;
+}
+a[href].header-anchor:focus,
+a[href].header-anchor:hover {
+	text-decoration: underline;
+}
+a[href].header-anchor:focus,
+:hover > a[href].header-anchor {
+	color: #aaa;
+}
+
+h2 + .header-anchor {
+	font-size: 1.5em;
+}
+
+img {
+  max-width: 100%;
+}</style>
+	</head>
+	<body>
+		<a href="#skip" class="visually-hidden">Skip to main content</a>
+
+		<header>
+			<a href="/" class="home-link">Billy Rhoades&#39; Blog</a>
+			<nav>
+				<h2 class="visually-hidden">Top level navigation menu</h2>
+				<ul class="nav">
+					<li class="nav-item"><a href="/">Home</a></li>
+					<li class="nav-item"><a href="/blog/">Archive</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main id="skip">
+			
+<h1>Principled Executives are Tech Cryptids</h1>
+
+<ul class="post-metadata">
+	<li><time datetime="2026-05-28">28 May 2026</time></li>
+</ul>
+
+<p>I have a half-dozen <em>half-assed</em> drafts spanning the seven years since <a href="/posts/2019-07-29-one-on-ones/"><em>One-on-ones are Mandatory</em></a>.</p>
+<p>That was a mistake. I have no shortage of lessons after I left Cerner (<a href="https://www.oracle.com/health/acquisition-of-cerner-the-future-of-healthcare/">now Oracle</a>, RIP) to join ngrok and later Rippling. But I wrote in private without finishing my drafts.</p>
+<p>As I've grown, my bar for informative blogs skyrocketed. Why would I write a lesson that wasn't near earth-shattering? I had figured it out, surely you had too. That's the error, though: I often find lessons in the mundane.</p>
+<p> </p>
+<p>Hell, today I'm unemployed by choice, riding a ferry to Seattle, sitting on two offers, and expecting a third one. I'm damn lucky... and disillusioned about all three prospects.</p>
+<p>Is &quot;all companies suck for bad reasons&quot; the new phase of my career? Much like how an eager, early career Billy thought Ruby was the solution to every problem. Mid-career Billy sports a language denylist by problem space.</p>
+<p>At the behest of a recruiter and despite already interviewing at three perfectly mediocre startups, I took an additional meet-and-greet with a tiny startup.</p>
+<p>They're a small shop with a good product, delightful team, and a decent business. Their CTO <a href="https://filtra.io/rust/interviews/scanner-may-25">did an interview</a> where he was asked &quot;what do you look for when hiring?&quot;</p>
+<blockquote>
+<p>What we value most is kindness. On one hand, it's because I think kindness is virtuous,
+but on the other hand, there are real benefits to it. When everyone on the team is
+operating in good faith, you can accomplish things you couldn’t otherwise. There are parts
+of the solution space you can’t explore unless people are all on the same page.</p>
+</blockquote>
+<p><strong><em>Kindness</em></strong>!</p>
+<p>I haven't seen a picture of this man. Could be that any photos would be blurry and low-resolution anyway.</p>
+<p> </p>
+<p>Sharing core principles with leadership is rare. Somewhere in the ascension to the C-suite, perhaps on the profitability switchback, important principles are lost. While this small shop is good in every other dimension too, those all will change: business, team, product, etc.</p>
+<p>Executive roles don't come with a self-growth feedback loop. What you see is what you get. Any leftover principles are then magnified and inflicted on the whole company.</p>
+<p>When I worked at Rippling, our COO was Matt MacInnis. I respect the man a great deal; he <em>generally</em> has solid takes and is principled. He spoke on his framework <a href="https://review.firstround.com/podcast/how-to-be-effective-up-and-down-the-org-chart-matt-macinnis-rippling-inkling-apple/">in this interview</a> at length.</p>
+<p>I'm going to do him dirty here-- it's impossible to succinctly capture seventy minutes of nuance in a quote. Here, MacInnis is a few layers deep, discussing what I've coined &quot;leadership harm reduction&quot; when making decisions at a rocketship startup:</p>
+<p> </p>
+<blockquote>
+<p>This sort of takes me to a framework that I use as an executive. You will never get it right.
+And when I say it, I mean, literally anything you can think of. Will I get this executive's
+compensation exactly, right? You know, will I staff this team against this project exactly right?
+Yeah, the answer is like, no, I won't get it exactly right.</p>
+<p>I'll be wrong in some direction all the time. And the question you have to ask is like, is it better to be
+wrong in this direction or in that direction?</p>
+<p>[...]</p>
+<p>So all of our teams at Rippling are pretty deliberately understaffed, and people feel it,
+and they'll complain about resourcing, but like, at the end of the day, a team of five
+that ought to be seven, uh, is way better than a team of nine or 10 that ought to be seven.</p>
+</blockquote>
+<p> </p>
+<p>I too felt the understaffing squeeze at Rippling. I was one of the people who complained about it over two years. And I largely agree with this take too: given too many or too few people, I'll take the latter.</p>
+<p>MacInnis is wrong on this one. I'm sure he'd agree, given the framework.</p>
+<p> </p>
+<p>A year ago, <a href="https://adjoint.space/">Natasha Jarus</a> and I were returning from a gelato run. She was rocking some new knee-high platform boots on a wet, dark Seattle winter night. Fortunately for her, she had driven us there.</p>
+<p>Unfortunately for Natasha, her new 1980's truck had been boxed in while parallel parked on a steep hill. I should also mention it was a manual and didn't have power steering.</p>
+<p>I had the joy of watching her attempt to reverse out in those platform boots, using all four limbs. While she moved the tires with great effort, I gleefully acknowledged how ridiculous the situation was; she'd stacked most of these constraints up all on her own. Natasha agreed with me!</p>
+<p>She succeeded despite her self-imposed extenuating circumstances.</p>
+<p> </p>
+<p>Natasha could drive an automatic modern car with normal shoes.</p>
+<p>MacInnis could staff his teams, getting it right on average and adjusting dynamically.</p>
+<p>I could finish a mundane blog post.</p>
+
+<ul class="links-nextprev"><li>Previous: <a href="/posts/2019-07-29-one-on-ones/">One-on-Ones Are Mandatory</a></li>
+</ul>
+
+		</main>
+
+		<footer></footer>
+
+		<!-- Current page: /posts/2026-05-28-principled-cryptids/ -->
+	</body>
+</html>
