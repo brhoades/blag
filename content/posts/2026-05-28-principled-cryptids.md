@@ -1,5 +1,5 @@
 ---
-title: "Principled Executives are Tech Cryptids"
+title: "Principled Executives: Cryptids?"
 date: 2026-05-21
 categories:
   - engineering
@@ -31,17 +31,17 @@ They're a small shop with a good product, delightful team, and a decent business
 
 **_Kindness_**!
 
-I haven't seen a picture of this man. Could be that any photos would be blurry and low-resolution anyway.
+I haven't seen a picture of this man. Could be that any photos are questionably real.
 
 &nbsp;
 
-Sharing core principles with leadership is rare. Somewhere in the ascension to the C-suite, perhaps on the profitability switchback, important principles can get lost. While this small shop is decent in every other dimension too, those all will change: business, team, product, etc.
+Sharing core principles with leadership is uncommon. Somewhere in the ascension to the C-suite, perhaps on the profitability switchback, important principles can get lost. While this small shop is decent in every other dimension too, those all will change: business, team, product, etc.
 
 Executive roles don't come with a self-growth feedback loop. What you see is what you get. Any leftover principles are then magnified and inflicted on the whole company.
 
 When I worked at Rippling, our COO was Matt MacInnis. I respect the man a great deal; he _generally_ has solid takes and is principled. He spoke on his framework [in this interview](https://review.firstround.com/podcast/how-to-be-effective-up-and-down-the-org-chart-matt-macinnis-rippling-inkling-apple/) at length.
 
-I'm going to do him dirty here-- it's impossible to succinctly capture seventy minutes of nuance in a quote. Here, MacInnis is a few layers deep, discussing what I've coined "leadership harm reduction" when making decisions at a rocketship startup:
+I'm going to do him dirty here-- it's impossible to succinctly capture seventy minutes of nuance in a quote. Below, MacInnis is a few layers deep, discussing what I've coined "leadership harm reduction" when making decisions at a rocketship startup:
 
 &nbsp;
 
