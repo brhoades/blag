@@ -20,7 +20,7 @@ Hell, today I'm unemployed by choice, riding a ferry to Seattle, and sitting on 
 
 Is general disillusionment about opportunities the new phase of my career? Much like how an eager, early career Billy thought Ruby was the solution to every problem. Mid-career Billy sports a language denylist by problem space.
 
-At the behest of a Rust recruiter and despite having of other options, I took an additional meet-and-greet with an additional startup.
+At the behest of a Rust recruiter and despite having plenty in flight, I took an additional meet-and-greet with an additional startup.
 
 They're a small shop with a good product, delightful team, and a decent business. Their CTO [did an interview](https://filtra.io/rust/interviews/scanner-may-25) where he was asked "what do you look for when hiring?"
 
