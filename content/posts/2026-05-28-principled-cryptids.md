@@ -1,6 +1,6 @@
 ---
 title: "Principled Executives are Tech Cryptids"
-date: 2026-05-28
+date: 2026-05-21
 categories:
   - engineering
   - interviewing
@@ -16,11 +16,11 @@ As I've grown, my bar for informative blogs skyrocketed. Why would I write a les
 
 &nbsp;
 
-Hell, today I'm unemployed by choice, riding a ferry to Seattle, sitting on two offers, and expecting a third one. I'm damn lucky... and disillusioned about all three prospects.
+Hell, today I'm unemployed by choice, riding a ferry to Seattle, and sitting on two offers. I'm lucky... and just generally lukewarm.
 
-Is "all companies suck for bad reasons" the new phase of my career? Much like how an eager, early career Billy thought Ruby was the solution to every problem. Mid-career Billy sports a language denylist by problem space.
+Is general disillusionment about opportunities the new phase of my career? Much like how an eager, early career Billy thought Ruby was the solution to every problem. Mid-career Billy sports a language denylist by problem space.
 
-At the behest of a recruiter and despite already interviewing at three perfectly mediocre startups, I took an additional meet-and-greet with a tiny startup.
+At the behest of a Rust recruiter and despite having of other options, I took an additional meet-and-greet with an additional startup.
 
 They're a small shop with a good product, delightful team, and a decent business. Their CTO [did an interview](https://filtra.io/rust/interviews/scanner-may-25) where he was asked "what do you look for when hiring?"
 
@@ -35,7 +35,7 @@ I haven't seen a picture of this man. Could be that any photos would be blurry a
 
 &nbsp;
 
-Sharing core principles with leadership is rare. Somewhere in the ascension to the C-suite, perhaps on the profitability switchback, important principles are lost. While this small shop is good in every other dimension too, those all will change: business, team, product, etc.
+Sharing core principles with leadership is rare. Somewhere in the ascension to the C-suite, perhaps on the profitability switchback, important principles can get lost. While this small shop is decent in every other dimension too, those all will change: business, team, product, etc.
 
 Executive roles don't come with a self-growth feedback loop. What you see is what you get. Any leftover principles are then magnified and inflicted on the whole company.
 
